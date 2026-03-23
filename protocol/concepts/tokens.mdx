@@ -1,0 +1,47 @@
+---
+
+---
+
+# Tokens
+
+## The Paxeer Network Token
+
+The denomination used for staking, governance and gas consumption on the EVM is the Paxeer Network. The Paxeer Network provides the utility
+of: securing the Proof-of-Stake chain, token used for governance proposals, distribution of fees to validator and users,
+and as a mean of gas for running smart contracts on the EVM.
+
+Paxeer Network uses [Atto](https://en.wikipedia.org/wiki/Atto-) Paxeer Network as the base denomination to maintain parity with Ethereum.
+There are three types of assets:
+
+- The native Paxeer Network token
+- IBC Coins (via the IBC)
+- Ethereum-typed tokens, e.g. ERC-20
+
+`1 Paxeer Network = 10<sup>18</sup> ahpx`
+
+This matches Ethereum denomination of:
+
+`1 ETH = 10<sup>18</sup> wei`
+
+## Cosmos Coins
+
+Accounts can own Cosmos coins in their balance, which are used for operations with other Cosmos and transactions. Examples
+of these are using the coins for staking, IBC transfers, governance deposits and EVM.
+
+## EVM Tokens
+
+Paxeer Network is compatible with ERC20 tokens and other non-fungible token standards (EIP721, EIP1155)
+that are natively supported by the EVM.
+
+## Paxeer Network Assets Page
+
+Check out how we represent ERC-20 tokens and Cosmos IBC Coins through our [Single Token Representation](https://app.hyperpaxd.org/assets)
+feature on the Paxeer Network Dashboard. Paxeer Network enabled this feature to help with the user experiences by obfuscating the assets
+types away from the users and allow them to focus on the interaction. The protocol simplifies the process by handling the
+conversion and users are given the simplification of denomination and the amount of assets they hold. Tokens listed still
+require governance and registering the tokens ([Cosmos](https://academy.hyperpaxd.org/articles/advanced/cosmos-coin-registration)
+or [ERC-20](https://academy.hyperpaxd.org/articles/advanced/erc20-registration)).
+
+![Paxeer Network-dashboard-assets])(/img/dashboard-assets.png)
+
+For more information on how we handle token registration, head over [here](./../../develop/mainnet#token-registration).
