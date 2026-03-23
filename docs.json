@@ -1,14 +1,50 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "Paxeer Docs",
-  "template": "mint",
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Paxeer Network Documentation",
   "colors": {
-    "primary": "#004CED",
-    "light": "#004CED",
-    "dark": "#004CED",
-    "anchors": {
-      "from": "#004CED",
-      "to": "#05C168"
+    "primary": "#00D9FF",
+    "light": "#00F0FF",
+    "dark": "#00C2E0"
+  },
+  "favicon": "/favicon.svg",
+  "metadata": {
+    "og:title": "Paxeer Network - Developer Documentation",
+    "og:description": "Build on Paxeer Network - A high-performance, developer-friendly blockchain platform",
+    "og:image": "./logo/dark.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "Paxeer Network Docs",
+    "twitter:description": "Complete developer documentation for Paxeer Network"
+  },
+  "seo": {
+    "indexHiddenPages": false,
+    "metatags": {
+      "og:type": "website",
+      "twitter:card": "summary_large_image"
+    }
+  },
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": false
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude"
+    ]
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
+  "footer": {
+    "socials": {
+      "telegram": "https://t.me/paxeernetwork",
+      "twitter": "https://twitter.com/paxeer_app",
+      "github": "https://github.com/paxeer-network",
+      "website": "https://www.paxeer.app"
     }
   },
   "navigation": [
