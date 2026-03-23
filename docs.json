@@ -206,7 +206,6 @@
           "validate/upgrades/automated-upgrades",
           "validate/upgrades/manual-upgrades",
           "validate/upgrades/rollback",
-          "validate/upgrades/list-of-upgrades",
           "validate/upgrades/hard-fork-upgrades"
         ]
       },
@@ -219,7 +218,6 @@
       {
         "group": "DeFi Protocols",
         "pages": [
-          "paxdex",
           "lending",
           "chainflow"
         ]
