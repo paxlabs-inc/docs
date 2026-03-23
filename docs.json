@@ -1,13 +1,12 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "sequoia",
-  "name": "Paxeer Network Documentation",
+  "name": "HyperPax  Docs",
   "colors": {
     "primary": "#004CED",
     "light": "#004CED",
     "dark": "#004CED"
   },
-  "favicon": "/favicon.svg",
   "metadata": {
     "og:title": "Paxeer Network - Developer Documentation",
     "og:description": "Build on Paxeer Network - A high-performance, developer-friendly blockchain platform",
