@@ -16,7 +16,7 @@
     "twitter:description": "Complete developer documentation for Paxeer Network"
   },
   "seo": {
-    "indexHiddenPages": false, 
+    "indexHiddenPages": false,
     "metatags": {
       "og:type": "website",
       "twitter:card": "summary_large_image"
@@ -273,6 +273,7 @@
     ]
   },
   "banner": {
+    "content": "HyperPaxeer docs are live.",
     "dismissible": false
   },
   "favicon": "/images/sid-fun-icon(1).png",
