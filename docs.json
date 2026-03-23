@@ -284,10 +284,6 @@
     "dark": "/images/sid-fun-icon2.png",
     "href": "/"
   },
-  "background": {
-    "image": "/images/main.webp",
-    "decoration": "grid"
-  },
   "appearance": {
     "default": "dark"
   },
