@@ -274,10 +274,6 @@
       }
     ]
   },
-  "banner": {
-    "content": "HyperPaxeer docs are live.",
-    "dismissible": false
-  },
   "favicon": "/images/sid-fun-icon(1).png",
   "logo": {
     "light": "/images/sid-fun-icon(1).png",
