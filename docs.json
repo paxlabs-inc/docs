@@ -47,189 +47,191 @@
       "website": "https://www.paxeer.app"
     }
   },
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": [
-        "index",
-        "quickstart",
-        "configuration",
-        "develop/mainnet"
-      ]
-    },
-    {
-      "group": "Develop",
-      "pages": [
-        "develop/index"
-      ]
-    },
-    {
-      "group": "Smart Contracts",
-      "pages": [
-        "contracts",
-        "develop/smart-contracts/index",
-        "develop/smart-contracts/custom-improvement-proposals",
-        "develop/smart-contracts/list-evm-extensions"
-      ]
-    },
-    {
-      "group": "EVM Extensions",
-      "pages": [
-        "develop/smart-contracts/evm-extensions/evm-extensions",
-        "develop/smart-contracts/evm-extensions/authorization",
-        "develop/smart-contracts/evm-extensions/staking",
-        "develop/smart-contracts/evm-extensions/distribution",
-        "develop/smart-contracts/evm-extensions/ibc-transfer",
-        "develop/smart-contracts/evm-extensions/vesting"
-      ]
-    },
-    {
-      "group": "APIs & RPC",
-      "pages": [
-        "rpc",
-        "openapi",
-        "develop/api/index",
-        "develop/api/networks",
-        "develop/api/tendermint-rpc"
-      ]
-    },
-    {
-      "group": "Tools & Integrations",
-      "pages": [
-        "tools",
-        "examples",
-        "develop/tools/index",
-        "develop/tools/client-integrations",
-        "develop/tools/contract-verifications",
-        "develop/wallet-integration/index",
-        "develop/block-explorers/index",
-        "develop/oracles/index",
-        "develop/graphs-indexers/index"
-      ]
-    },
-    {
-      "group": "Guides",
-      "pages": [
-        "app-developers/guides/building-apps",
-        "app-developers/guides/testing-apps"
-      ]
-    },
-    {
-      "group": "Transactions",
-      "pages": [
-        "app-developers/guides/transactions/fees",
-        "app-developers/guides/transactions/estimates",
-        "app-developers/guides/transactions/parameters",
-        "app-developers/guides/transactions/statuses",
-        "app-developers/guides/transactions/troubleshooting"
-      ]
-    },
-    {
-      "group": "Architecture",
-      "pages": [
-        "protocol/index",
-        "argus-vm",
-        "opax-28",
-        "concepts/architecture/overview"
-      ]
-    },
-    {
-      "group": "Modules",
-      "pages": [
-        "protocol/modules/index",
-        "protocol/modules/evm",
-        "protocol/modules/erc20",
-        "protocol/modules/inflation",
-        "protocol/modules/vesting",
-        "protocol/modules/epochs",
-        "protocol/modules/feemarket"
-      ]
-    },
-    {
-      "group": "Concepts",
-      "pages": [
-        "protocol/concepts/accounts",
-        "protocol/concepts/gas-and-fees",
-        "protocol/concepts/tokens",
-        "protocol/concepts/transactions",
-        "protocol/concepts/chain-id",
-        "protocol/concepts/encoding",
-        "protocol/concepts/keyring",
-        "protocol/concepts/signing",
-        "protocol/concepts/multisig",
-        "protocol/concepts/pending-state"
-      ]
-    },
-    {
-      "group": "CLI",
-      "pages": [
-        "protocol/cli/index",
-        "protocol/cli/configuration",
-        "protocol/cli/single-node",
-        "protocol/cli/multi-nodes",
-        "protocol/cli/cli-commands",
-        "protocol/cli/docker-build"
-      ]
-    },
-    {
-      "group": "Resources",
-      "pages": [
-        "protocol/ibc-channels",
-        "protocol/module-accounts",
-        "protocol/metrics",
-        "protocol/bugs",
-        "protocol/faq"
-      ]
-    },
-    {
-      "group": "Validators",
-      "pages": [
-        "validate/index",
-        "validate/mainnet"
-      ]
-    },
-    {
-      "group": "Setup & Configuration",
-      "pages": [
-        "validate/setup/run-a-validator",
-        "validate/setup/configuration",
-        "validate/setup/state-sync",
-        "validate/setup/mempool",
-        "validate/setup/disk-usage-configuration",
-        "validate/setup/faq"
-      ]
-    },
-    {
-      "group": "Upgrades",
-      "pages": [
-        "validate/upgrades/index",
-        "validate/upgrades/automated-upgrades",
-        "validate/upgrades/manual-upgrades",
-        "validate/upgrades/rollback",
-        "validate/upgrades/list-of-upgrades",
-        "validate/upgrades/hard-fork-upgrades"
-      ]
-    },
-    {
-      "group": "IBC & Relayers",
-      "pages": [
-        "validate/relayers"
-      ]
-    },
-    {
-      "group": "DeFi Protocols",
-      "pages": [
-        "paxdex",
-        "lending",
-        "chainflow"
-      ]
-    },
-    {
-      "group": "Infrastructure",
-      "pages": [
-        "ctm",
-        "blockscout-api"
-      ]
-    }
-  ]
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart",
+          "configuration",
+          "develop/mainnet"
+        ]
+      },
+      {
+        "group": "Develop",
+        "pages": [
+          "develop/index"
+        ]
+      },
+      {
+        "group": "Smart Contracts",
+        "pages": [
+          "contracts",
+          "develop/smart-contracts/index",
+          "develop/smart-contracts/custom-improvement-proposals",
+          "develop/smart-contracts/list-evm-extensions"
+        ]
+      },
+      {
+        "group": "EVM Extensions",
+        "pages": [
+          "develop/smart-contracts/evm-extensions/evm-extensions",
+          "develop/smart-contracts/evm-extensions/authorization",
+          "develop/smart-contracts/evm-extensions/staking",
+          "develop/smart-contracts/evm-extensions/distribution",
+          "develop/smart-contracts/evm-extensions/ibc-transfer",
+          "develop/smart-contracts/evm-extensions/vesting"
+        ]
+      },
+      {
+        "group": "APIs & RPC",
+        "pages": [
+          "rpc",
+          "openapi",
+          "develop/api/index",
+          "develop/api/networks",
+          "develop/api/tendermint-rpc"
+        ]
+      },
+      {
+        "group": "Tools & Integrations",
+        "pages": [
+          "tools",
+          "examples",
+          "develop/tools/index",
+          "develop/tools/client-integrations",
+          "develop/tools/contract-verifications",
+          "develop/wallet-integration/index",
+          "develop/block-explorers/index",
+          "develop/oracles/index",
+          "develop/graphs-indexers/index"
+        ]
+      },
+      {
+        "group": "Guides",
+        "pages": [
+          "app-developers/guides/building-apps",
+          "app-developers/guides/testing-apps"
+        ]
+      },
+      {
+        "group": "Transactions",
+        "pages": [
+          "app-developers/guides/transactions/fees",
+          "app-developers/guides/transactions/estimates",
+          "app-developers/guides/transactions/parameters",
+          "app-developers/guides/transactions/statuses",
+          "app-developers/guides/transactions/troubleshooting"
+        ]
+      },
+      {
+        "group": "Architecture",
+        "pages": [
+          "protocol/index",
+          "argus-vm",
+          "opax-28",
+          "concepts/architecture/overview"
+        ]
+      },
+      {
+        "group": "Modules",
+        "pages": [
+          "protocol/modules/index",
+          "protocol/modules/evm",
+          "protocol/modules/erc20",
+          "protocol/modules/inflation",
+          "protocol/modules/vesting",
+          "protocol/modules/epochs",
+          "protocol/modules/feemarket"
+        ]
+      },
+      {
+        "group": "Concepts",
+        "pages": [
+          "protocol/concepts/accounts",
+          "protocol/concepts/gas-and-fees",
+          "protocol/concepts/tokens",
+          "protocol/concepts/transactions",
+          "protocol/concepts/chain-id",
+          "protocol/concepts/encoding",
+          "protocol/concepts/keyring",
+          "protocol/concepts/signing",
+          "protocol/concepts/multisig",
+          "protocol/concepts/pending-state"
+        ]
+      },
+      {
+        "group": "CLI",
+        "pages": [
+          "protocol/cli/index",
+          "protocol/cli/configuration",
+          "protocol/cli/single-node",
+          "protocol/cli/multi-nodes",
+          "protocol/cli/cli-commands",
+          "protocol/cli/docker-build"
+        ]
+      },
+      {
+        "group": "Resources",
+        "pages": [
+          "protocol/ibc-channels",
+          "protocol/module-accounts",
+          "protocol/metrics",
+          "protocol/bugs",
+          "protocol/faq"
+        ]
+      },
+      {
+        "group": "Validators",
+        "pages": [
+          "validate/index",
+          "validate/mainnet"
+        ]
+      },
+      {
+        "group": "Setup & Configuration",
+        "pages": [
+          "validate/setup/run-a-validator",
+          "validate/setup/configuration",
+          "validate/setup/state-sync",
+          "validate/setup/mempool",
+          "validate/setup/disk-usage-configuration",
+          "validate/setup/faq"
+        ]
+      },
+      {
+        "group": "Upgrades",
+        "pages": [
+          "validate/upgrades/index",
+          "validate/upgrades/automated-upgrades",
+          "validate/upgrades/manual-upgrades",
+          "validate/upgrades/rollback",
+          "validate/upgrades/list-of-upgrades",
+          "validate/upgrades/hard-fork-upgrades"
+        ]
+      },
+      {
+        "group": "IBC & Relayers",
+        "pages": [
+          "validate/relayers"
+        ]
+      },
+      {
+        "group": "DeFi Protocols",
+        "pages": [
+          "paxdex",
+          "lending",
+          "chainflow"
+        ]
+      },
+      {
+        "group": "Infrastructure",
+        "pages": [
+          "ctm",
+          "blockscout-api"
+        ]
+      }
+    ]
+  }
 }
