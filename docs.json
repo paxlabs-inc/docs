@@ -16,7 +16,7 @@
     "twitter:description": "Complete developer documentation for Paxeer Network"
   },
   "seo": {
-    "indexHiddenPages": false,
+    "indexHiddenPages": false, 
     "metatags": {
       "og:type": "website",
       "twitter:card": "summary_large_image"
