@@ -246,7 +246,10 @@
     }
   },
   "api": {
-    "openapi": "/openapi.yaml"
+    "openapi": "/openapi.yaml",
+    "playground": {
+      "display": "interactive"
+    }
   },
   "thumbnails": {
     "background": "/images/main.webp",
