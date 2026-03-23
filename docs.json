@@ -285,7 +285,8 @@
     "href": "/"
   },
   "background": {
-    "image": "/images/main.webp"
+    "image": "/images/main.webp",
+    "decoration": "grid"
   },
   "appearance": {
     "default": "dark"
