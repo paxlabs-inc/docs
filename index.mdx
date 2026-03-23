@@ -1,0 +1,223 @@
+---
+title: "Paxeer Network Documentation"
+description: "Build on a high-performance, developer-friendly blockchain platform for the next generation of decentralized applications"
+---
+
+<Note>
+**Chain ID:** 125 | **Cosmos Chain ID:** hyperpax_125-1 | **Currency:** PAX | **Binary:** hyperpaxd
+</Note>
+
+## Welcome to HyperPaxeer Network
+
+HyperPaxeer Network is a capital orchestration network built as part of the Alexandria Fork upgrade, migrating validators from the original Paxeer Network (chain ID 125) to a new high-throughput Proof-of-Stake EVM blockchain (chain ID 125). Built on Cosmos SDK and CometBFT, it's fully EVM-compatible.
+
+<CardGroup cols={2}>
+  <Card
+    title="Quick Start"
+    icon="rocket"
+    href="/quickstart"
+  >
+    Get up and running in minutes with our step-by-step guide
+  </Card>
+  <Card
+    title="Smart Contracts"
+    icon="code"
+    href="/contracts"
+  >
+    Deploy and interact with contracts using Hardhat, Foundry, or Remix
+  </Card>
+  <Card
+    title="API Reference"
+    icon="terminal"
+    href="/api-reference"
+  >
+    Explore our comprehensive JSON-RPC API documentation
+  </Card>
+  <Card
+    title="Network Configuration"
+    icon="gear"
+    href="/configuration"
+  >
+    Configure Paxeer Network with wagmi, viem, ethers.js, or web3.js
+  </Card>
+</CardGroup>
+
+## Why Build on Paxeer?
+
+<CardGroup cols={3}>
+  <Card title="High Performance" icon="zap">
+    Low-latency transactions with high throughput for your dApps
+  </Card>
+  <Card title="Secure" icon="shield">
+    Built with security in mind from the ground up
+  </Card>
+  <Card title="Developer Friendly" icon="code">
+    Comprehensive documentation and developer tools
+  </Card>
+</CardGroup>
+
+## Revolutionary Core Infrastructure
+
+<Warning>
+**Pioneering Independence:**  Proof-of-Stake EVM blockchain (chain ID 125). Built on Cosmos SDK and CometBFT, it’s fully EVM-compatible.
+</Warning>
+
+Paxeer Network is built on our own native infrastructure, designed for independence and performance:
+
+<CardGroup cols={2}>
+  <Card
+    title="ArgusVM (AVM)"
+    icon="microchip"
+    href="/argus-vm"
+  >
+    Register-based virtual machine with 256-bit native arithmetic. EVM-compatible but not EVM-dependent—the foundation of our self-sustainable ecosystem.
+  </Card>
+  <Card
+    title="OPAX-28 Token Standard"
+    icon="coins"
+    href="/opax-28"
+  >
+    Native fungible token standard optimized for ArgusVM and OpenLang. Built-in safety, better performance, and Rust-inspired syntax.
+  </Card>
+</CardGroup>
+
+<AccordionGroup>
+  <Accordion title="EVM-Compatible but Not EVM-Dependent" icon="link">
+    We maintain full compatibility with existing Ethereum tooling and contracts while building our own execution environment:
+    
+    - ✅ Execute existing Solidity contracts (via translation layer)
+    - ✅ Support all Ethereum wallets and tools
+    - ✅ Maintain bridge compatibility
+    - ✅ **No dependency on EVM infrastructure**
+    - ✅ Full control over VM evolution
+  </Accordion>
+
+  <Accordion title="Self-Sustainable Ecosystem" icon="globe">
+    Build a complete ecosystem without external dependencies:
+    
+    - **ArgusVM**: Native register-based execution environment
+    - **OpenLang**: Rust-inspired smart contract language
+    - **OPAX-28**: Native token standard
+    - **Custom gas model**: Optimized for our architecture
+    - **Independent evolution**: No reliance on Ethereum upgrades
+  </Accordion>
+
+  <Accordion title="Performance Benefits" icon="gauge">
+    Our native infrastructure provides significant advantages:
+    
+    - **10,000+ TPS** per core (vs ~15 TPS for EVM)
+    - **&lt;1ms latency** for simple contract calls
+    - **Register-based architecture** eliminates stack overhead
+    - **Optimized gas costs** for common operations
+  </Accordion>
+</AccordionGroup>
+
+## Network Details
+
+Connect to HyperPaxeer Network with these details:
+
+```json Network Configuration
+{
+  "networkName": "HyperPaxeer Network",
+  "rpcUrl": "https://mainnet-beta.rpc.hyperpaxeer.com/rpc",
+  "chainId": 125,
+  "cosmosChainId": "hyperpax_125-1",
+  "currencySymbol": "PAX",
+  "baseDenom": "ahpx",
+  "bech32Prefix": "pax",
+  "blockExplorer": "https://paxscan.paxeer.app"
+}
+```
+
+<Card
+  title="Add to MetaMask"
+  icon="wallet"
+  href="/quickstart#add-paxeer-network"
+>
+  Follow our guide to add Paxeer Network to your wallet
+</Card>
+
+## Ecosystem Protocols
+
+Explore the powerful protocols built on Paxeer Network:
+
+<CardGroup cols={2}>
+  <Card
+    title="PaxDex Protocol"
+    icon="arrow-right-arrow-left"
+    href="/paxdex"
+  >
+    Decentralized exchange with 0.3% swap fees and real-time price feeds
+  </Card>
+  <Card
+    title="Lending Protocol"
+    icon="coins"
+    href="/lending"
+  >
+    Lend and borrow assets with dynamic APY and credit scoring
+  </Card>
+  <Card
+    title="ChainFlow"
+    icon="chart-line"
+    href="/chainflow"
+  >
+    Decentralized prop trading platform with on-chain evaluation and automated profit distribution
+  </Card>
+  <Card
+    title="Computable Token Machine (CTM)"
+    icon="microchip"
+    href="/ctm"
+  >
+    Revolutionary token standard where tokens are execution environments
+  </Card>
+  <Card
+    title="BlockScout API"
+    icon="magnifying-glass"
+    href="/blockscout-api"
+  >
+    Query transactions, blocks, addresses, and tokens
+  </Card>
+</CardGroup>
+
+## Developer Resources
+
+<CardGroup cols={2}>
+  <Card
+    title="RPC Tester"
+    icon="vial"
+    href="/rpc"
+  >
+    Test Paxeer Network RPC methods in real-time
+  </Card>
+  <Card
+    title="Code Examples"
+    icon="brackets-curly"
+    href="/examples"
+  >
+    Integration guides and code samples
+  </Card>
+  <Card
+    title="SDKs & Tools"
+    icon="toolbox"
+    href="/tools"
+  >
+    Recommended tools and libraries for development
+  </Card>
+  <Card
+    title="API Explorer"
+    icon="radar"
+    href="/api-explorer"
+  >
+    Interactive API testing interface
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+<Card
+  title="Join Our Community"
+  icon="users"
+  href="https://paxeer.app/community"
+>
+  Get support and connect with other developers building on Paxeer Network
+</Card>

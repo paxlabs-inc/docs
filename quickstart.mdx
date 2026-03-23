@@ -1,0 +1,186 @@
+---
+title: "Quick Start"
+description: "Get started with Paxeer Network in just a few minutes"
+icon: "rocket"
+---
+
+<Info>
+**Prerequisites:** You'll need MetaMask or another Web3 wallet installed in your browser.
+</Info>
+
+## Step 1: Install Web3 Wallet
+
+If you don't have a Web3 wallet yet, install MetaMask from their official website:
+
+```bash
+https://metamask.io
+```
+
+## Step 2: Add Paxeer Network
+
+Add Paxeer Network to your MetaMask with these settings:
+
+<AccordionGroup>
+  <Accordion title="Manual Configuration">
+    Open MetaMask, go to **Settings** → **Networks** → **Add Network**, and enter:
+    
+    | Field | Value |
+    |-------|-------|
+    | Network Name | Paxeer Network |
+    | RPC URL | `https://public-rpc.paxeer.app/rpc` |
+    | Chain ID | `125` |
+    | Currency Symbol | PAX |
+    | Block Explorer | `https://paxscan.paxeer.app` |
+  </Accordion>
+  
+  <Accordion title="One-Click Add">
+    <Card
+      title="Add to MetaMask"
+      icon="wallet"
+      href="https://chainlist.org/?search=paxeer"
+    >
+      Use ChainList for automatic network configuration
+    </Card>
+  </Accordion>
+</AccordionGroup>
+
+### Network Details
+
+```json
+{
+  "networkName": "Paxeer Network",
+  "rpcUrl": "https://public-rpc.paxeer.app/rpc",
+  "chainId": 125,
+  "currencySymbol": "PAX",
+  "blockExplorer": "https://paxscan.paxeer.app"
+}
+```
+
+## Step 3: Connect with wagmi
+
+Use wagmi to connect to Paxeer Network in your React app:
+
+```typescript wagmi-config.ts
+import { createConfig, http } from 'wagmi'
+import { defineChain } from 'viem'
+
+const paxeer = defineChain({
+  id: 125,
+  name: 'Paxeer Network',
+  network: 'paxeer',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Paxeer',
+    symbol: 'PAX',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://public-rpc.paxeer.app/rpc'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'PaxeerScan',
+      url: 'https://paxscan.paxeer.app',
+    },
+  },
+})
+
+export const config = createConfig({
+  chains: [paxeer],
+  transports: {
+    [paxeer.id]: http(),
+  },
+})
+```
+
+<Tip>
+Make sure to wrap your app with `WagmiProvider` and pass the config.
+</Tip>
+
+## Step 4: Start Building
+
+You're all set! Now you can:
+
+<Steps>
+  <Step title="Deploy Smart Contracts">
+    Use Hardhat, Foundry, or Remix to deploy your contracts
+    
+    <Card
+      title="Smart Contracts Guide"
+      icon="code"
+      href="/contracts"
+    >
+      Learn how to deploy contracts on Paxeer Network
+    </Card>
+  </Step>
+  
+  <Step title="Interact with the Blockchain">
+    Read and write data using our JSON-RPC API
+    
+    <Card
+      title="API Reference"
+      icon="terminal"
+      href="/api-reference"
+    >
+      Explore all available RPC methods
+    </Card>
+  </Step>
+  
+  <Step title="Build User Interfaces">
+    Create dApps using wagmi, viem, or ethers.js
+    
+    <Card
+      title="Code Examples"
+      icon="brackets-curly"
+      href="/examples"
+    >
+      Check out our integration examples
+    </Card>
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Configuration"
+    icon="gear"
+    href="/configuration"
+  >
+    Configure Paxeer Network with different libraries
+  </Card>
+  <Card
+    title="RPC Methods"
+    icon="terminal"
+    href="/rpc"
+  >
+    Test RPC methods in real-time
+  </Card>
+  <Card
+    title="Network Tools"
+    icon="toolbox"
+    href="/tools"
+  >
+    Explore recommended SDKs and tools
+  </Card>
+  <Card
+    title="API Explorer"
+    icon="radar"
+    href="/api-explorer"
+  >
+    Interactive API testing interface
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+Check out our API Reference and RPC Methods pages to learn more about interacting with Paxeer Network, or join our community for support.
+
+<Card
+  title="Join Community"
+  icon="users"
+  href="https://paxeer.app/community"
+>
+  Get help from other developers building on Paxeer
+</Card>
