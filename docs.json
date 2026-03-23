@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "sequoia",
   "name": "Paxeer Network Documentation",
   "colors": {
-    "primary": "#00D9FF",
-    "light": "#00F0FF",
-    "dark": "#00C2E0"
+    "primary": "#004CED",
+    "light": "#004CED",
+    "dark": "#004CED"
   },
   "favicon": "/favicon.svg",
   "metadata": {
@@ -233,5 +233,6 @@
         ]
       }
     ]
-  }
+  },
+  "description": "Build on Paxeer Network - A high-performance, developer-friendly blockchain platform"
 }
