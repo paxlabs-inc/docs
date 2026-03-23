@@ -233,5 +233,60 @@
       }
     ]
   },
-  "description": "Build on Paxeer Network - A high-performance, developer-friendly blockchain platform"
+  "description": "Build on Paxeer Network - A high-performance, developer-friendly blockchain platform",
+  "fonts": {
+    "family": "Pangram Sans Rounded",
+    "weight": 700,
+    "source": "https://github.com/dev-paxeer/musical-funicular/tree/main/pangram-sans-rounded",
+    "format": "woff",
+    "heading": {
+      "family": "Pangram Sans Rounded",
+      "weight": 500
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
+  "api": {
+    "openapi": "/openapi.yaml"
+  },
+  "thumbnails": {
+    "background": "/images/main.webp",
+    "appearance": "dark"
+  },
+  "styling": {
+    "eyebrows": "section"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Developer Portal",
+        "href": "https://build.hyperpaxeer.com/"
+      },
+      {
+        "label": "Block Explorer",
+        "href": "https://paxscan.io/"
+      },
+      {
+        "label": "Whitepaper",
+        "href": "http://whitepaper.paxeer.app/"
+      }
+    ]
+  },
+  "banner": {
+    "dismissible": false
+  },
+  "favicon": "/images/sid-fun-icon(1).png",
+  "logo": {
+    "light": "/images/sid-fun-icon(1).png",
+    "dark": "/images/sid-fun-icon2.png",
+    "href": "/"
+  },
+  "background": {
+    "image": "/images/paxeerCOEX.png"
+  },
+  "appearance": {
+    "default": "dark"
+  }
 }
