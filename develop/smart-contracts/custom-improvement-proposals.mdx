@@ -2,7 +2,7 @@
 
 With the release [v19.0.0](https://github.com/Paxeer-Network/Paxeer-Network/releases/tag/v19.0.0)
 a new feature called custom improvement proposals has been introduced in the
-Paxeer Network framework. Custom improvement proposals allow protocol developers to
+HyperPaxeer framework. Custom improvement proposals allow protocol developers to
 modify the behavior of the EVM opcodes to tailor their functionalities to the
 specific needs.
 
@@ -38,11 +38,11 @@ after executing the operation.
 
 - `SetMemorySize`: the memory size required by the operation.
 
-Within the Paxeer Network framework, developers can modify any of the previous properties.
+Within the HyperPaxeer framework, developers can modify any of the previous properties.
 
 ## Improvement Proposals
 
-Improvement proposals are the approach used by Paxeer Network and Ethereum to modify the
+Improvement proposals are the approach used by HyperPaxeer and Ethereum to modify the
 behavior of opcodes. They are composed of a function, which has access
 to the jump table to apply specific changes to operation behavior, and a name.
 
@@ -51,16 +51,16 @@ named Ethereum Improvement Proposals (EIPs) and are identified by a unique ID.
 For example, [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) is
 used to introduce the base fee.
 
-To allow any Paxeer Network partner to define their own specific
-improvements without overlapping with Paxeer Network and Ethereum ones, each
+To allow any HyperPaxeer partner to define their own specific
+improvements without overlapping with HyperPaxeer and Ethereum ones, each
 proposal is identified by a string, that is composed of the chain name and a number. For
-example, default Paxeer Network improvements are associated with the string `Paxeer Network_XXXX`.
+example, default HyperPaxeer improvements are associated with the string `HyperPaxeer_XXXX`.
 This allows each chain to define their improvements without having to worry
 about existing or future ID clashes between different chains.
 Additionally, the ability to start enumeration at 0 is better for chain developers
 and allows having a better overview of the historical progress for each chain.
 
-Below, you will find an example of how the Paxeer Network chain uses this functionality to modify the
+Below, you will find an example of how the HyperPaxeer chain uses this functionality to modify the
 behavior of the `CREATE` and `CREATE2` opcodes. First, the modifier function has
 to be defined:
 
@@ -81,8 +81,8 @@ func Enable0000(jt *vm.JumpTable) {
 Then, the function as to be associated with a name via a custom activator:
 
 ```go
-Paxeer NetworkActivators = map[string]func(*vm.JumpTable){
-    "Paxeer Network_0": eips.Enable0000,
+HyperPaxeerActivators = map[string]func(*vm.JumpTable){
+    "HyperPaxeer_0": eips.Enable0000,
 }
 ```
 
@@ -104,6 +104,6 @@ while keeping the chain's participants in the loop.
 
 ## Additional Resources
 
-1. [Paxeer Network Custom EIPs](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/app/eips/README.md):
+1. [HyperPaxeer Custom EIPs](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/app/eips/README.md):
 please refer to this document for a detailed description of how opcodes and
-custom improvement proposals have to be used in the Paxeer Network framework.
+custom improvement proposals have to be used in the HyperPaxeer framework.

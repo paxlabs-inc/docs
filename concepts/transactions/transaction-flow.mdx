@@ -1,12 +1,12 @@
 ---
 title: "Transaction Flow"
-description: "Learn how transactions are processed on Paxeer Network"
+description: "Learn how transactions are processed on HyperPaxeer"
 icon: "diagram-project"
 ---
 
 ## Overview
 
-This guide explains the transaction flow process on Paxeer Network from submission to finality.
+This guide explains the transaction flow process on HyperPaxeer from submission to finality.
 
 ## Transaction Lifecycle
 
@@ -45,7 +45,7 @@ This guide explains the transaction flow process on Paxeer Network from submissi
   <Step title="Block Inclusion">
     Transaction is included in a block
     
-    **Block Time:** ~2 seconds
+    **Block Time:** 277 ms average
     
     ```javascript
     const receipt = await tx.wait(1);
@@ -66,7 +66,7 @@ This guide explains the transaction flow process on Paxeer Network from submissi
   </Step>
 
   <Step title="Finalization">
-    After multiple confirmations, transaction is finalized
+    After block inclusion, transaction has deterministic CometBFT finality
     
     **Recommended Confirmations:** 12+ blocks (~24 seconds)
     
@@ -261,7 +261,7 @@ Transactions in the mempool are ordered by:
 
 ### Block Time
 
-**Target:** ~2 seconds per block
+**Official report:** 277 ms average block time, 341 ms p95
 
 **Factors affecting block time:**
 - Network congestion
@@ -274,14 +274,14 @@ Transactions in the mempool are ordered by:
 
 ```solidity
 // Before transaction
-state[address].balance = 100 PAX
+state[address].balance = 100 HPX
 
-// Transaction: transfer 10 PAX
-transfer(recipient, 10 PAX)
+// Transaction: transfer 10 HPX
+transfer(recipient, 10 HPX)
 
 // After transaction
-state[address].balance = 90 PAX
-state[recipient].balance = originalBalance + 10 PAX
+state[address].balance = 90 HPX
+state[recipient].balance = originalBalance + 10 HPX
 ```
 
 ### State Root
@@ -416,11 +416,11 @@ console.log({
 
 | Metric | Value |
 |--------|-------|
-| Average Block Time | ~2 seconds |
+| Average Block Time | 277 ms |
 | Block Gas Limit | 30,000,000 |
 | Typical Base Fee | 1-5 gwei |
 | Transactions/Second | ~1,500 TPS |
-| Finality Time | ~24 seconds (12 blocks) |
+| Finality Time | Instant deterministic finality |
 
 ## Resources
 
@@ -454,4 +454,3 @@ console.log({
     RPC method documentation
   </Card>
 </CardGroup>
-

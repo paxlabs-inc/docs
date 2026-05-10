@@ -11,21 +11,21 @@ This API lets you interact with the HyperPaxeer EVM-based client via JSON-RPC.
 
 | Property | Value |
 |----------|-------|
-| **Network** | HyperPaxeer Network |
+| **Network** | HyperPaxeer |
 | **Chain ID** | `125` |
 | **Cosmos Chain ID** | `hyperpax_125-1` |
-| **Currency** | PAX |
+| **Currency** | HPX |
 | **Base Denom** | `ahpx` |
 | **Bech32 Prefix** | `pax` |
-| **RPC URL** | `https://mainnet-beta.rpc.hyperpaxeer.com/rpc` |
-| **Block Explorer** | [paxscan.paxeer.app](https://paxscan.paxeer.app) |
+| **RPC URL** | `https://public-rpc.paxeer.app/rpc` |
+| **Block Explorer** | [paxscan.io](https://paxscan.io) |
 
 ## Connection Examples
 
 ### HTTP Request
 
 ```bash
-curl -X POST https://mainnet-beta.rpc.hyperpaxeer.com/rpc \
+curl -X POST https://public-rpc.paxeer.app/rpc \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
 ```
@@ -35,7 +35,7 @@ curl -X POST https://mainnet-beta.rpc.hyperpaxeer.com/rpc \
 ```javascript
 import { ethers } from 'ethers';
 
-const provider = new ethers.JsonRpcProvider('https://mainnet-beta.rpc.hyperpaxeer.com/rpc');
+const provider = new ethers.JsonRpcProvider('https://public-rpc.paxeer.app/rpc');
 const blockNumber = await provider.getBlockNumber();
 ```
 

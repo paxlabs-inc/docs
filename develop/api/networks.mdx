@@ -6,51 +6,26 @@
 
 ## Public Available Endpoints
 
-Below is a list of publicly available endpoints that you can use to connect to the Paxeer Network mainnet and
-public testnets:
+Below is a list of publicly available endpoints that you can use to connect to HyperPaxeer mainnet.
 
 :::tip
-You can also use [chainlist.org](https://chainlist.org/) to add the node directly to [Metamask](https://academy.hyperpaxd.org/articles/beginner/connect-your-wallet/metamask).
+You can also use [chainlist.org](https://chainlist.org/) to add the node directly to [Metamask](https://academy.evmosd.org/articles/beginner/connect-your-wallet/metamask).
 :::
 
 :::note
 If you are searching for the protobuf interfaces, head over [here](https://buf.build/Paxeer-Network).
 :::
 
-### Mainnet
+| Address | Category | Maintainer | Node Type |
+|---|---|---|---|
+| `https://public-rpc.paxeer.app/rpc` | `Ethereum` `JSON-RPC` | Paxeer Network | Public |
+| `https://public-rpc.paxeer.app:26657` | `CometBFT` `RPC` | Paxeer Network | Public |
+| `https://public-rpc.paxeer.app:1317` | `Cosmos` `REST` | Paxeer Network | Public |
+| `https://public-rpc.paxeer.app:9090` | `Cosmos` `gRPC` | Paxeer Network | Public |
 
-| Address                                       | Category               | Maintainer                              | Node Type  |
-| --------------------------------------------- | ---------------------- | --------------------------------------- | -----------|
-| `https://Paxeer-Network.lava.build`                    | `Ethereum` `JSON-RPC`  | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `wss://Paxeer-Network.lava.build/websocket`            | `Ethereum` `WSS`       | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `https://Paxeer-Network.rest.lava.build`               | `Cosmos` `REST`        | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `https://Paxeer-Network.tendermintrpc.lava.build`         | `Tendermint` `RPC`     | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `wss://Paxeer-Network.tendermintrpc.lava.build/websocket` | `Tendermint` `WSS`     | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `Paxeer Network.grpc.lava.build:443`              | `Cosmos` `gRPC`        | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `https://Paxeer-Network-json-rpc.stakely.io`           | `Ethereum` `JSON-RPC`  | [Stakely](https://stakely.io/)          | Pruned  |
-| `https://Paxeer-Network-rpc.stakely.io`                | `Tendermint` `RPC`         | [Stakely](https://stakely.io/)          | Pruned  |
-| `https://Paxeer-Network-lcd.stakely.io`                | `Cosmos` `REST`        | [Stakely](https://stakely.io/)          | Pruned  |
-| `https://Paxeer-Network-mainnet.public.blastapi.io`    | `Ethereum` `JSON-RPC`  | [BLAST](https://blastapi.io/)           | Pruned  |
-| `wss://Paxeer-Network-mainnet.public.blastapi.io`      | `Ethereum` `Websocket` | [BLAST](https://blastapi.io/)           | Pruned  |
-| `https://Paxeer-Network-evm-rpc.publicnode.com`        | `Ethereum` `JSON-RPC`  | [Allnodes](https://Paxeer-Network.publicnode.com/) | Pruned  |
-| `https://Paxeer-Network-rpc.publicnode.com`            | `Tendermint` `RPC`     | [Allnodes](https://Paxeer-Network.publicnode.com/) | Pruned  |
-| `https://Paxeer-Network-rest.publicnode.com`           | `Cosmos` `REST`        | [Allnodes](https://Paxeer-Network.publicnode.com/) | Pruned  |
-| `https://Paxeer-Network-grpc.publicnode.com`           | `Cosmos` `GRPC`        | [Allnodes](https://Paxeer-Network.publicnode.com/) | Pruned  |
-| `https://Paxeer-Network.drpc.org`                      | `Ethereum` `JSON-RPC`   | [dRPC](https://drpc.org/)  | Pruned |
-| `wss://Paxeer-Network.drpc.org`                        | `Ethereum` `Websocket` | [dRPC](https://drpc.org/)  | Pruned |
-
-
-### Testnet
-
-| Address                                      | Category               | Maintainer                              | Node Type  |
-| --------------------------------------------- | ---------------------- | --------------------------------------- | -----------|
-| `https://Paxeer-Network-testnet.lava.build`            | `Ethereum` `JSON-RPC`  | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `wss://Paxeer-Network-testnet.lava.build/websocket`    | `Ethereum` `WSS`       | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `https://rest.hyperpaxd-testnet.lava.build`       | `Cosmos` `REST`        | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `https://tm.hyperpaxd-testnet.lava.build`         | `Tendermint` `RPC`     | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `wss://tm.hyperpaxd-testnet.lava.build/websocket` | `Tendermint` `WSS`     | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `grpc.hyperpaxd-testnet.lava.build:443`           | `Cosmos` `gRPC`        | [Lava Network](https://lavanet.xyz)             | Pruned     |
-| `https://Paxeer-Network-testnet-rpc.polkachu.com:443` | `Tendermint` `RPC`     | [Polkachu](https://polkachu.com)        | Pruned  |
+:::note
+HyperPaxeer currently operates mainnet only. There is no public testnet.
+:::
 
 
 ## On-Demand Services
@@ -61,4 +36,4 @@ Lava is an open source protocol that serves as a p2p market for blockchain RPC &
 
 In simpler words, Lava pairs consumers and providers of RPC in a similar way to how Uber connects passengers and drivers. Users of Lava enjoy top quality of service and data reliability & accuracy, ensured by Lava protocol and the crypto-economic framework
 
-In partnership with Paxeer Network, Lava is the providing a highly reliable, community-powered free public endpoints you can find above. If you’re looking for higher rate-limits and usage analytics, [check out the Lava Gateway](https://gateway.lavanet.xyz?utm_source=Paxeer Network-docs&utm_medium=referral&utm_campaign=Paxeer Network-iprpc).
+In partnership with HyperPaxeer, Lava is the providing a highly reliable, community-powered free public endpoints you can find above. If you’re looking for higher rate-limits and usage analytics, [check out the Lava Gateway](https://gateway.lavanet.xyz?utm_source=HyperPaxeer-docs&utm_medium=referral&utm_campaign=HyperPaxeer-iprpc).

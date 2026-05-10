@@ -5,7 +5,7 @@
     "version": "1.0.10",
     "title": "HyperPaxeer JSON-RPC",
     "description": "This API lets you interact with HyperPaxeer EVM-based client via JSON-RPC",
-    "rpc": "https://mainnet-beta.rpc.hyperpaxeer.com/",
+    "rpc": "https://public-rpc.paxeer.app/rpc",
     "license": {
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"

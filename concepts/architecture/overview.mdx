@@ -1,412 +1,168 @@
 ---
 title: "Architecture Overview"
-description: "Understanding Paxeer Network's technical architecture"
+description: "Dual-VM design, consensus model, custom precompiles, and module architecture of HyperPaxeer"
 icon: "sitemap"
 ---
 
 ## Overview
 
-Paxeer Network is a high-performance EVM-equivalent blockchain designed for scalability, security, and developer experience.
+HyperPaxeer is a sovereign Proof-of-Stake blockchain running on the **Alexandria Fork** (Cosmos SDK + CometBFT). It extends the standard EVM-on-Cosmos model with a second execution environment — the **Argus Virtual Machine (AVM)** — and four custom stateful/stateless precompiles that accelerate exchange-critical computation.
 
-## Core Components
+---
 
-<CardGroup cols={2}>
-  <Card title="Execution Layer" icon="microchip">
-    EVM-compatible execution environment
-  </Card>
-  <Card title="Consensus Layer" icon="handshake">
-    Block production and validation
-  </Card>
-  <Card title="Networking Layer" icon="network-wired">
-    P2P communication and data propagation
-  </Card>
-  <Card title="Storage Layer" icon="database">
-    State and transaction data storage
-  </Card>
-</CardGroup>
-
-## Architecture Diagram
-
-```mermaid
-graph TB
-    subgraph "User Layer"
-        A[Wallets] --> B[dApps]
-        B --> C[SDKs/Libraries]
-    end
-    
-    subgraph "RPC Layer"
-        D[Public RPC]
-        E[WebSocket]
-    end
-    
-    subgraph "Execution Layer"
-        F[Sequencer]
-        G[EVM]
-        H[State Manager]
-    end
-    
-    subgraph "Storage Layer"
-        I[State DB]
-        J[Block DB]
-    end
-    
-    subgraph "Network Layer"
-        K[P2P Network]
-        L[Block Propagation]
-    end
-    
-    C --> D
-    C --> E
-    D --> F
-    E --> F
-    F --> G
-    G --> H
-    H --> I
-    H --> J
-    F --> K
-    K --> L
-```
-
-## Execution Layer
-
-The execution layer is responsible for processing transactions and maintaining state.
-
-### Components
-
-<AccordionGroup>
-  <Accordion title="Sequencer" icon="list-ol">
-    **Role:** Orders and executes transactions
-    
-    **Responsibilities:**
-    - Select transactions from mempool
-    - Order by priority fee
-    - Create blocks (~2 second intervals)
-    - Execute transactions via EVM
-    - Update state
-    
-    **Address:** Sequencer fee vault at `0x4200000000000000000000000000000000000011`
-  </Accordion>
-
-  <Accordion title="EVM (Ethereum Virtual Machine)" icon="microchip">
-    **Role:** Execute smart contract bytecode
-    
-    **Specifications:**
-    - Fully EVM equivalent
-    - Same opcodes as Ethereum
-    - Same gas costs
-    - Same execution semantics
-    
-    **Version:** Compatible with latest Ethereum upgrades
-  </Accordion>
-
-  <Accordion title="State Manager" icon="database">
-    **Role:** Manage blockchain state
-    
-    **Functions:**
-    - Store account balances
-    - Store contract code
-    - Store contract storage
-    - Compute state roots
-    - Provide state access
-  </Accordion>
-</AccordionGroup>
-
-## Block Production
-
-### Block Structure
-
-```json
-{
-  "number": 1234567,
-  "hash": "0x...",
-  "parentHash": "0x...",
-  "stateRoot": "0x...",
-  "transactionsRoot": "0x...",
-  "receiptsRoot": "0x...",
-  "timestamp": 1699564800,
-  "gasLimit": 30000000,
-  "gasUsed": 15234567,
-  "baseFeePerGas": 1000000000,
-  "miner": "0x...",
-  "transactions": [...]
-}
-```
-
-### Block Time
-
-- **Target:** 2 seconds
-- **Range:** 1-3 seconds under normal conditions
-- **Deterministic:** Blocks produced at regular intervals
-
-## Transaction Processing
-
-<Steps>
-  <Step title="Validation">
-    Transaction is validated:
-    - Signature verification
-    - Nonce check
-    - Balance verification
-    - Gas limit validation
-  </Step>
-
-  <Step title="Mempool">
-    Valid transactions enter the mempool
-    - Ordered by effective gas price
-    - Duplicate nonce handling
-    - Eviction policy for full mempool
-  </Step>
-
-  <Step title="Selection">
-    Sequencer selects transactions:
-    - Highest fee first
-    - Nonce order respected
-    - Gas limit constraints
-  </Step>
-
-  <Step title="Execution">
-    EVM executes transactions:
-    - State changes applied
-    - Events emitted
-    - Gas consumed
-    - Result determined (success/fail)
-  </Step>
-
-  <Step title="Inclusion">
-    Transaction added to block:
-    - Receipt generated
-    - State root updated
-    - Block propagated
-  </Step>
-</Steps>
-
-## State Management
-
-### State Trie Structure
-
-Paxeer Network uses a Merkle Patricia Trie for state storage:
+## Dual-VM Design
 
 ```
-State Root
-├── Account 0x1111...
-│   ├── Balance: 100 PAX
-│   ├── Nonce: 5
-│   ├── Code Hash: 0x...
-│   └── Storage Root
-│       ├── Slot 0: value1
-│       └── Slot 1: value2
-├── Account 0x2222...
-│   ├── Balance: 50 PAX
-│   └── Nonce: 2
-└── ...
+┌──────────────────────────────────────────────────────────────────┐
+│                       HyperPaxeer                        │
+│                                                                  │
+│  ┌──────────────────────────┐    ┌────────────────────────────┐  │
+│  │     EVM OS Layer          │    │     Argus VM (AVM)         │  │
+│  │     Alexandria Fork       │◄──►│     C++ runtime            │  │
+│  │                           │    │                            │  │
+│  │  Solidity contracts       │    │  ArgLang scripts (.arg)    │  │
+│  │  Custom precompiles       │    │  Risk engine               │  │
+│  │  (0x901 – 0x904)         │    │  Capital orchestration     │  │
+│  │  x/evm, x/erc20 modules  │    │  Smart wallet lifecycle    │  │
+│  │  JSON-RPC / gRPC / REST   │    │  .avm bytecode execution   │  │
+│  └──────────────────────────┘    └────────────────────────────┘  │
+│                                                                  │
+│  CometBFT v0.38.15 ·  Cosmos SDK  ·  IBC  ·  x/paxoracle       │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
-### Storage Slots
+- **EVM OS** — the blockchain shell: consensus, networking, EVM execution, standard Ethereum tooling
+- **AVM** — the value engine: capital allocation, drawdown policy, funded smart-wallet management
+- **Communication boundary** — on-chain interfaces `IPaxSpotReader` and `IAllowanceProvider`
 
-```solidity
-contract Example {
-    uint256 public slot0;           // Storage slot 0
-    mapping(address => uint256) public balances; // Slot 1 base
-    
-    // balances[addr] stored at keccak256(addr, 1)
-}
-```
+---
 
-## Networking
+## Consensus
 
-### P2P Network
+| Property | Value |
+|----------|-------|
+| **Engine** | CometBFT v0.38.15 (Tendermint-based BFT) |
+| **Consensus** | Proof-of-Stake with instant finality |
+| **Block time** | 277 ms average, 341 ms p95 |
+| **Validators** | 10 active with 5.9%-13.1% voting-power range |
+| **Finality** | Single-block (no reorgs under 2/3 honest assumption) |
 
-- **Protocol:** DevP2P (Ethereum's networking protocol)
-- **Discovery:** Discv4/Discv5 for peer discovery
-- **Bootnodes:** Hardcoded initial peers
-- **Max Peers:** Configurable (default: 50)
+CometBFT's `PrepareProposal` and `ProcessProposal` hooks allow validators to enforce fair transaction ordering at the consensus level — providing MEV protection without external infrastructure.
 
-### Block Propagation
+---
 
-```mermaid
-graph LR
-    A[Sequencer] -->|New Block| B[Node 1]
-    A -->|New Block| C[Node 2]
-    B -->|Relay| D[Node 3]
-    C -->|Relay| E[Node 4]
-    D -->|Relay| F[Node 5]
-```
+## Custom Precompiles
 
-**Propagation Time:** < 1 second for full network
+Four precompiled contracts live at reserved addresses and execute native Go code at consensus speed:
 
-## Data Storage
+| Address | Name | Type | Purpose |
+|---------|------|------|---------|
+| `0x901` | **OROBResolver** | Stateless | Convert basis-point offsets to absolute prices and back |
+| `0x902` | **BatchClearing** | Stateless | Compute uniform clearing price for sealed-bid auctions |
+| `0x903` | **OracleAggregator** | Stateful | Read/write validator price submissions via `x/paxoracle` keeper |
+| `0x904` | **PoFQScorer** | Stateless | Score fill quality against oracle at execution time |
 
-### Database Structure
+Precompiles use the HyperPaxeer stateful-precompile framework (`cmn.Precompile` embedded struct with `RunSetup` for SDK context access). Solidity interfaces are at `contracts/paxspot/src/interfaces/`.
 
-```
-datadir/
-├── chaindata/         # Blockchain and state data
-│   ├── ancient/      # Old blocks (compressed)
-│   └── current/      # Recent blocks
-├── lightchaindata/   # Light client data
-├── nodes/            # P2P network data
-└── keystore/         # Account keys (if any)
-```
+---
 
-### Storage Requirements
+## Cosmos SDK Modules
 
-| Node Type | Minimum | Recommended | Growth Rate |
-|-----------|---------|-------------|-------------|
-| Full Node | 500 GB | 1 TB | ~50 GB/month |
-| Archive Node | 2 TB | 5 TB | ~200 GB/month |
+### Standard Modules (Alexandria Fork)
 
-## Performance Characteristics
+`x/evm`, `x/erc20`, `x/feemarket`, `x/vesting`, `x/inflation`, `x/epochs`, `x/staking`, `x/distribution`, `x/gov`, `x/ibc`
 
-### Throughput
+### Custom Module: x/paxoracle
 
-- **Theoretical Max:** ~2,000 TPS
-- **Typical Load:** 500-1,000 TPS
-- **Block Gas Limit:** 30,000,000
-- **Average Gas/Tx:** ~50,000
+Validator Oracle Module — validators submit prices via the `0x903` precompile's `submitPrice(bytes32, int256, uint256)` method. The module stores submissions in a KV store and aggregates them:
 
-### Latency
+- **GetMedianPrice**: filters stale submissions (>15 blocks), requires minimum quorum, computes confidence-weighted median
+- **IsValidator**: verifies submitter is an active validator via `x/staking` keeper
+- **Parameters**: `staleness_threshold` (default 15 blocks), `min_quorum` (default 1)
 
-- **Block Time:** ~2 seconds
-- **Transaction Inclusion:** 2-6 seconds (1-3 blocks)
-- **Finality:** ~24 seconds (12 confirmations)
+---
 
-## Comparison with Ethereum
+## Chain-Level Advantages
 
-| Feature | Ethereum | Paxeer Network |
-|---------|----------|----------------|
-| Block Time | ~12 seconds | ~2 seconds |
-| Gas Costs | High | 99%+ lower |
-| TPS | ~15-30 | ~1,500 |
-| Finality | ~15 minutes | ~24 seconds |
-| EVM Version | Latest | Latest (equivalent) |
+These capabilities are possible because HyperPaxeer is a sovereign chain, not a shared L1/L2:
 
-## System Contracts
+1. **Custom precompiles** — move expensive computation (batch clearing, oracle aggregation) to native Go. Near-zero gas for critical operations
+2. **Transaction ordering control** — `PrepareProposal`/`ProcessProposal` enforce fair ordering. No front-running at the consensus level
+3. **Native gas policy** — gas prices can be set to near-zero for exchange operations or subsidised for funded smart wallets
+4. **IBC interoperability** — native token transfers from Osmosis, Injective, Noble (USDC), and other Cosmos chains. No bridges, no wrapping
+5. **Validator-integrated keepers** — validators run keeper logic as sidecars, making conditional order execution a first-class chain service
 
-Paxeer Network includes several predeployed system contracts:
+---
 
-### Core System Contracts
+## Node Architecture
 
-| Contract | Address | Purpose |
-|----------|---------|---------|
-| Sequencer Fee Vault | `0x4200000000000000000000000000000000000011` | Collects transaction fees |
-| Gas Price Oracle | `0x420000000000000000000000000000000000000F` | Gas price information |
-| L1 Block Info | `0x4200000000000000000000000000000000000015` | L1 data (if applicable) |
+Nodes are deployed via the `hpx` CLI as Docker containers. Two node types:
 
-### Accessing System Contracts
+| Type | Purpose | Configuration |
+|------|---------|---------------|
+| **RPC** | Serve JSON-RPC, gRPC, REST, WebSocket | Full indexing, all endpoints exposed |
+| **Validator** | Produce blocks, participate in consensus | Default pruning, optimised for consensus |
 
-```solidity
-interface ISequencerFeeVault {
-    function withdraw() external;
-}
+Each node runs under `/root/hyperpax-nodes/<name>/` with an FD Guardian sidecar that monitors file descriptors and auto-restarts on leak detection.
 
-// Access fee vault
-ISequencerFeeVault vault = ISequencerFeeVault(
-    0x4200000000000000000000000000000000000011
-);
-```
+### Endpoints per Node
 
-## Consensus Mechanism
+| Protocol | Default Port |
+|----------|-------------|
+| P2P | 26656 |
+| CometBFT RPC | 26657 |
+| REST API | 1317 |
+| gRPC | 9090 |
+| JSON-RPC (EVM) | 8545 |
+| WebSocket | 8546 |
 
-Paxeer Network uses a centralized sequencer for high performance with plans for decentralization:
+Ports auto-increment for multi-node deployments on a single server.
 
-### Current: Centralized Sequencer
+---
 
-**Advantages:**
-- High performance
-- Low latency  
-- Predictable block times
-- Simple operation
+## Upgrade Process
 
-**Considerations:**
-- Single point of control
-- Liveness depends on sequencer
-- Trust in sequencer operation
+Network upgrades are coordinated across all validators:
 
-### Future: Decentralized Sequencing
+1. Halt all validators at a target block height
+2. Back up chain state from one validator
+3. Distribute new binary as a Docker image
+4. Fix any app-hash or priv_validator mismatches
+5. Restart all validators simultaneously
 
-**Planned Features:**
-- Multiple sequencer rotation
-- Fault tolerance
-- Censorship resistance
-- Community participation
+The `hpx` CLI and `validate/upgrades/` docs cover automated and manual upgrade procedures.
 
-## Security Model
-
-<AccordionGroup>
-  <Accordion title="Execution Security" icon="microchip">
-    - EVM equivalent execution
-    - Deterministic state transitions
-    - Gas metering prevents DoS
-    - Safe math in Solidity 0.8+
-  </Accordion>
-
-  <Accordion title="Network Security" icon="network-wired">
-    - Peer authentication
-    - Block validation
-    - State root verification
-    - Transaction signature verification
-  </Accordion>
-
-  <Accordion title="Economic Security" icon="coins">
-    - Gas fees prevent spam
-    - Priority fees incentivize proper behavior
-    - Fee vault ensures sustainability
-  </Accordion>
-</AccordionGroup>
-
-## Upgrades and Governance
-
-### Network Upgrades
-
-Network upgrades follow a structured process:
-
-<Steps>
-  <Step title="Proposal">
-    Upgrade proposed by core team
-  </Step>
-  <Step title="Testing">
-    Extensive testing on testnet
-  </Step>
-  <Step title="Announcement">
-    Community notification with timeline
-  </Step>
-  <Step title="Deployment">
-    Coordinated upgrade at specific block
-  </Step>
-  <Step title="Verification">
-    Post-upgrade monitoring and verification
-  </Step>
-</Steps>
+---
 
 ## Resources
 
 <CardGroup cols={2}>
   <Card
-    title="GitHub"
-    icon="github"
-    href="https://github.com/paxeer"
+    title="Network Status"
+    icon="signal"
+    href="/network-status"
   >
-    View source code
+    Live validator health, node latency, and block timing
   </Card>
   <Card
-    title="Technical Specs"
-    icon="file-lines"
-    href="https://docs.paxeer.app/specs"
-  >
-    Detailed specifications
-  </Card>
-  <Card
-    title="Node Operators"
+    title="Run a Node"
     icon="server"
-    href="/node-operators/guides/running-a-node"
+    href="/validate/setup/run-a-validator"
   >
-    Run your own node
+    Deploy RPC or Validator nodes with the hpx CLI
   </Card>
   <Card
-    title="Security"
-    icon="shield"
-    href="/concepts/security/best-practices"
+    title="Argus VM"
+    icon="microchip"
+    href="/argus-vm"
   >
-    Security best practices
+    Register architecture, ISA, gas model, and ArgLang
+  </Card>
+  <Card
+    title="PaxSpot"
+    icon="chart-mixed"
+    href="/paxspot"
+  >
+    Spot exchange leveraging all four precompiles
   </Card>
 </CardGroup>
-
