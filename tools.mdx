@@ -1,12 +1,12 @@
 ---
 title: "SDKs & Tools"
-description: "Recommended tools and libraries for building on Paxeer Network"
+description: "Recommended tools and libraries for building on HyperPaxeer"
 icon: "toolbox"
 ---
 
 ## Overview
 
-Recommended tools and libraries for building on Paxeer Network. All standard Ethereum development tools work seamlessly with Paxeer.
+Recommended tools and libraries for building on HyperPaxeer. All standard Ethereum development tools work seamlessly with Paxeer.
 
 ## Frontend Libraries
 
@@ -254,19 +254,19 @@ Recommended tools and libraries for building on Paxeer Network. All standard Eth
     console.log('Connected:', accounts[0]);
     ```
     
-    ```javascript Add Paxeer Network
+    ```javascript Add HyperPaxeer
     await window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [{
         chainId: '0xe5',
-        chainName: 'Paxeer Network',
+        chainName: 'HyperPaxeer',
         nativeCurrency: {
-          name: 'Paxeer',
-          symbol: 'PAX',
+          name: 'HyperPaxeer',
+          symbol: 'HPX',
           decimals: 18
         },
         rpcUrls: ['https://public-rpc.paxeer.app/rpc'],
-        blockExplorerUrls: ['https://paxscan.paxeer.app']
+        blockExplorerUrls: ['https://paxscan.io']
       }]
     });
     ```
@@ -330,11 +330,11 @@ Recommended tools and libraries for building on Paxeer Network. All standard Eth
 ## Block Explorers
 
 <Card
-  title="PaxeerScan"
+  title="PaxScan"
   icon="magnifying-glass"
-  href="https://paxscan.paxeer.app"
+  href="https://paxscan.io"
 >
-  Official block explorer for Paxeer Network. View transactions, blocks, addresses, and verify contracts.
+  Official block explorer for HyperPaxeer. View transactions, blocks, addresses, and verify contracts.
   
   **Features:**
   - Transaction tracking
@@ -442,7 +442,7 @@ Recommended tools and libraries for building on Paxeer Network. All standard Eth
     icon="rocket"
     href="/quickstart"
   >
-    Get started with Paxeer Network
+    Get started with HyperPaxeer
   </Card>
   <Card
     title="Configuration"
@@ -466,4 +466,3 @@ Recommended tools and libraries for building on Paxeer Network. All standard Eth
     View integration examples
   </Card>
 </CardGroup>
-

@@ -53,49 +53,37 @@
         "pages": [
           "index",
           "quickstart",
+          "current-network",
           "configuration",
+          "network-status",
+          "performance",
+          "versioning",
           "develop/mainnet"
         ]
       },
       {
         "group": "Develop",
         "pages": [
-          "develop/index"
-        ]
-      },
-      {
-        "group": "Smart Contracts",
-        "pages": [
+          "develop/index",
           "contracts",
           "develop/smart-contracts/index",
           "develop/smart-contracts/custom-improvement-proposals",
-          "develop/smart-contracts/list-evm-extensions"
-        ]
-      },
-      {
-        "group": "EVM Extensions",
-        "pages": [
+          "develop/smart-contracts/list-evm-extensions",
+          "paxspot/precompiles",
           "develop/smart-contracts/evm-extensions/evm-extensions",
           "develop/smart-contracts/evm-extensions/authorization",
           "develop/smart-contracts/evm-extensions/staking",
           "develop/smart-contracts/evm-extensions/distribution",
           "develop/smart-contracts/evm-extensions/ibc-transfer",
-          "develop/smart-contracts/evm-extensions/vesting"
-        ]
-      },
-      {
-        "group": "APIs & RPC",
-        "pages": [
+          "develop/smart-contracts/evm-extensions/vesting",
           "rpc",
-          "openapi",
+          "openapi/index",
+          "openapi/launchpad-graphql",
+          "openapi/perpetual-graphql",
+          "openapi/stableswap-graphql",
           "develop/api/index",
           "develop/api/networks",
-          "develop/api/tendermint-rpc"
-        ]
-      },
-      {
-        "group": "Tools & Integrations",
-        "pages": [
+          "develop/api/tendermint-rpc",
           "tools",
           "examples",
           "develop/tools/index",
@@ -104,12 +92,7 @@
           "develop/wallet-integration/index",
           "develop/block-explorers/index",
           "develop/oracles/index",
-          "develop/graphs-indexers/index"
-        ]
-      },
-      {
-        "group": "Guides",
-        "pages": [
+          "develop/graphs-indexers/index",
           "app-developers/guides/building-apps",
           "app-developers/guides/testing-apps"
         ]
@@ -128,9 +111,9 @@
         "group": "Architecture",
         "pages": [
           "protocol/index",
+          "concepts/architecture/overview",
           "argus-vm",
-          "opax-28",
-          "concepts/architecture/overview"
+          "pax-28"
         ]
       },
       {
@@ -140,6 +123,7 @@
           "protocol/modules/evm",
           "protocol/modules/erc20",
           "protocol/modules/inflation",
+          "protocol/modules/paxoracle",
           "protocol/modules/vesting",
           "protocol/modules/epochs",
           "protocol/modules/feemarket"
@@ -216,17 +200,31 @@
         ]
       },
       {
-        "group": "DeFi Protocols",
+        "group": "Exchange & Trading",
         "pages": [
-          "lending",
-          "chainflow"
+          {
+            "group": "PaxSpot",
+            "pages": [
+              "paxspot",
+              "paxspot/precompiles"
+            ]
+          },
+          {
+            "group": "Protocol Suite",
+            "pages": [
+              "sidiora/dex",
+              "sidiora/perps",
+              "sidiora/fun",
+              "sidiora/ag"
+            ]
+          }
         ]
       },
       {
-        "group": "Infrastructure",
+        "group": "Ecosystem",
         "pages": [
           "ctm",
-          "blockscout-api"
+          "archive/paxdex"
         ]
       }
     ]
@@ -246,7 +244,7 @@
     }
   },
   "api": {
-    "openapi": "/openapi.yaml",
+    "openapi": "openapi.yaml",
     "playground": {
       "display": "interactive"
     }

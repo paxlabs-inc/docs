@@ -24,16 +24,16 @@ If running many nodes on a single VM, [ensure your open files limit is increased
 
 ## Prerequisites
 
-Before beginning, ensure you have an Paxeer Network node running in the background of the same machine that you intend to relay on.
- Follow [this guide](./../protocol/Paxeer-Network-cli/single-node) to set up an Paxeer Network node if you have not already.
+Before beginning, ensure you have an HyperPaxeer node running in the background of the same machine that you intend to relay on.
+ Follow [this guide](./../protocol/Paxeer-Network-cli/single-node) to set up an HyperPaxeer node if you have not already.
 
-In this guide, we will be relaying between [Paxeer Network (channel-3) and Cosmos Hub (channel-292)](https://www.mintscan.io/Paxeer-Network/relayers).
- When setting up your Paxeer Network and Cosmos full nodes, be sure to offset the ports being used in both the `app.toml` and `config.toml`
+In this guide, we will be relaying between [HyperPaxeer (channel-3) and Cosmos Hub (channel-292)](https://www.mintscan.io/Paxeer-Network/relayers).
+ When setting up your HyperPaxeer and Cosmos full nodes, be sure to offset the ports being used in both the `app.toml` and `config.toml`
   files of the respective chains (this process will be shown below).
 
-In this example, the default ports for Paxeer Network will be used, and the ports of the Cosmos Hub node will be manually changed.
+In this example, the default ports for HyperPaxeer will be used, and the ports of the Cosmos Hub node will be manually changed.
 
-## Paxeer Network Daemon Settings
+## HyperPaxeer Daemon Settings
 
 First, set `grpc server` on port `9090` in the `app.toml` file from the `$HOME/.hyperpaxd/config` directory:
 
@@ -173,7 +173,7 @@ vim $HOME/.hermes/config.toml
 ```
 
 ```bash
-# In this example, we will set channel-292 on the cosmoshub-4 chain settings and channel-3 on the Paxeer Network_9001-2 chain settings:
+# In this example, we will set channel-292 on the cosmoshub-4 chain settings and channel-3 on the HyperPaxeer_9001-2 chain settings:
 [[chains]]
 id = 'cosmoshub-4'
 rpc_addr = 'http://127.0.0.1:26757'
@@ -183,11 +183,11 @@ websocket_addr = 'ws://127.0.0.1:26757/websocket'
 [chains.packet_filter]
 policy = 'allow'
 list = [
-   ['transfer', 'channel-292'], # Paxeer Network_9001-2
+   ['transfer', 'channel-292'], # HyperPaxeer_9001-2
 ]
 
 [[chains]]
-id = 'Paxeer Network_9001-2'
+id = 'HyperPaxeer_9001-2'
 rpc_addr = 'http://127.0.0.1:26657'
 grpc_addr = 'http://127.0.0.1:9090'
 websocket_addr = 'ws://127.0.0.1:26657/websocket'
@@ -207,10 +207,10 @@ because it will lead to account sequence errors.
 
 ```bash
 hermes keys restore cosmoshub-4 -m "24-word mnemonic seed"
-hermes keys restore Paxeer Network_9001-2 -m "24-word mnemonic seed"
+hermes keys restore HyperPaxeer_9001-2 -m "24-word mnemonic seed"
 ```
 
-Ensure this wallet has funds in both Paxeer Network and ATOM in order to pay the fees required to relay.
+Ensure this wallet has funds in both HyperPaxeer and ATOM in order to pay the fees required to relay.
 
 ## Final Checks
 
@@ -230,7 +230,7 @@ INFO ThreadId(01) using default configuration from '/home/relay/.hermes/config.t
 INFO ThreadId(01) telemetry service running, exposing metrics at http://0.0.0.0:3001/metrics
 INFO ThreadId(01) starting REST API server listening at http://127.0.0.1:3000
 INFO ThreadId(01) [cosmoshub-4] chain is healthy
-INFO ThreadId(01) [Paxeer Network_9001-2] chain is healthy
+INFO ThreadId(01) [HyperPaxeer_9001-2] chain is healthy
 ```
 
 When your nodes are fully synced, you can start the hermes daemon:
@@ -252,22 +252,22 @@ hermes query packet unreceived-acks cosmoshub-4 transfer channel-292
 ```
 
 ```bash
-hermes query packet unreceived-packets Paxeer Network_9001-2 transfer channel-3
-hermes query packet unreceived-acks Paxeer Network_9001-2 transfer channel-3
+hermes query packet unreceived-packets HyperPaxeer_9001-2 transfer channel-3
+hermes query packet unreceived-acks HyperPaxeer_9001-2 transfer channel-3
 ```
 
 Query hermes for packet commitments with the following:
 
 ```bash
 hermes query packet commitments cosmoshub-4 transfer channel-292
-hermes query packet commitments Paxeer Network_9001-2 transfer channel-3
+hermes query packet commitments HyperPaxeer_9001-2 transfer channel-3
 ```
 
 Clear the channel (only works on hermes `v0.12.0` and higher) with the following:
 
 ```bash
 hermes clear packets cosmoshub-4 transfer channel-292
-hermes clear packets Paxeer Network_9001-2 transfer channel-3
+hermes clear packets HyperPaxeer_9001-2 transfer channel-3
 ```
 
 Clear unrecieved packets manually
@@ -275,8 +275,8 @@ Clear unrecieved packets manually
 with the following:
 
 ```bash
-hermes tx raw packet-recv Paxeer Network_9001-2 cosmoshub-4 transfer channel-292
-hermes tx raw packet-ack Paxeer Network_9001-2 cosmoshub-4 transfer channel-292
-hermes tx raw packet-recv cosmoshub-4 Paxeer Network_9001-2 transfer channel-3
-hermes tx raw packet-ack cosmoshub-4 Paxeer Network_9001-2 transfer channel-3
+hermes tx raw packet-recv HyperPaxeer_9001-2 cosmoshub-4 transfer channel-292
+hermes tx raw packet-ack HyperPaxeer_9001-2 cosmoshub-4 transfer channel-292
+hermes tx raw packet-recv cosmoshub-4 HyperPaxeer_9001-2 transfer channel-3
+hermes tx raw packet-ack cosmoshub-4 HyperPaxeer_9001-2 transfer channel-3
 ```

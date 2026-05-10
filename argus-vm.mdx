@@ -1,16 +1,12 @@
 ---
-title: "ArgusVM (AVM)"
-description: "Register-based virtual machine for Paxeer Network - EVM-compatible but not EVM-dependent"
+title: "Argus VM (AVM)"
+description: "Register-based virtual machine with 256-bit native arithmetic, deterministic gas metering, and the ArgLang smart-contract language"
 icon: "microchip"
 ---
 
 ## Overview
 
-ArgusVM (AVM) is Paxeer Network's native register-based virtual machine designed for high-performance smart contract execution. Built from the ground up for blockchain applications, ArgusVM provides **256-bit native arithmetic**, **deterministic gas metering**, and **superior performance** compared to stack-based architectures.
-
-<Warning>
-**Revolutionary Architecture:** ArgusVM represents Paxeer's path to becoming the **first EVM L2 to transition into EVM-compatibility without EVM-dependency**. We maintain full compatibility while building a fully self-sustainable ecosystem.
-</Warning>
+ArgusVM is a register-based virtual machine designed for HyperPaxeer's dual-VM architecture. It is the execution environment for the **Argus** capital-orchestration layer — a C++ runtime that handles risk engines, funded smart-wallet management, and capital allocation. Smart contracts are written in **ArgLang**, a statically typed language with Rust-inspired syntax that compiles to `.avm` bytecode.
 
 <CardGroup cols={3}>
   <Card title="Register-Based" icon="memory">
@@ -24,40 +20,13 @@ ArgusVM (AVM) is Paxeer Network's native register-based virtual machine designed
   </Card>
 </CardGroup>
 
-## Why ArgusVM?
+## Core Design Principles
 
-### The Path to Independence
-
-Paxeer Network is pioneering a new approach: **EVM-compatible but EVM-independent**. While we maintain full compatibility with existing Ethereum tooling and contracts, we're building our own execution environment that doesn't rely on EVM infrastructure.
-
-<AccordionGroup>
-  <Accordion title="Self-Sustainable Ecosystem" icon="globe">
-    ArgusVM enables Paxeer to operate independently:
-    
-    - Native execution environment
-    - Custom gas model optimized for our architecture
-    - Register-based design for better performance
-    - Full control over VM evolution
-  </Accordion>
-
-  <Accordion title="EVM Compatibility" icon="code-branch">
-    Maintain compatibility while building independence:
-    
-    - Can execute EVM bytecode (via translation layer)
-    - Supports existing Ethereum tooling
-    - Seamless migration path for developers
-    - Bridge compatibility maintained
-  </Accordion>
-
-  <Accordion title="Performance Benefits" icon="gauge">
-    Register-based architecture advantages:
-    
-    - **10,000+ TPS** per core (vs ~15 TPS for EVM)
-    - **&lt;1ms latency** for simple calls
-    - **No stack manipulation** overhead
-    - **Better register allocation** for compilers
-  </Accordion>
-</AccordionGroup>
+- **Register-based** — 32 general-purpose 256-bit registers eliminate push/pop overhead
+- **256-bit native** — first-class support for cryptographic operations and large integers
+- **Deterministic** — guaranteed identical output for identical input across all nodes
+- **Gas-metered** — every operation has a fixed gas cost
+- **Sandboxed** — no host-system access except whitelisted syscalls
 
 ## Architecture
 
@@ -481,105 +450,147 @@ While ArgusVM is independent, we maintain full EVM compatibility through a trans
     Seamless migration for developers:
     
     1. Deploy existing Solidity contracts (via translation)
-    2. Gradually migrate to OpenLang
-    3. Optimize for ArgusVM architecture
+    2. Gradually migrate to ArgLang
+    3. Optimise for ArgusVM architecture
     4. Leverage native performance benefits
   </Accordion>
 </AccordionGroup>
 
-## OpenLang Integration
+## ArgLang
 
-ArgusVM is designed to work with **OpenLang**, Paxeer's Rust-inspired smart contract language:
+ArgLang is the statically typed, contract-oriented language that compiles to AVM bytecode. It combines Rust-style safety with Solidity familiarity.
 
-```rust
-// OpenLang example
-contract MyToken {
-    state balance: Map<address, u256>;
-    
-    pub fn transfer(to: address, amount: u256) -> bool {
-        require(balance[msg.sender] >= amount, "insufficient balance");
-        balance[msg.sender] -= amount;
-        balance[to] += amount;
-        return true;
+### Syntax
+
+```arglang
+contract HelloWorld {
+    state greeting: string;
+
+    init(initial_greeting: string) {
+        greeting = initial_greeting;
+    }
+
+    pub fn set_greeting(new_greeting: string) {
+        greeting = new_greeting;
+    }
+
+    pub view fn get_greeting() -> string {
+        return greeting;
     }
 }
 ```
 
-<Card title="OpenLang → ArgusVM Compilation" icon="code">
-  OpenLang compiles directly to ArgusVM bytecode:
-  
-  - Rust-inspired syntax
-  - Type safety
-  - Built-in overflow protection
-  - Optimized register allocation
-</Card>
+### Type System
 
-## Roadmap
+- **Integers**: `u8`, `u16`, `u32`, `u64`, `u128`, `u256`, `i8` – `i256`
+- **Boolean**: `bool`
+- **Address**: `address` (20 bytes)
+- **Bytes**: `bytes1` – `bytes32`, `bytes`, `string`
+- **Collections**: `Vec<T>`, `Map<K, V>`, arrays (`u256[10]`), structs, enums, options
 
-<Steps>
-  <Step title="Phase 1: Core Implementation">
-    - VM core in Go
-    - Bytecode assembler
-    - Test suite
-  </Step>
+### Function Visibility
 
-  <Step title="Phase 2: Language & Tooling">
-    - OpenLang compiler
-    - OpenLang → AVM compiler
-    - Development tools
-  </Step>
+```arglang
+pub fn public_function() { }              // public, modifies state
+fn internal_function() { }                // internal only
+pub view fn read_only() -> u256 { }       // reads state, no mutation
+pub pure fn calculate(a: u256) -> u256 { } // no state access
+pub payable fn deposit() { }              // can receive tokens
+```
 
-  <Step title="Phase 3: EVM Translation">
-    - EVM → AVM bytecode translator
-    - Compatibility testing
-    - Migration tools
-  </Step>
+### Control Flow
 
-  <Step title="Phase 4: Optimization">
-    - JIT compilation
-    - Performance tuning
-    - Production deployment
-  </Step>
-</Steps>
+```arglang
+if x > 10 { } else { }
+for i in 0..10 { }
+while condition { }
+
+match result {
+    Result::Success(v) => { },
+    Result::Error(e) => { },
+}
+```
+
+### Built-in Globals
+
+- **msg**: `sender`, `value`, `data`, `sig`
+- **tx**: `origin`, `gasprice`
+- **block**: `number`, `timestamp`, `coinbase`, `gaslimit`, `chainid`
+- **this**: `address(this)`, `this.balance`
+
+### Standard Library
+
+```arglang
+use std::math;         // min, max, abs, pow, sqrt
+use std::crypto;       // keccak256, sha256, ecrecover
+use std::collections;  // Vec, Map, Set
+```
+
+### Compiler Pipeline
+
+```
+ArgLang Source (.arg)
+    ↓ Lexer (tokens)
+    ↓ Parser (AST)
+    ↓ Type Checker
+    ↓ IR Generator
+    ↓ Optimizer
+    ↓ AVM Bytecode Generator
+    ↓
+ArgusVM Bytecode (.avm)
+```
+
+---
+
+## Map and Array Storage
+
+ArgLang maps and arrays use Keccak256-based slot hashing, similar to Solidity but adapted for register-based codegen:
+
+- **Simple state** → sequential slots (`counter` at slot 0, `owner` at slot 1)
+- **Maps** → `keccak256(key || base_slot)`
+- **Nested maps** → recursive hashing: `keccak256(spender || keccak256(owner || base_slot))`
+- **Arrays** → length at `base_slot`, element `i` at `keccak256(base_slot) + i`
+
+### Gas for Map Operations
+
+| Operation | Gas |
+|-----------|-----|
+| Map read (`balances[addr]`) | ~251 (KECCAK256 + SLOAD) |
+| Map write (warm) | ~5,251 |
+| Map write (cold) | ~20,251 |
+
+---
 
 ## Resources
 
 <CardGroup cols={2}>
   <Card
-    title="OpenLang Documentation"
-    icon="book"
-    href="/openlang"
+    title="PAX-28 Token Standard"
+    icon="coins"
+    href="/pax-28"
   >
-    Learn OpenLang syntax
+    Native fungible-token spec for ArgusVM
   </Card>
   <Card
-    title="OPAX-28 Token Standard"
-    icon="coins"
-    href="/opax-28"
+    title="Architecture Overview"
+    icon="sitemap"
+    href="/concepts/architecture/overview"
   >
-    Native token standard for ArgusVM
+    Dual-VM design and precompile framework
   </Card>
   <Card
     title="Smart Contracts"
-    icon="file-contract"
+    icon="code"
     href="/contracts"
   >
-    Deploy contracts on Paxeer
+    Deploy Solidity contracts on the EVM layer
   </Card>
   <Card
-    title="API Reference"
-    icon="terminal"
-    href="/api-reference"
+    title="PaxSpot"
+    icon="chart-mixed"
+    href="/paxspot"
   >
-    RPC and API documentation
+    Spot exchange built on four AVM-adjacent precompiles
   </Card>
 </CardGroup>
-
-## Conclusion
-
-ArgusVM represents Paxeer Network's commitment to building a **fully self-sustainable ecosystem** while maintaining **EVM compatibility**. By combining register-based architecture, 256-bit native arithmetic, and deterministic execution, ArgusVM provides the foundation for Paxeer to become the **first EVM L2 to transition into EVM-compatibility without EVM-dependency**.
-
-<Note>
-**Join the Revolution:** Build on ArgusVM and be part of the future of blockchain execution environments. Start with [OpenLang](/openlang) and [OPAX-28](/opax-28) today!
-</Note>
 

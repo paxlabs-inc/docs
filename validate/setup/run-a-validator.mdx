@@ -1,219 +1,249 @@
 ---
-title: "Run a Validator"
+title: "Run a Node"
+description: "Deploy RPC and Validator nodes on HyperPaxeer using the hpx CLI"
+icon: "server"
 ---
 
-# Run a Validator
+## Overview
 
-Learn how to run a validator node.
+The `hpx` CLI manages the full lifecycle of HyperPaxeer nodes — install, deploy, monitor, upgrade, and remove. Each node runs as an isolated Docker Compose stack with its own chain data, ports, and an FD Guardian sidecar that auto-restarts on file-descriptor leaks.
 
-## Prerequisite Readings
+---
 
-- [Validator Overview](./../)
-- [Validator Security](./../security/validator-security)
+## 🚀 HyperPax Node: The Official "No-Headache" Setup Guide
 
-:::tip
-If you plan to use a Key Management System (KMS), you should go through these steps first:
-[Using a KMS](./../../validate/security/tendermint-kms).
-:::
+Setting up a node involves preparing your server, installing the HyperPax OS, and ensuring your node is visible for delegation. Follow these steps exactly to avoid the common `command not found` or `Docker missing` errors.
 
-:::warning
-:warning: **WARNING**: Make sure your server **timezone configuration is UTC**.
-Having a different timezone configuration may cause a `LastResultsHash` mismatch error.
-This will take down your node!
-:::
+### Phase 1: Server Preparation
+Before running the main script, ensure your environment is clean.
 
-## Create Your Validator
+1.  **Log in as Root:** Most commands require administrative privileges.
+2.  **Verify Shell Path:** If you just installed the OS or shell updates, ensure your shell knows where to look for commands:
+    ```bash
+    source ~/.bashrc
+    ```
+    *Note: If you get a "No such file" error, don't panic. It just means you are using a clean shell that hasn't been modified yet.*
 
-Your node consensus public key (`Paxeer Networkvalconspub...`) can be used to create a new validator by staking Paxeer Network tokens.
-You can find your validator pubkey by running:
+---
+
+### Phase 2: Installing HyperPax-OS
+Run the installation script provided by the team.
+
+* **Pro Tip:** If the script asks to install Docker and seems "stuck," **wait**. Docker installation can take 2–5 minutes depending on the server's CPU and network speed.
+
+#### 🛠 Troubleshooting Common Install Errors
+If the installer fails on **Step 2/6 (Checking Dependencies)** with a `Missing: docker-compose-plugin` error:
+
+1.  **Manual Docker Compose Fix:**
+    Run these commands one by one to manually place the plugin where the system expects it:
+    ```bash
+    mkdir -p ~/.docker/cli-plugins
+    curl -SL https://github.com/docker/compose/releases/download/v5.1.2/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+    chmod +x ~/.docker/cli-plugins/docker-compose
+    ```
+
+2.  **System Tuning:**
+    The script may ask: `Apply recommended system tuning? [y/N]`.
+    * **Always Choose Y.** * If you skip this, your node may hit "FD (File Descriptor) limits" and crash once the network load increases.
+
+---
+
+### Phase 3: Configuration & Data Sync
+Once the OS is installed, you need to configure your node.
+
+1.  **The Setup Command:**
+    Type `hpx setup` to begin.
+2.  **Storage Location:**
+    When asked `Where to store node data? [/root/hyperpax-nodes]`, simply **Press Enter** to use the default path.
+3.  **Syncing the Chain:**
+    You will see a prompt for a `Chain data tarball URL`. 
+    * Unless you have been given a specific private link by the team, **Press Enter** to use the latest official snapshot.
+
+---
+
+### Phase 4: Activation & Delegation
+Your node is running, but it needs "Voting Power" to earn rewards.
+
+1.  **Get your IP and Port:**
+    Find your node's connection string. It usually looks like this: `http://[YOUR_IP_ADDRESS]:[PORT]`.
+2.  **Send to the Registry:**
+    Provide this URL to the network admin. This allows them to:
+    * Add you to the official Registry.
+    * **Delegate** staked coins to your node so you can begin validating blocks.
+
+---
+
+### 💡 Top 3 "Newbie" Tips from the Logs:
+* **Don't Spam Commands:** If you run the "longer script" multiple times, you might create conflicting directory paths (e.g., `/usr/bin/` vs `/root/`). Run it once and troubleshoot specific errors instead.
+* **The "hpx" Command:** If `hpx` isn't found immediately after installation, try running `source ~/.bashrc` again or logging out and back into your SSH session.
+* **Docker is Heavy:** If the screen says `Installing Docker...`, grab a coffee. Interrupting this process is the #1 cause of broken node environments.
+
+---
+
+## Requirements
+
+| Resource | Minimum |
+|----------|---------|
+| RAM | 16 GB |
+| CPU | 6 cores |
+| Disk | 300 GB (SSD recommended) |
+| OS | Ubuntu 22.04+ |
+
+---
+
+## Install
 
 ```bash
-hyperpaxd tendermint show-validator
+curl -sSL https://hyperpaxeer.com/hyper-os/new/get-hpx.sh | sudo bash
 ```
 
-:::danger
-🚨 **DANGER**: <u>Never</u> create your mainnet validator keys
-using a [`test`](./../../protocol/concepts/keyring#testing) keying backend.
-Doing so might result in a loss of funds by making your funds remotely accessible
-via the `eth_sendTransaction` JSON-RPC endpoint.
+The installer:
+1. Checks system resources (RAM, CPU, disk)
+2. Installs Docker, curl, jq, zstd if missing
+3. Installs the `hpx` binary to `/usr/local/bin/`
+4. Offers to run the **Setup Wizard** (system tuning, Docker image pull, capacity check)
 
-Ref: [Security Advisory: Insecurely configured geth can make funds remotely accessible](https://blog.ethereum.org/2015/08/29/security-alert-insecurely-configured-geth-can-make-funds-remotely-accessible/)
-:::
+---
 
-To create your validator on testnet, just use the following command:
+## Deploy a Node
+
+```bash
+hpx deploy <name> <type>
+```
+
+| Type | Purpose | Configuration |
+|------|---------|---------------|
+| `rpc` | Serve JSON-RPC, gRPC, REST, WebSocket | Full indexing, all endpoints exposed |
+| `validator` | Produce blocks, participate in consensus | Default pruning, optimised for consensus |
+
+Examples:
+
+```bash
+hpx deploy my-rpc rpc
+hpx deploy mainnet-val validator
+```
+
+The CLI assigns ports automatically. Multiple nodes on one server get auto-incremented ports:
+
+| Protocol | Node 1 | Node 2 | Node 3 |
+|----------|--------|--------|--------|
+| P2P | 26656 | 26756 | 26856 |
+| CometBFT RPC | 26657 | 26757 | 26857 |
+| REST API | 1317 | 1417 | 1517 |
+| gRPC | 9090 | 9190 | 9290 |
+| JSON-RPC | 8545 | 8645 | 8745 |
+| WebSocket | 8546 | 8646 | 8746 |
+
+---
+
+## Node Management
+
+| Command | Purpose |
+|---------|---------|
+| `hpx` | Interactive menu |
+| `hpx list` | List all registered nodes |
+| `hpx info <name>` | Sync status, block height, peers |
+| `hpx logs <name>` | Stream node logs |
+| `hpx start <name>` | Start a node |
+| `hpx stop <name>` | Stop a node |
+| `hpx restart <name>` | Restart a node |
+| `hpx start all` | Start all nodes |
+| `hpx stop all` | Stop all nodes |
+| `hpx remove <name>` | Delete a node and its data |
+| `hpx dashboard` | Live status dashboard |
+| `hpx capacity` | Show server resource usage |
+| `hpx setup` | Re-run the setup wizard |
+
+---
+
+## File Structure
+
+```
+/root/hyperpax-nodes/
+  .hpx-registry              # tracks all nodes
+  .hpx-setup-done            # setup wizard completion marker
+  my-rpc/
+    data/                     # chain data + config
+    scripts/                  # start script + FD guardian
+    logs/                     # guardian logs
+    docker-compose.yml        # isolated compose stack
+```
+
+---
+
+## Create a Validator
+
+After your node syncs to the latest block, create a validator using the `hyperpaxd` binary inside the container:
 
 ```bash
 hyperpaxd tx staking create-validator \
-  --amount=1000000atPaxeer Network \
+  --amount=1000000ahpx \
   --pubkey=$(hyperpaxd tendermint show-validator) \
-  --moniker="choose a moniker" \
-  --chain-id=<chain_id> \
+  --moniker="your-moniker" \
+  --chain-id=hyperpax_125-1 \
   --commission-rate="0.05" \
   --commission-max-rate="0.10" \
   --commission-max-change-rate="0.01" \
   --min-self-delegation="1000000" \
   --gas="auto" \
-  --gas-prices="0.025atPaxeer Network" \
+  --gas-prices="0.025ahpx" \
   --from=<key_name>
 ```
 
-:::tip
-When specifying commission parameters, the `commission-max-change-rate` is used
-to measure % *point* change over the `commission-rate`,
-e.g. 1% to 2% is a 100% rate increase, but only 1 percentage point.
-:::
+<Warning>
+Ensure your server timezone is **UTC**. A different timezone can cause `LastResultsHash` mismatch errors that halt your node.
+</Warning>
 
-:::tip
-`Min-self-delegation` is a strictly positive integer
-that represents the minimum amount of self-delegated voting power your validator must always have.
-A `min-self-delegation` of `1000000` means your validator will never have a self-delegation lower than `1 atPaxeer Network`.
-:::
+---
 
-You can confirm that you are in the validator set by using a third party explorer.
+## Unjail a Validator
 
-## Edit Validator Description
-
-You can edit your validator's public description.
-This info is to identify your validator, and will be relied on by delegators to decide which validators to stake to.
-Make sure to provide input for every flag below.
-If a flag is not included in the command the field will default to empty
-(`--moniker` defaults to the machine name)
-if the field has never been set or remain the same if it has been set in the past.
-
-The `<key_name>` specifies which validator you are editing.
-If you choose to not include certain flags, remember that the --from flag must be included to identify the validator to update.
-
-The `--identity` can be used as to verify identity with systems like Keybase or UPort.
-When using with Keybase `--identity` should be populated with a 16-digit string that is generated
-with a [keybase.io](https://keybase.io) account.
-It's a cryptographically secure method of verifying your identity across multiple online networks.
-The Keybase API allows us to retrieve your Keybase avatar.
-This is how you can add a logo to your validator profile.
-
-```bash
-hyperpaxd tx staking edit-validator
-  --moniker="choose a moniker" \
-  --website="https://Paxeer-Network.org" \
-  --identity=6A0D65E29A4CBC8E \
-  --details="To infinity and beyond!" \
-  --chain-id=<chain_id> \
-  --gas="auto" \
-  --gas-prices="0.025atPaxeer Network" \
-  --from=<key_name> \
-  --commission-rate="0.10"
-```
-
-**Note**: The `commission-rate` value must adhere to the following invariants:
-
-* Must be between 0 and the validator's `commission-max-rate`
-* Must not exceed the validator's `commission-max-change-rate` which is maximum
-  % point change rate **per day**. In other words, a validator can only change
-  its commission once per day and within `commission-max-change-rate` bounds.
-
-## View Validator Description
-
-View the validator's information with this command:
-
-```bash
-hyperpaxd query staking validator <account_cosmos>
-```
-
-## Track Validator Signing Information
-
-In order to keep track of a validator's signatures in the past you can do so by using the `signing-info` command:
-
-```bash
-hyperpaxd query slashing signing-info <validator-pubkey>\
-  --chain-id=<chain_id>
-```
-
-## Unjail Validator
-
-When a validator is "jailed" for downtime, you must submit an `Unjail` transaction from the operator account
-in order to be able to get block proposer rewards again
-(depends on the zone fee distribution).
+If your validator is jailed for downtime (missing 500 of the last 10,000 blocks):
 
 ```bash
 hyperpaxd tx slashing unjail \
   --from=<key_name> \
-  --chain-id=<chain_id>
+  --chain-id=hyperpax_125-1
 ```
 
-## Confirm Your Validator is Running
+---
 
-Your validator is active if the following command returns anything:
+## Confirm Validator Status
 
 ```bash
 hyperpaxd query tendermint-validator-set | grep "$(hyperpaxd tendermint show-address)"
 ```
 
-You should now see your validator in one of Paxeer Network explorers.
-You are looking for the `bech32` encoded `address` in the `~/.hyperpaxd/config/priv_validator.json` file.
+Or check the [Network Status](/network-status) page for the current validator set.
 
-:::warning Note
-To be in the validator set, you need to have more total voting power than the 100th validator.
-:::
+---
 
-## Halting Your Validator
+## Troubleshooting
 
-When attempting to perform routine maintenance or planning for an upcoming coordinated
-upgrade, it can be useful to have your validator systematically and gracefully halt.
-You can achieve this by either setting the `halt-height` to the height at which
-you want your node to shutdown or by passing the `--halt-height` flag to `hyperpaxd`.
-The node will shutdown with a zero exit code at that given height after committing
-the block.
+**"Permission denied"** — Run with `sudo`.
 
-## Common Problems
+**"docker: denied"** — Stale credentials. Run `docker logout ghcr.io` and retry.
 
-### Problem #1: My validator has `voting_power: 0`
+**"Cannot connect to Docker daemon"** — Start Docker: `sudo systemctl start docker`.
 
-Your validator has become jailed.
-Validators get jailed, i.e. get removed from the active validator set,
-if they do not vote on `500` of the last `10000` blocks, or if they double sign.
+**Node stuck syncing** — Check peers with `hpx info <name>`. If peers is 0, verify your firewall allows the P2P port.
 
-If you got jailed for downtime, you can get your voting power back to your validator.
-First, if `hyperpaxd` is not running, start it up again:
+**"too many open files"** — The FD Guardian sidecar handles this automatically. If running outside Docker, increase limits: `ulimit -n 4096`.
+
+---
+
+## Update
+
+Re-run the installer to update to the latest version. Existing nodes and chain data are preserved:
 
 ```bash
-hyperpaxd start
+curl -sSL https://hyperpaxeer.com/hyper-os/new/get-hpx.sh | sudo bash
 ```
 
-Wait for your full node to catch up to the latest block.
-Then, you can [unjail your validator](#unjail-validator)
+---
 
-Lastly, check your validator again to see if your voting power is back.
+## Uninstall
 
 ```bash
-hyperpaxd status
-```
-
-You may notice that your voting power is less than it used to be.
-That's because you got slashed for downtime!
-
-### Problem #2: My node crashes because of `too many open files`
-
-The default number of files Linux can open (per-process) is `1024`. `hyperpaxd` is known to open more than `1024` files.
-This causes the process to crash.
-A quick fix is to run `ulimit -n 4096` (increase the number of open files allowed)
-and then restart the process with `hyperpaxd start`.
-If you are using `systemd` or another process manager to launch `hyperpaxd` this may require some configuration at that level.
-A sample `systemd` file to fix this issue is below:
-
-```toml
-# /etc/systemd/system/hyperpaxd.service
-[Unit]
-Description=Paxeer Network Node
-After=network.target
-
-[Service]
-Type=simple
-User=ubuntu
-WorkingDirectory=/home/ubuntu
-ExecStart=/home/ubuntu/go/bin/hyperpaxd start
-Restart=on-failure
-RestartSec=3
-LimitNOFILE=4096
-
-[Install]
-WantedBy=multi-user.target
+curl -sSL https://hyperpaxeer.com/hyper-os/new/uninstall.sh | sudo bash
 ```

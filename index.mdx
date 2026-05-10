@@ -1,15 +1,51 @@
 ---
-title: "Paxeer Network Documentation"
-description: "Build on a high-performance, developer-friendly blockchain platform for the next generation of decentralized applications"
+title: "Paxeer Network"
+description: "Developer documentation for Paxeer Network — Alexandria Fork, HyperPaxeer runtime, Argus VM, and network-operated protocols"
 ---
 
 <Note>
-**Chain ID:** 125 | **Cosmos Chain ID:** hyperpax_125-1 | **Currency:** PAX | **Binary:** hyperpaxd
+**Chain ID:** `125` | **Cosmos:** `hyperpax_125-1` | **Token:** HPX (`ahpx`, 18 decimals) | **Bech32:** `pax` | **Block time:** 277 ms average | **Binary:** `hyperpaxd_2.0.3`
 </Note>
 
-## Welcome to HyperPaxeer Network
+## The Network
 
-HyperPaxeer Network is a capital orchestration network built as part of the Alexandria Fork upgrade, migrating validators from the original Paxeer Network (chain ID 125) to a new high-throughput Proof-of-Stake EVM blockchain (chain ID 125). Built on Cosmos SDK and CometBFT, it's fully EVM-compatible.
+HyperPaxeer is a sovereign Proof-of-Stake blockchain purpose-built for capital orchestration. Running on the **Alexandria Fork**, it pairs a production EVM execution layer with the **Argus Virtual Machine (AVM)** — a C++ register-based runtime that handles risk, capital allocation, and funded smart-wallet management. The April 2026 performance report shows 10 active validators, 48 RPC nodes, 14 active regions, and 277 ms average block production.
+
+<CardGroup cols={3}>
+  <Card title="5.25 M+ Blocks" icon="cube">
+    Genesis-to-report mainnet history
+  </Card>
+  <Card title="48 RPC Nodes" icon="globe">
+    47 EVM RPC nodes online across 14 active regions
+  </Card>
+  <Card title="277 ms Blocks" icon="bolt">
+    Official average block time with 341 ms p95
+  </Card>
+</CardGroup>
+
+---
+
+## Dual-VM Architecture
+
+```
+                   Paxeer Network
++----------------------+      +----------------------+                     
+|     EVM OS Layer     |█     |     Argus VM (AVM)   |█
+|    Alexandria Fork   |█     |   C++ runtime, .avm  |█
+|  Solidity contracts  |█     |  Risk engine         |█
+|  Custom precompiles  |█     | Capital orchestration|█
+|  0x901–0x904         |█     |  Smart wallet        |█
+|  Standard EVM tooling|█     |ArgLang scripts (.arg)|█
++----------------------+█     +----------------------+█
+████████████████████████      ████████████████████████
+CometBFT Consensus  ·  Cosmos SDK  ·  IBC
+```
+
+The **EVM OS** is the blockchain shell — consensus, networking, smart-contract execution, JSON-RPC. The **AVM** is the value engine — capital allocation, drawdown policy, funded-wallet lifecycle. Both layers communicate through on-chain contract boundaries (`IPaxSpotReader`, `IAllowanceProvider`).
+
+---
+
+## Quick Navigation
 
 <CardGroup cols={2}>
   <Card
@@ -17,207 +53,167 @@ HyperPaxeer Network is a capital orchestration network built as part of the Alex
     icon="rocket"
     href="/quickstart"
   >
-    Get up and running in minutes with our step-by-step guide
+    Install a node with one command, connect a wallet, deploy a contract
   </Card>
   <Card
     title="Smart Contracts"
     icon="code"
     href="/contracts"
   >
-    Deploy and interact with contracts using Hardhat, Foundry, or Remix
-  </Card>
-  <Card
-    title="API Reference"
-    icon="terminal"
-    href="/api-reference"
-  >
-    Explore our comprehensive JSON-RPC API documentation
+    Deploy and verify contracts with Foundry, Hardhat, or Remix
   </Card>
   <Card
     title="Network Configuration"
     icon="gear"
     href="/configuration"
   >
-    Configure Paxeer Network with wagmi, viem, ethers.js, or web3.js
+    wagmi, viem, ethers.js, and web3.js setup snippets
+  </Card>
+  <Card
+    title="Run a Node"
+    icon="server"
+    href="/validate/setup/run-a-validator"
+  >
+    Deploy RPC or Validator nodes with HyperPaxeer tooling
   </Card>
 </CardGroup>
 
-## Why Build on Paxeer?
+---
 
-<CardGroup cols={3}>
-  <Card title="High Performance" icon="zap">
-    Low-latency transactions with high throughput for your dApps
-  </Card>
-  <Card title="Secure" icon="shield">
-    Built with security in mind from the ground up
-  </Card>
-  <Card title="Developer Friendly" icon="code">
-    Comprehensive documentation and developer tools
-  </Card>
-</CardGroup>
-
-## Revolutionary Core Infrastructure
-
-<Warning>
-**Pioneering Independence:**  Proof-of-Stake EVM blockchain (chain ID 125). Built on Cosmos SDK and CometBFT, it’s fully EVM-compatible.
-</Warning>
-
-Paxeer Network is built on our own native infrastructure, designed for independence and performance:
+## Core Technology
 
 <CardGroup cols={2}>
   <Card
-    title="ArgusVM (AVM)"
+    title="Argus VM"
     icon="microchip"
     href="/argus-vm"
   >
-    Register-based virtual machine with 256-bit native arithmetic. EVM-compatible but not EVM-dependent—the foundation of our self-sustainable ecosystem.
+    Register-based VM with 256-bit native arithmetic, deterministic gas metering, and the ArgLang smart-contract language
   </Card>
   <Card
-    title="OPAX-28 Token Standard"
-    icon="coins"
-    href="/opax-28"
+    title="Custom Precompiles"
+    icon="bolt"
+    href="/paxspot/precompiles"
   >
-    Native fungible token standard optimized for ArgusVM and OpenLang. Built-in safety, better performance, and Rust-inspired syntax.
+    Four stateful/stateless precompiles at 0x901–0x904 — OROB resolution, batch clearing, oracle aggregation, PoFQ scoring
+  </Card>
+  <Card
+    title="PAX-28 Token Standard"
+    icon="coins"
+    href="/pax-28"
+  >
+    Native fungible-token spec for ArgusVM — Rust-inspired syntax, built-in overflow protection, optimised gas
+  </Card>
+  <Card
+    title="x/paxoracle Module"
+    icon="database"
+    href="/protocol/modules/paxoracle"
+  >
+    Cosmos SDK module for validator-submitted price feeds with confidence-weighted median aggregation
   </Card>
 </CardGroup>
 
-<AccordionGroup>
-  <Accordion title="EVM-Compatible but Not EVM-Dependent" icon="link">
-    We maintain full compatibility with existing Ethereum tooling and contracts while building our own execution environment:
-    
-    - ✅ Execute existing Solidity contracts (via translation layer)
-    - ✅ Support all Ethereum wallets and tools
-    - ✅ Maintain bridge compatibility
-    - ✅ **No dependency on EVM infrastructure**
-    - ✅ Full control over VM evolution
-  </Accordion>
-
-  <Accordion title="Self-Sustainable Ecosystem" icon="globe">
-    Build a complete ecosystem without external dependencies:
-    
-    - **ArgusVM**: Native register-based execution environment
-    - **OpenLang**: Rust-inspired smart contract language
-    - **OPAX-28**: Native token standard
-    - **Custom gas model**: Optimized for our architecture
-    - **Independent evolution**: No reliance on Ethereum upgrades
-  </Accordion>
-
-  <Accordion title="Performance Benefits" icon="gauge">
-    Our native infrastructure provides significant advantages:
-    
-    - **10,000+ TPS** per core (vs ~15 TPS for EVM)
-    - **&lt;1ms latency** for simple contract calls
-    - **Register-based architecture** eliminates stack overhead
-    - **Optimized gas costs** for common operations
-  </Accordion>
-</AccordionGroup>
-
-## Network Details
-
-Connect to HyperPaxeer Network with these details:
-
-```json Network Configuration
-{
-  "networkName": "HyperPaxeer Network",
-  "rpcUrl": "https://mainnet-beta.rpc.hyperpaxeer.com/rpc",
-  "chainId": 125,
-  "cosmosChainId": "hyperpax_125-1",
-  "currencySymbol": "PAX",
-  "baseDenom": "ahpx",
-  "bech32Prefix": "pax",
-  "blockExplorer": "https://paxscan.paxeer.app"
-}
-```
-
-<Card
-  title="Add to MetaMask"
-  icon="wallet"
-  href="/quickstart#add-paxeer-network"
->
-  Follow our guide to add Paxeer Network to your wallet
-</Card>
+---
 
 ## Ecosystem Protocols
 
-Explore the powerful protocols built on Paxeer Network:
-
 <CardGroup cols={2}>
   <Card
-    title="PaxDex Protocol"
+    title="PaxSpot"
+    icon="chart-mixed"
+    href="/paxspot"
+  >
+    On-chain spot exchange with Oracle-Relative Order Book (OROB), dual-mode matching, lazy-netting settlement, and capital-integrated trading
+  </Card>
+  <Card
+    title="HyperPax DEX"
     icon="arrow-right-arrow-left"
-    href="/paxdex"
+    href="/sidiora/dex"
   >
-    Decentralized exchange with 0.3% swap fees and real-time price feeds
+    Adaptive Sigmoid AMM — tanh bonding curve, progressive quadratic fees, LP loyalty rewards, oracle-pegged pools, Diamond Standard upgradeability
   </Card>
   <Card
-    title="Lending Protocol"
-    icon="coins"
-    href="/lending"
-  >
-    Lend and borrow assets with dynamic APY and credit scoring
-  </Card>
-  <Card
-    title="ChainFlow"
+    title="HyperPax Perps"
     icon="chart-line"
-    href="/chainflow"
+    href="/sidiora/perps"
   >
-    Decentralized prop trading platform with on-chain evaluation and automated profit distribution
+    Network-operated perpetual futures protocol with Diamond facets, on-chain order book, and oracle pricing
   </Card>
   <Card
-    title="Computable Token Machine (CTM)"
-    icon="microchip"
-    href="/ctm"
+    title="Sidiora.fun"
+    icon="rocket"
+    href="/sidiora/fun"
   >
-    Revolutionary token standard where tokens are execution environments
+    Launchpad AMM with virtual USDL reserves, per-pool Beacon proxies, and Opticals
+  </Card>
+  <Card
+    title="Sidiora.ag"
+    icon="route"
+    href="/sidiora/ag"
+  >
+    Meta-AG routing layer for Paxeer liquidity, adapters, quotes, and execution tracking
   </Card>
   <Card
     title="BlockScout API"
     icon="magnifying-glass"
     href="/blockscout-api"
   >
-    Query transactions, blocks, addresses, and tokens
+    REST API for querying transactions, blocks, addresses, and tokens on PaxScan
   </Card>
 </CardGroup>
+
+---
+
+## Network Details
+
+```json
+{
+  "networkName": "HyperPaxeer",
+  "rpcUrl": "https://public-rpc.paxeer.app/rpc",
+  "chainId": 125,
+  "cosmosChainId": "hyperpax_125-1",
+  "currencySymbol": "HPX",
+  "baseDenom": "ahpx",
+  "displayDenom": "hpx",
+  "decimals": 18,
+  "bech32Prefix": "pax",
+  "blockExplorer": "https://paxscan.io",
+  "averageBlockTime": "277ms",
+  "binary": "hyperpaxd_2.0.3"
+}
+```
+
+---
 
 ## Developer Resources
 
 <CardGroup cols={2}>
   <Card
-    title="RPC Tester"
-    icon="vial"
+    title="JSON-RPC Reference"
+    icon="terminal"
     href="/rpc"
   >
-    Test Paxeer Network RPC methods in real-time
+    Test Ethereum JSON-RPC, Cosmos gRPC, and CometBFT RPC methods
   </Card>
   <Card
     title="Code Examples"
     icon="brackets-curly"
     href="/examples"
   >
-    Integration guides and code samples
+    End-to-end integration samples in TypeScript, Python, and Solidity
   </Card>
   <Card
-    title="SDKs & Tools"
+    title="SDKs and Tools"
     icon="toolbox"
     href="/tools"
   >
-    Recommended tools and libraries for development
+    Foundry, Hardhat, wagmi, viem, cosmjs, and hpx CLI
   </Card>
   <Card
-    title="API Explorer"
-    icon="radar"
-    href="/api-explorer"
+    title="Network Status"
+    icon="signal"
+    href="/network-status"
   >
-    Interactive API testing interface
+    Live node health, latency benchmarks, and validator set
   </Card>
 </CardGroup>
-
-## Need Help?
-
-<Card
-  title="Join Our Community"
-  icon="users"
-  href="https://paxeer.app/community"
->
-  Get support and connect with other developers building on Paxeer Network
-</Card>

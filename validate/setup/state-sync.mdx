@@ -271,20 +271,20 @@ moniker="NODE_NAME"
 ## Use commands below for Testnet setup
 
 ```bash
-SNAP_RPC1="http://bd-Paxeer Network-testnet-state-sync-node-01.bdnodes.net:26657"
-SNAP_RPC="http://bd-Paxeer Network-testnet-state-sync-node-02.bdnodes.net:26657"
+SNAP_RPC1="http://bd-HyperPaxeer-testnet-state-sync-node-01.bdnodes.net:26657"
+SNAP_RPC="http://bd-HyperPaxeer-testnet-state-sync-node-02.bdnodes.net:26657"
 CHAIN_ID="hyperpax_125-4"
-PEER="3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-Paxeer Network-testnet-seed-node-01.bdnodes.net:26656"
+PEER="3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-HyperPaxeer-testnet-seed-node-01.bdnodes.net:26656"
 wget -O $HOME/genesis.json https://archive.hyperpaxd.dev/hyperpax_125-4/genesis.json 
 ```
 
 ## Use commands below for Mainnet setup
 
 ```bash
-SNAP_RPC1="http://bd-Paxeer Network-mainnet-state-sync-us-01.bdnodes.net:26657"
-SNAP_RPC="http://bd-Paxeer Network-mainnet-state-sync-eu-01.bdnodes.net:26657"
-CHAIN_ID="Paxeer Network_9001-2"
-PEER="96557e26aabf3b23e8ff5282d03196892a7776fc@bd-Paxeer Network-mainnet-state-sync-us-01.bdnodes.net:26656,dec587d55ff38827ebc6312cedda6085c59683b6@bd-Paxeer Network-mainnet-state-sync-eu-01.bdnodes.net:26656"
+SNAP_RPC1="http://bd-HyperPaxeer-mainnet-state-sync-us-01.bdnodes.net:26657"
+SNAP_RPC="http://bd-HyperPaxeer-mainnet-state-sync-eu-01.bdnodes.net:26657"
+CHAIN_ID="HyperPaxeer_9001-2"
+PEER="96557e26aabf3b23e8ff5282d03196892a7776fc@bd-HyperPaxeer-mainnet-state-sync-us-01.bdnodes.net:26656,dec587d55ff38827ebc6312cedda6085c59683b6@bd-HyperPaxeer-mainnet-state-sync-eu-01.bdnodes.net:26656"
 wget -O $HOME/genesis.json https://archive.hyperpaxd.org/mainnet/genesis.json 
 ```
 
@@ -292,7 +292,7 @@ wget -O $HOME/genesis.json https://archive.hyperpaxd.org/mainnet/genesis.json
 
 ```bash
 git clone https://github.com/Paxeer-Network/Paxeer-Network.git && \ 
-cd Paxeer Network && \ 
+cd HyperPaxeer && \ 
 make install
 ```
 
@@ -329,12 +329,12 @@ Set the variables for start from snapshot
 :::tip
 **Note**: Usually, on other cosmos chains, the user is instructed to use as trusted height
 the latest height minus 2000 by default.
-However, snapshots of the Paxeer Network chain take a long time to generate, which makes the gap between the snapshot height and
+However, snapshots of the HyperPaxeer chain take a long time to generate, which makes the gap between the snapshot height and
 the current latest height be more than 2000.
 This results in a context timeout error:
 
 ```
-5:33PM ERR error on light block request from witness, removing... error="post failed: Post \"http://bd-Paxeer Network-mainnet-state-sync-us-01.bdnodes.net:26657\": context deadline exceeded" module=light primary={} server=node
+5:33PM ERR error on light block request from witness, removing... error="post failed: Post \"http://bd-HyperPaxeer-mainnet-state-sync-us-01.bdnodes.net:26657\": context deadline exceeded" module=light primary={} server=node
 ```
 
 To avoid this issue, simply pick a trusted height close to snapshot height.

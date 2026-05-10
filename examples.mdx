@@ -1,12 +1,12 @@
 ---
 title: "Code Examples"
-description: "Integration guides and code samples for building on Paxeer Network"
+description: "Integration guides and code samples for building on HyperPaxeer"
 icon: "brackets-curly"
 ---
 
 ## Overview
 
-Code examples and integration guides for building on Paxeer Network. All examples work with standard Ethereum tools and libraries.
+Code examples and integration guides for building on HyperPaxeer. All examples work with standard Ethereum tools and libraries.
 
 ## Wallet Connection
 
@@ -14,7 +14,7 @@ Code examples and integration guides for building on Paxeer Network. All example
   <Tab title="wagmi">
     ### Connect Wallet with wagmi
     
-    React component for connecting wallets to Paxeer Network.
+    React component for connecting wallets to HyperPaxeer.
     
     ```typescript WalletConnect.tsx
     'use client'
@@ -54,7 +54,7 @@ Code examples and integration guides for building on Paxeer Network. All example
     ```
     
     <Tip>
-    Make sure you've configured wagmi with Paxeer Network in your `wagmi-config.ts` file.
+    Make sure you've configured wagmi with HyperPaxeer in your `wagmi-config.ts` file.
     </Tip>
   </Tab>
 
@@ -84,7 +84,7 @@ Code examples and integration guides for building on Paxeer Network. All example
         const balance = await provider.getBalance(address);
 
         console.log('Connected:', address);
-        console.log('Balance:', ethers.formatEther(balance), 'PAX');
+        console.log('Balance:', ethers.formatEther(balance), 'HPX');
 
         return { provider, signer, address };
       } catch (error) {
@@ -133,8 +133,8 @@ Code examples and integration guides for building on Paxeer Network. All example
 ## Send Transactions
 
 <Tabs>
-  <Tab title="Send PAX">
-    ### Send Native PAX Tokens
+  <Tab title="Send HPX">
+    ### Send Native HPX Tokens
     
     ```typescript SendPax.tsx
     'use client'
@@ -165,7 +165,7 @@ Code examples and integration guides for building on Paxeer Network. All example
             onChange={(e) => setTo(e.target.value)}
           />
           <Input
-            placeholder="Amount (PAX)"
+            placeholder="Amount (HPX)"
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -174,7 +174,7 @@ Code examples and integration guides for building on Paxeer Network. All example
             onClick={handleSend} 
             disabled={isPending || !to || !amount}
           >
-            {isPending ? 'Sending...' : 'Send PAX'}
+            {isPending ? 'Sending...' : 'Send HPX'}
           </Button>
           {isSuccess && (
             <p className="text-green-600">
@@ -359,7 +359,7 @@ Code examples and integration guides for building on Paxeer Network. All example
           {isSuccess && (
             <div className="text-green-600">
               Transfer successful! 
-              <a href={`https://paxscan.paxeer.app/tx/${hash}`} target="_blank">
+              <a href={`https://paxscan.io/tx/${hash}`} target="_blank">
                 View transaction
               </a>
             </div>

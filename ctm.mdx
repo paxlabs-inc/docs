@@ -29,7 +29,7 @@ The Computable Token Machine is a revolutionary token standard that combines ERC
 <Card title="Deployed CTM" icon="link">
   **Address:** `0x477A9f214c947e6D81b9d32b6b1883F4a4ffFb24`
   
-  [View on PaxeerScan →](https://paxscan.paxeer.app/address/0x477A9f214c947e6D81b9d32b6b1883F4a4ffFb24)
+  [View on PaxScan →](https://paxscan.io/address/0x477A9f214c947e6D81b9d32b6b1883F4a4ffFb24)
 </Card>
 
 ## What is CTM?
@@ -110,14 +110,16 @@ CTM is built on the Diamond Standard, which allows a single contract to use mult
 <Steps>
   <Step title="Clone Repository">
     ```bash
-    git clone https://github.com/dev-paxeer/Computable-Token-Machine-v1.0.0
-    cd Computable-Token-Machine-v1.0.0
+    npm i @paxeer-foundation/ctm-contracts
+    # Or clone directly:
+    git clone https://github.com/Paxeer-Network/Pax-v3-coreCTM.git
+    cd Pax-v3-coreCTM
     npm install
     ```
   </Step>
 
   <Step title="Configure Network">
-    Add Paxeer Network details to `hardhat.config.js`:
+    Add HyperPaxeer details to `hardhat.config.js`:
     
     ```javascript hardhat.config.js
     networks: {
@@ -125,6 +127,7 @@ CTM is built on the Diamond Standard, which allows a single contract to use mult
         url: "https://public-rpc.paxeer.app/rpc",
         chainId: 125,
         accounts: [process.env.PRIVATE_KEY]
+        // HyperPaxeer mainnet
       }
     }
     ```
@@ -452,16 +455,16 @@ contract GovernanceProgram {
   <Card
     title="GitHub Repository"
     icon="github"
-    href="https://github.com/dev-paxeer/Computable-Token-Machine-v1.0.0"
+    href="https://github.com/Paxeer-Network/Pax-v3-coreCTM"
   >
     View source code and examples
   </Card>
   <Card
     title="Live Contract"
     icon="magnifying-glass"
-    href="https://paxscan.paxeer.app/address/0x477A9f214c947e6D81b9d32b6b1883F4a4ffFb24"
+    href="https://paxscan.io/address/0x477A9f214c947e6D81b9d32b6b1883F4a4ffFb24"
   >
-    Explore on PaxeerScan
+    Explore on PaxScan
   </Card>
   <Card
     title="EIP-2535 Specification"

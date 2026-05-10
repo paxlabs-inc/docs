@@ -6,10 +6,10 @@ icon: "magnifying-glass"
 
 ## Overview
 
-Complete REST API for interacting with PaxeerScan (BlockScout). Query transactions, blocks, addresses, tokens, and network statistics.
+Complete REST API for interacting with PaxScan (BlockScout). Query transactions, blocks, addresses, tokens, and network statistics.
 
 <Info>
-**Base URL:** `https://paxscan.paxeer.app/api/v2`
+**Base URL:** `https://paxscan.io/api/v2`
 </Info>
 
 <Note>
@@ -25,7 +25,7 @@ All endpoints are publicly accessible without authentication.
 </ParamField>
 
 ```bash GET /search
-curl "https://paxscan.paxeer.app/api/v2/search?q=USDT"
+curl "https://paxscan.io/api/v2/search?q=USDT"
 ```
 
 Search for tokens, addresses, blocks, and transactions across the network.
@@ -39,7 +39,7 @@ Search for tokens, addresses, blocks, and transactions across the network.
 </ParamField>
 
 ```bash GET /search/check-redirect
-curl "https://paxscan.paxeer.app/api/v2/search/check-redirect?q=0x..."
+curl "https://paxscan.io/api/v2/search/check-redirect?q=0x..."
 ```
 
 Returns redirect information for search results.
@@ -61,7 +61,7 @@ Returns redirect information for search results.
 </ParamField>
 
 ```bash GET /transactions
-curl "https://paxscan.paxeer.app/api/v2/transactions?filter=validated&type=token_transfer"
+curl "https://paxscan.io/api/v2/transactions?filter=validated&type=token_transfer"
 ```
 
 Retrieve paginated list of transactions with optional filters.
@@ -75,7 +75,7 @@ Retrieve paginated list of transactions with optional filters.
 </ParamField>
 
 ```bash GET /transactions/{transaction_hash}
-curl "https://paxscan.paxeer.app/api/v2/transactions/0x..."
+curl "https://paxscan.io/api/v2/transactions/0x..."
 ```
 
 Get detailed information about a specific transaction.
@@ -106,7 +106,7 @@ Get detailed information about a specific transaction.
 ### Get Transaction Token Transfers
 
 ```bash GET /transactions/{transaction_hash}/token-transfers
-curl "https://paxscan.paxeer.app/api/v2/transactions/0x.../token-transfers?type=ERC-20"
+curl "https://paxscan.io/api/v2/transactions/0x.../token-transfers?type=ERC-20"
 ```
 
 Get all token transfers within a transaction.
@@ -116,7 +116,7 @@ Get all token transfers within a transaction.
 ### Get Internal Transactions
 
 ```bash GET /transactions/{transaction_hash}/internal-transactions
-curl "https://paxscan.paxeer.app/api/v2/transactions/0x.../internal-transactions"
+curl "https://paxscan.io/api/v2/transactions/0x.../internal-transactions"
 ```
 
 Get internal transactions (contract calls) within a transaction.
@@ -126,7 +126,7 @@ Get internal transactions (contract calls) within a transaction.
 ### Get Transaction Logs
 
 ```bash GET /transactions/{transaction_hash}/logs
-curl "https://paxscan.paxeer.app/api/v2/transactions/0x.../logs"
+curl "https://paxscan.io/api/v2/transactions/0x.../logs"
 ```
 
 Get all event logs emitted by a transaction.
@@ -136,7 +136,7 @@ Get all event logs emitted by a transaction.
 ### Get Transaction State Changes
 
 ```bash GET /transactions/{transaction_hash}/state-changes
-curl "https://paxscan.paxeer.app/api/v2/transactions/0x.../state-changes"
+curl "https://paxscan.io/api/v2/transactions/0x.../state-changes"
 ```
 
 Get all state changes caused by a transaction.
@@ -150,7 +150,7 @@ Get all state changes caused by a transaction.
 </ParamField>
 
 ```bash GET /blocks
-curl "https://paxscan.paxeer.app/api/v2/blocks"
+curl "https://paxscan.io/api/v2/blocks"
 ```
 
 Retrieve paginated list of blocks.
@@ -164,7 +164,7 @@ Retrieve paginated list of blocks.
 </ParamField>
 
 ```bash GET /blocks/{block_number_or_hash}
-curl "https://paxscan.paxeer.app/api/v2/blocks/1000"
+curl "https://paxscan.io/api/v2/blocks/1000"
 ```
 
 Get detailed information about a specific block.
@@ -174,7 +174,7 @@ Get detailed information about a specific block.
 ### Get Block Transactions
 
 ```bash GET /blocks/{block_number_or_hash}/transactions
-curl "https://paxscan.paxeer.app/api/v2/blocks/1000/transactions"
+curl "https://paxscan.io/api/v2/blocks/1000/transactions"
 ```
 
 Get all transactions in a specific block.
@@ -184,7 +184,7 @@ Get all transactions in a specific block.
 ### Get Block Withdrawals
 
 ```bash GET /blocks/{block_number_or_hash}/withdrawals
-curl "https://paxscan.paxeer.app/api/v2/blocks/1000/withdrawals"
+curl "https://paxscan.io/api/v2/blocks/1000/withdrawals"
 ```
 
 Get all withdrawals in a specific block.
@@ -198,7 +198,7 @@ Get all withdrawals in a specific block.
 </ParamField>
 
 ```bash GET /addresses/{address_hash}
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x..."
+curl "https://paxscan.io/api/v2/addresses/0x..."
 ```
 
 Get detailed information about an address.
@@ -222,7 +222,7 @@ Get detailed information about an address.
 ### Get Address Counters
 
 ```bash GET /addresses/{address_hash}/counters
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../counters"
+curl "https://paxscan.io/api/v2/addresses/0x.../counters"
 ```
 
 Get transaction counts and other metrics for an address.
@@ -236,7 +236,7 @@ Get transaction counts and other metrics for an address.
 </ParamField>
 
 ```bash GET /addresses/{address_hash}/transactions
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../transactions?filter=from"
+curl "https://paxscan.io/api/v2/addresses/0x.../transactions?filter=from"
 ```
 
 Get all transactions for a specific address.
@@ -254,7 +254,7 @@ Get all transactions for a specific address.
 </ParamField>
 
 ```bash GET /addresses/{address_hash}/token-transfers
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../token-transfers?type=ERC-20"
+curl "https://paxscan.io/api/v2/addresses/0x.../token-transfers?type=ERC-20"
 ```
 
 Get all token transfers for an address.
@@ -268,7 +268,7 @@ Get all token transfers for an address.
 </ParamField>
 
 ```bash GET /addresses/{address_hash}/tokens
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../tokens?type=ERC-20"
+curl "https://paxscan.io/api/v2/addresses/0x.../tokens?type=ERC-20"
 ```
 
 Get all token balances for an address.
@@ -278,7 +278,7 @@ Get all token balances for an address.
 ### Get Address Balance History
 
 ```bash GET /addresses/{address_hash}/coin-balance-history
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../coin-balance-history"
+curl "https://paxscan.io/api/v2/addresses/0x.../coin-balance-history"
 ```
 
 Get historical balance changes for an address.
@@ -288,7 +288,7 @@ Get historical balance changes for an address.
 ### Get Address Internal Transactions
 
 ```bash GET /addresses/{address_hash}/internal-transactions
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../internal-transactions?filter=to"
+curl "https://paxscan.io/api/v2/addresses/0x.../internal-transactions?filter=to"
 ```
 
 Get internal transactions involving an address.
@@ -298,7 +298,7 @@ Get internal transactions involving an address.
 ### Get Address Logs
 
 ```bash GET /addresses/{address_hash}/logs
-curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../logs"
+curl "https://paxscan.io/api/v2/addresses/0x.../logs"
 ```
 
 Get all event logs related to an address.
@@ -308,7 +308,7 @@ Get all event logs related to an address.
 ### Get All Token Transfers
 
 ```bash GET /token-transfers
-curl "https://paxscan.paxeer.app/api/v2/token-transfers"
+curl "https://paxscan.io/api/v2/token-transfers"
 ```
 
 Get paginated list of all token transfers on the network.
@@ -322,7 +322,7 @@ Get paginated list of all token transfers on the network.
 </ParamField>
 
 ```bash GET /tokens
-curl "https://paxscan.paxeer.app/api/v2/tokens?type=ERC-20"
+curl "https://paxscan.io/api/v2/tokens?type=ERC-20"
 ```
 
 Get list of tokens deployed on Paxeer Network.
@@ -336,7 +336,7 @@ Get list of tokens deployed on Paxeer Network.
 </ParamField>
 
 ```bash GET /tokens/{address_hash}
-curl "https://paxscan.paxeer.app/api/v2/tokens/0x..."
+curl "https://paxscan.io/api/v2/tokens/0x..."
 ```
 
 Get detailed information about a specific token.
@@ -361,7 +361,7 @@ Get detailed information about a specific token.
 ### Get Token Transfers
 
 ```bash GET /tokens/{address_hash}/transfers
-curl "https://paxscan.paxeer.app/api/v2/tokens/0x.../transfers"
+curl "https://paxscan.io/api/v2/tokens/0x.../transfers"
 ```
 
 Get all transfers of a specific token.
@@ -371,7 +371,7 @@ Get all transfers of a specific token.
 ### Get Token Holders
 
 ```bash GET /tokens/{address_hash}/holders
-curl "https://paxscan.paxeer.app/api/v2/tokens/0x.../holders"
+curl "https://paxscan.io/api/v2/tokens/0x.../holders"
 ```
 
 Get list of addresses holding a specific token.
@@ -381,7 +381,7 @@ Get list of addresses holding a specific token.
 ### Get Network Statistics
 
 ```bash GET /stats
-curl "https://paxscan.paxeer.app/api/v2/stats"
+curl "https://paxscan.io/api/v2/stats"
 ```
 
 Get overall network statistics and metrics.
@@ -407,7 +407,7 @@ Get overall network statistics and metrics.
 ### Get Transaction Chart Data
 
 ```bash GET /stats/charts/transactions
-curl "https://paxscan.paxeer.app/api/v2/stats/charts/transactions"
+curl "https://paxscan.io/api/v2/stats/charts/transactions"
 ```
 
 Get historical transaction count data for charts.
@@ -417,17 +417,17 @@ Get historical transaction count data for charts.
 ### Get Market Chart Data
 
 ```bash GET /stats/charts/market
-curl "https://paxscan.paxeer.app/api/v2/stats/charts/market"
+curl "https://paxscan.io/api/v2/stats/charts/market"
 ```
 
-Get historical market data for PAX token.
+Get historical market data for HPX token.
 
 ## Main Page Data
 
 ### Get Latest Transactions
 
 ```bash GET /main-page/transactions
-curl "https://paxscan.paxeer.app/api/v2/main-page/transactions"
+curl "https://paxscan.io/api/v2/main-page/transactions"
 ```
 
 Get most recent transactions for home page display.
@@ -437,7 +437,7 @@ Get most recent transactions for home page display.
 ### Get Latest Blocks
 
 ```bash GET /main-page/blocks
-curl "https://paxscan.paxeer.app/api/v2/main-page/blocks"
+curl "https://paxscan.io/api/v2/main-page/blocks"
 ```
 
 Get most recent blocks for home page display.
@@ -447,7 +447,7 @@ Get most recent blocks for home page display.
 ### Get Indexing Status
 
 ```bash GET /main-page/indexing-status
-curl "https://paxscan.paxeer.app/api/v2/main-page/indexing-status"
+curl "https://paxscan.io/api/v2/main-page/indexing-status"
 ```
 
 Get current blockchain indexing status.
@@ -460,7 +460,7 @@ Get current blockchain indexing status.
     // Get transaction details
     async function getTransaction(hash) {
       const response = await fetch(
-        `https://paxscan.paxeer.app/api/v2/transactions/${hash}`
+        `https://paxscan.io/api/v2/transactions/${hash}`
       );
       const data = await response.json();
       return data;
@@ -469,7 +469,7 @@ Get current blockchain indexing status.
     // Get address token balances
     async function getTokenBalances(address) {
       const response = await fetch(
-        `https://paxscan.paxeer.app/api/v2/addresses/${address}/tokens?type=ERC-20`
+        `https://paxscan.io/api/v2/addresses/${address}/tokens?type=ERC-20`
       );
       const data = await response.json();
       return data;
@@ -478,7 +478,7 @@ Get current blockchain indexing status.
     // Get latest blocks
     async function getLatestBlocks() {
       const response = await fetch(
-        'https://paxscan.paxeer.app/api/v2/main-page/blocks'
+        'https://paxscan.io/api/v2/main-page/blocks'
       );
       const data = await response.json();
       return data;
@@ -492,20 +492,20 @@ Get current blockchain indexing status.
 
     # Get transaction details
     def get_transaction(hash):
-        url = f'https://paxscan.paxeer.app/api/v2/transactions/{hash}'
+        url = f'https://paxscan.io/api/v2/transactions/{hash}'
         response = requests.get(url)
         return response.json()
 
     # Get address token balances
     def get_token_balances(address):
-        url = f'https://paxscan.paxeer.app/api/v2/addresses/{address}/tokens'
+        url = f'https://paxscan.io/api/v2/addresses/{address}/tokens'
         params = {'type': 'ERC-20'}
         response = requests.get(url, params=params)
         return response.json()
 
     # Get latest blocks
     def get_latest_blocks():
-        url = 'https://paxscan.paxeer.app/api/v2/main-page/blocks'
+        url = 'https://paxscan.io/api/v2/main-page/blocks'
         response = requests.get(url)
         return response.json()
     ```
@@ -514,16 +514,16 @@ Get current blockchain indexing status.
   <Tab title="cURL">
     ```bash
     # Get transaction details
-    curl "https://paxscan.paxeer.app/api/v2/transactions/0x..."
+    curl "https://paxscan.io/api/v2/transactions/0x..."
 
     # Get address token balances
-    curl "https://paxscan.paxeer.app/api/v2/addresses/0x.../tokens?type=ERC-20"
+    curl "https://paxscan.io/api/v2/addresses/0x.../tokens?type=ERC-20"
 
     # Get latest blocks
-    curl "https://paxscan.paxeer.app/api/v2/main-page/blocks"
+    curl "https://paxscan.io/api/v2/main-page/blocks"
 
     # Search for token
-    curl "https://paxscan.paxeer.app/api/v2/search?q=USDT"
+    curl "https://paxscan.io/api/v2/search?q=USDT"
     ```
   </Tab>
 </Tabs>
@@ -544,7 +544,7 @@ export function useTransactionDetails(hash: string) {
     async function fetchTransaction() {
       try {
         const response = await fetch(
-          `https://paxscan.paxeer.app/api/v2/transactions/${hash}`
+          `https://paxscan.io/api/v2/transactions/${hash}`
         );
         if (!response.ok) throw new Error('Transaction not found');
         const data = await response.json();
@@ -572,7 +572,7 @@ export function useAddressTokens(address: string) {
     async function fetchTokens() {
       try {
         const response = await fetch(
-          `https://paxscan.paxeer.app/api/v2/addresses/${address}/tokens?type=ERC-20`
+          `https://paxscan.io/api/v2/addresses/${address}/tokens?type=ERC-20`
         );
         const data = await response.json();
         setTokens(data.items || []);
@@ -603,7 +603,7 @@ Most list endpoints support pagination with these query parameters:
 </ParamField>
 
 ```bash Example
-curl "https://paxscan.paxeer.app/api/v2/transactions?page=2&items_count=25"
+curl "https://paxscan.io/api/v2/transactions?page=2&items_count=25"
 ```
 
 ## Rate Limiting
@@ -628,23 +628,23 @@ API returns standard HTTP status codes:
 
 <CardGroup cols={2}>
   <Card
-    title="PaxeerScan"
+    title="PaxScan"
     icon="magnifying-glass"
-    href="https://paxscan.paxeer.app"
+    href="https://paxscan.io"
   >
     Explore the blockchain
   </Card>
   <Card
     title="API Documentation"
     icon="book"
-    href="https://paxscan.paxeer.app/api-docs"
+    href="https://paxscan.io/api-docs"
   >
     Complete API docs
   </Card>
   <Card
     title="Network Stats"
     icon="chart-line"
-    href="https://paxscan.paxeer.app/stats"
+    href="https://paxscan.io/stats"
   >
     View network statistics
   </Card>

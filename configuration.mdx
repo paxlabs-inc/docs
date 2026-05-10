@@ -1,24 +1,24 @@
 ---
 title: "Network Configuration"
-description: "Configure Paxeer Network in your applications using various libraries and frameworks"
+description: "Configure HyperPaxeer in your applications using various libraries and frameworks"
 icon: "gear"
 ---
 
 ## Overview
 
-Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or web3.js.
+Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3.js.
 
 ## Network Details
 
 | Parameter | Value |
 |-----------|-------|
 | Chain ID | `125` |
-| Network Name | Paxeer Network |
-| Native Currency | PAX (Paxeer) |
+| Network Name | HyperPaxeer |
+| Native Currency | HPX (HyperPaxeer) |
 | Decimals | 18 |
 | RPC Endpoint | `https://public-rpc.paxeer.app/rpc` |
-| Block Explorer | `https://paxscan.paxeer.app` |
-| Explorer API | `https://paxscan.paxeer.app/api` |
+| Block Explorer | `https://paxscan.io` |
+| Explorer API | `https://paxscan.io/api` |
 
 ## Configuration by Library
 
@@ -26,7 +26,7 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
   <Tab title="wagmi">
     ### wagmi Configuration
 
-    Setup Paxeer Network with wagmi for React applications.
+    Setup HyperPaxeer with wagmi for React applications.
 
     ```typescript wagmi-config.ts
     import { createConfig, http } from 'wagmi'
@@ -34,12 +34,12 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
 
     export const paxeer = defineChain({
       id: 125,
-      name: 'Paxeer Network',
+      name: 'HyperPaxeer',
       network: 'paxeer',
       nativeCurrency: {
         decimals: 18,
-        name: 'Paxeer',
-        symbol: 'PAX',
+        name: 'HyperPaxeer',
+        symbol: 'HPX',
       },
       rpcUrls: {
         default: {
@@ -51,9 +51,9 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
       },
       blockExplorers: {
         default: {
-          name: 'PaxeerScan',
-          url: 'https://paxscan.paxeer.app',
-          apiUrl: 'https://paxscan.paxeer.app/api',
+          name: 'PaxScan',
+          url: 'https://paxscan.io',
+          apiUrl: 'https://paxscan.io/api',
         },
       },
     })
@@ -94,19 +94,19 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
   <Tab title="viem">
     ### viem Configuration
 
-    Setup Paxeer Network with viem for TypeScript applications.
+    Setup HyperPaxeer with viem for TypeScript applications.
 
     ```typescript viem-config.ts
     import { createPublicClient, http, defineChain } from 'viem'
 
     export const paxeer = defineChain({
       id: 125,
-      name: 'Paxeer Network',
+      name: 'HyperPaxeer',
       network: 'paxeer',
       nativeCurrency: {
         decimals: 18,
-        name: 'Paxeer',
-        symbol: 'PAX',
+        name: 'HyperPaxeer',
+        symbol: 'HPX',
       },
       rpcUrls: {
         default: {
@@ -115,8 +115,8 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
       },
       blockExplorers: {
         default: {
-          name: 'PaxeerScan',
-          url: 'https://paxscan.paxeer.app',
+          name: 'PaxScan',
+          url: 'https://paxscan.io',
         },
       },
     })
@@ -157,17 +157,17 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
   <Tab title="ethers.js">
     ### ethers.js Configuration
 
-    Setup Paxeer Network with ethers.js v6.
+    Setup HyperPaxeer with ethers.js v6.
 
     ```javascript ethers-config.js
     import { ethers } from 'ethers'
 
     const paxeerNetwork = {
       chainId: 125,
-      name: 'Paxeer Network',
+      name: 'HyperPaxeer',
     }
 
-    // Connect to Paxeer Network
+    // Connect to HyperPaxeer
     const provider = new ethers.JsonRpcProvider(
       'https://public-rpc.paxeer.app/rpc',
       paxeerNetwork
@@ -187,7 +187,7 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
 
     // Get balance
     const balance = await provider.getBalance('0x...')
-    console.log('Balance:', ethers.formatEther(balance), 'PAX')
+    console.log('Balance:', ethers.formatEther(balance), 'HPX')
 
     // Get signer from MetaMask
     const signer = await provider.getSigner()
@@ -216,12 +216,12 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
   <Tab title="web3.js">
     ### web3.js Configuration
 
-    Setup Paxeer Network with web3.js v4.
+    Setup HyperPaxeer with web3.js v4.
 
     ```javascript web3-config.js
     import Web3 from 'web3'
 
-    // Connect to Paxeer Network
+    // Connect to HyperPaxeer
     const web3 = new Web3('https://public-rpc.paxeer.app/rpc')
 
     export { web3 }
@@ -242,7 +242,7 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
 
     // Get balance
     const balance = await web3.eth.getBalance(address)
-    console.log('Balance:', web3.utils.fromWei(balance, 'ether'), 'PAX')
+    console.log('Balance:', web3.utils.fromWei(balance, 'ether'), 'HPX')
 
     // Send transaction
     const receipt = await web3.eth.sendTransaction({
@@ -266,7 +266,7 @@ Configure Paxeer Network in your applications using wagmi, viem, ethers.js, or w
 
 ## MetaMask Configuration
 
-Add Paxeer Network to MetaMask programmatically:
+Add HyperPaxeer to MetaMask programmatically:
 
 ```javascript
 async function addPaxeerNetwork() {
@@ -276,18 +276,18 @@ async function addPaxeerNetwork() {
       params: [
         {
           chainId: '0xe5', // 125 in hex
-          chainName: 'Paxeer Network',
+          chainName: 'HyperPaxeer',
           nativeCurrency: {
-            name: 'Paxeer',
-            symbol: 'PAX',
+            name: 'HyperPaxeer',
+            symbol: 'HPX',
             decimals: 18,
           },
           rpcUrls: ['https://public-rpc.paxeer.app/rpc'],
-          blockExplorerUrls: ['https://paxscan.paxeer.app'],
+          blockExplorerUrls: ['https://paxscan.io'],
         },
       ],
     });
-    console.log('Paxeer Network added to MetaMask');
+    console.log('HyperPaxeer added to MetaMask');
   } catch (error) {
     console.error('Error adding network:', error);
   }
@@ -299,10 +299,10 @@ async function addPaxeerNetwork() {
 Store your configuration in environment variables:
 
 ```bash .env
-# Paxeer Network Configuration
+# HyperPaxeer Configuration
 PAXEER_RPC_URL=https://public-rpc.paxeer.app/rpc
 PAXEER_CHAIN_ID=125
-PAXEER_EXPLORER=https://paxscan.paxeer.app
+PAXEER_EXPLORER=https://paxscan.io
 
 # Your private key (NEVER commit this!)
 PRIVATE_KEY=your_private_key_here
@@ -336,8 +336,8 @@ module.exports = {
         network: "paxeer",
         chainId: 125,
         urls: {
-          apiURL: "https://paxscan.paxeer.app/api",
-          browserURL: "https://paxscan.paxeer.app",
+          apiURL: "https://paxscan.io/api",
+          browserURL: "https://paxscan.io",
         },
       },
     ],
@@ -358,7 +358,7 @@ solc_version = "0.8.20"
 paxeer = "https://public-rpc.paxeer.app/rpc"
 
 [etherscan]
-paxeer = { key = "${ETHERSCAN_API_KEY}", url = "https://paxscan.paxeer.app/api" }
+paxeer = { key = "${ETHERSCAN_API_KEY}", url = "https://paxscan.io/api" }
 ```
 
 ## Testing Connection
@@ -446,4 +446,3 @@ else:
     Explore all available RPC methods
   </Card>
 </CardGroup>
-

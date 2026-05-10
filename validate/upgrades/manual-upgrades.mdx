@@ -10,11 +10,11 @@ Learn how to manually upgrade your node.
 
 - [Install hyperpaxd](../../protocol/Paxeer-Network-cli)
 
-## 1. Upgrade the Paxeer Network version
+## 1. Upgrade the HyperPaxeer version
 
-Before upgrading the Paxeer Network version. Stop your instance of `hyperpaxd` using `Ctrl/Cmd+C`.
+Before upgrading the HyperPaxeer version. Stop your instance of `hyperpaxd` using `Ctrl/Cmd+C`.
 
-Next, upgrade the software to the desired release version. Check the Paxeer Network [releases page](https://github.com/Paxeer-Network/Paxeer-Network/releases)
+Next, upgrade the software to the desired release version. Check the HyperPaxeer [releases page](https://github.com/Paxeer-Network/Paxeer-Network/releases)
 for details on each release.
 
 :::danger
@@ -22,7 +22,7 @@ Ensure that the version installed matches the one needed for the network you are
 :::
 
 ```bash
-cd Paxeer Network
+cd HyperPaxeer
 git fetch --all && git checkout <new_version>
 make install
 ```
@@ -32,12 +32,12 @@ If you have issues at this step, please check that you have the latest stable ve
 [Golang](https://golang.org/dl/) installed.
 :::
 
-Verify that you've successfully installed Paxeer Network on your system by using the `version` command:
+Verify that you've successfully installed HyperPaxeer on your system by using the `version` command:
 
 ```bash
 $ hyperpaxd version --long
 
-name: Paxeer Network
+name: HyperPaxeer
 server_name: hyperpaxd
 version: 3.0.0
 commit: fe9df43332800a74a163c014c69e62765d8206e3

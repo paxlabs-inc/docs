@@ -1,16 +1,16 @@
 ---
 title: "Smart Contracts"
-description: "Deploy and interact with smart contracts on Paxeer Network"
+description: "Deploy, verify, and interact with Solidity contracts on HyperPaxeer"
 icon: "code"
 ---
 
 <Info>
-Paxeer Network is fully compatible with Ethereum smart contracts and tooling.
+HyperPaxeer is fully EVM-compatible. Running on the **Alexandria Fork** with **Hyperpax-OS Cronos**, all standard Ethereum tooling works — Foundry, Hardhat, Remix, ethers.js, wagmi, and viem. Use `--legacy --slow` flags with Foundry for reliable transaction inclusion.
 </Info>
 
 ## Overview
 
-Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible with Ethereum tooling including Hardhat, Foundry, and Remix.
+Deploy and interact with smart contracts on HyperPaxeer (Chain ID `125`). Foundry is the recommended framework; Hardhat and Remix are also supported.
 
 ## Deployment Options
 
@@ -18,7 +18,7 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
   <Tab title="Hardhat">
     ### Deploy with Hardhat
 
-    Configure Hardhat to deploy on Paxeer Network.
+    Configure Hardhat to deploy on HyperPaxeer.
 
     #### 1. Install dependencies
 
@@ -42,15 +42,15 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
       },
       etherscan: {
         apiKey: {
-          paxeer: "YOUR_API_KEY"
+          hyperpaxeer: "any-string"
         },
         customChains: [
           {
-            network: "paxeer",
+            network: "hyperpaxeer",
             chainId: 125,
             urls: {
-              apiURL: "https://paxscan.paxeer.app/api",
-              browserURL: "https://paxscan.paxeer.app"
+              apiURL: "https://paxscan.io/api",
+              browserURL: "https://paxscan.io"
             }
           }
         ]
@@ -61,7 +61,7 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
     #### 3. Deploy
 
     ```bash
-    npx hardhat run scripts/deploy.js --network paxeer
+    npx hardhat run scripts/deploy.js --network hyperpaxeer
     ```
 
     <Tip>
@@ -72,7 +72,7 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
   <Tab title="Foundry">
     ### Deploy with Foundry
 
-    Use Foundry to deploy contracts on Paxeer Network.
+    Use Foundry to deploy contracts on HyperPaxeer.
 
     #### 1. Install Foundry
 
@@ -94,11 +94,11 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
     forge create src/MyContract.sol:MyContract \
       --rpc-url https://public-rpc.paxeer.app/rpc \
       --private-key $PRIVATE_KEY \
-      --chain-id 125
+      --legacy --slow
     ```
 
     <Tip>
-    Use `--verify` flag to verify your contract on PaxeerScan after deployment.
+    Use `--verify` flag to verify your contract on PaxScan after deployment.
     </Tip>
   </Tab>
 
@@ -121,7 +121,7 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
       </Step>
 
       <Step title="Connect MetaMask">
-        Connect MetaMask to Paxeer Network (Chain ID: 125)
+        Connect MetaMask to HyperPaxeer (Chain ID: 125)
       </Step>
 
       <Step title="Select Environment">
@@ -134,7 +134,7 @@ Deploy and interact with smart contracts on Paxeer Network. Fully EVM-compatible
     </Steps>
 
     <Info>
-    Make sure your MetaMask is connected to Paxeer Network before deploying.
+    Make sure your MetaMask is connected to HyperPaxeer (Chain ID 125) before deploying.
     </Info>
   </Tab>
 </Tabs>
@@ -195,7 +195,7 @@ contract MyToken is ERC20 {
 
 ## Verifying Contracts
 
-After deployment, verify your contract on PaxeerScan for transparency and easier interaction.
+After deployment, verify your contract on PaxScan for transparency and easier interaction.
 
 ### Using Hardhat
 
@@ -286,7 +286,7 @@ function transfer() {
 
   <Accordion title="Testing">
     - Write comprehensive unit tests
-    - Test on testnet before mainnet
+    - Test locally or on private networks before mainnet
     - Test edge cases and failure scenarios
     - Use fuzzing for complex contracts
   </Accordion>
@@ -296,11 +296,11 @@ function transfer() {
 
 | Parameter | Value |
 |-----------|-------|
-| Network Name | Paxeer Network |
+| Network Name | HyperPaxeer |
 | RPC URL | `https://public-rpc.paxeer.app/rpc` |
 | Chain ID | `125` |
-| Currency | PAX |
-| Block Explorer | `https://paxscan.paxeer.app` |
+| Currency | HPX (`ahpx`, 18 decimals) |
+| Block Explorer | `https://paxscan.io` |
 
 ## Next Steps
 
@@ -310,7 +310,7 @@ function transfer() {
     icon="gear"
     href="/configuration"
   >
-    Configure different libraries for Paxeer Network
+    Configure different libraries for HyperPaxeer
   </Card>
   <Card
     title="Examples"
