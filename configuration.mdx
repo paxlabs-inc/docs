@@ -11,10 +11,10 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 ## Network Details
 
 | Parameter | Value |
-|-----------|-------|
+| --- | --- |
 | Chain ID | `125` |
-| Network Name | HyperPaxeer |
-| Native Currency | HPX (HyperPaxeer) |
+| Network Name | Paxeer Network |
+| Native Currency | PAX (Paxeer) |
 | Decimals | 18 |
 | RPC Endpoint | `https://public-rpc.paxeer.app/rpc` |
 | Block Explorer | `https://paxscan.io` |
@@ -31,15 +31,15 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
     ```typescript wagmi-config.ts
     import { createConfig, http } from 'wagmi'
     import { defineChain } from 'viem'
-
+    
     export const paxeer = defineChain({
       id: 125,
       name: 'HyperPaxeer',
       network: 'paxeer',
       nativeCurrency: {
         decimals: 18,
-        name: 'HyperPaxeer',
-        symbol: 'HPX',
+        name: 'Paxeer',
+        symbol: 'PAX',
       },
       rpcUrls: {
         default: {
@@ -57,7 +57,7 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
         },
       },
     })
-
+    
     export const config = createConfig({
       chains: [paxeer],
       transports: {
@@ -72,9 +72,9 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
     import { WagmiProvider } from 'wagmi'
     import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
     import { config } from './wagmi-config'
-
+    
     const queryClient = new QueryClient()
-
+    
     function App() {
       return (
         <WagmiProvider config={config}>
@@ -87,10 +87,9 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
     ```
 
     <Tip>
-    Install required packages: `npm install wagmi viem @tanstack/react-query`
+      Install required packages: `npm install wagmi viem @tanstack/react-query`
     </Tip>
   </Tab>
-
   <Tab title="viem">
     ### viem Configuration
 
@@ -98,15 +97,15 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 
     ```typescript viem-config.ts
     import { createPublicClient, http, defineChain } from 'viem'
-
+    
     export const paxeer = defineChain({
       id: 125,
       name: 'HyperPaxeer',
       network: 'paxeer',
       nativeCurrency: {
         decimals: 18,
-        name: 'HyperPaxeer',
-        symbol: 'HPX',
+        name: 'Paxeer',
+        symbol: 'PAX',
       },
       rpcUrls: {
         default: {
@@ -120,7 +119,7 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
         },
       },
     })
-
+    
     export const publicClient = createPublicClient({
       chain: paxeer,
       transport: http(),
@@ -131,15 +130,15 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 
     ```typescript
     import { publicClient } from './viem-config'
-
+    
     // Get block number
     const blockNumber = await publicClient.getBlockNumber()
-
+    
     // Get balance
     const balance = await publicClient.getBalance({
       address: '0x...',
     })
-
+    
     // Read contract
     const data = await publicClient.readContract({
       address: '0x...',
@@ -150,10 +149,9 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
     ```
 
     <Tip>
-    Install viem: `npm install viem`
+      Install viem: `npm install viem`
     </Tip>
   </Tab>
-
   <Tab title="ethers.js">
     ### ethers.js Configuration
 
@@ -161,18 +159,18 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 
     ```javascript ethers-config.js
     import { ethers } from 'ethers'
-
+    
     const paxeerNetwork = {
       chainId: 125,
       name: 'HyperPaxeer',
     }
-
+    
     // Connect to HyperPaxeer
     const provider = new ethers.JsonRpcProvider(
       'https://public-rpc.paxeer.app/rpc',
       paxeerNetwork
     )
-
+    
     export { provider }
     ```
 
@@ -180,25 +178,25 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 
     ```javascript
     import { provider } from './ethers-config'
-
+    
     // Get block number
     const blockNumber = await provider.getBlockNumber()
     console.log('Current block:', blockNumber)
-
+    
     // Get balance
     const balance = await provider.getBalance('0x...')
     console.log('Balance:', ethers.formatEther(balance), 'HPX')
-
+    
     // Get signer from MetaMask
     const signer = await provider.getSigner()
-
+    
     // Send transaction
     const tx = await signer.sendTransaction({
       to: '0x...',
       value: ethers.parseEther('1.0'),
     })
     await tx.wait()
-
+    
     // Interact with contract
     const contract = new ethers.Contract(
       contractAddress,
@@ -209,10 +207,9 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
     ```
 
     <Tip>
-    Install ethers: `npm install ethers@6`
+      Install ethers: `npm install ethers@6`
     </Tip>
   </Tab>
-
   <Tab title="web3.js">
     ### web3.js Configuration
 
@@ -220,10 +217,10 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 
     ```javascript web3-config.js
     import Web3 from 'web3'
-
+    
     // Connect to HyperPaxeer
     const web3 = new Web3('https://public-rpc.paxeer.app/rpc')
-
+    
     export { web3 }
     ```
 
@@ -231,26 +228,26 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
 
     ```javascript
     import { web3 } from './web3-config'
-
+    
     // Get network ID
     const networkId = await web3.eth.net.getId()
     console.log('Network ID:', networkId) // 125
-
+    
     // Get current block number
     const blockNumber = await web3.eth.getBlockNumber()
     console.log('Current block:', blockNumber)
-
+    
     // Get balance
     const balance = await web3.eth.getBalance(address)
     console.log('Balance:', web3.utils.fromWei(balance, 'ether'), 'HPX')
-
+    
     // Send transaction
     const receipt = await web3.eth.sendTransaction({
       from: fromAddress,
       to: toAddress,
       value: web3.utils.toWei('1', 'ether'),
     })
-
+    
     // Interact with contract
     const contract = new web3.eth.Contract(contractABI, contractAddress)
     await contract.methods.transfer(toAddress, amount).send({
@@ -259,7 +256,7 @@ Configure HyperPaxeer in your applications using wagmi, viem, ethers.js, or web3
     ```
 
     <Tip>
-    Install web3.js: `npm install web3@4`
+      Install web3.js: `npm install web3@4`
     </Tip>
   </Tab>
 </Tabs>
@@ -309,7 +306,7 @@ PRIVATE_KEY=your_private_key_here
 ```
 
 <Warning>
-Never commit private keys or sensitive credentials to version control. Use environment variables and add `.env` to your `.gitignore`.
+  Never commit private keys or sensitive credentials to version control. Use environment variables and add `.env` to your `.gitignore`.
 </Warning>
 
 ## Hardhat Configuration
@@ -417,32 +414,19 @@ else:
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card
-    title="Quick Start"
-    icon="rocket"
-    href="/quickstart"
-  >
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
     Follow our getting started guide
   </Card>
-  <Card
-    title="Smart Contracts"
-    icon="code"
-    href="/contracts"
-  >
+
+  <Card title="Smart Contracts" icon="code" href="/contracts">
     Deploy and interact with contracts
   </Card>
-  <Card
-    title="Examples"
-    icon="brackets-curly"
-    href="/examples"
-  >
+
+  <Card title="Examples" icon="brackets-curly" href="/examples">
     View complete integration examples
   </Card>
-  <Card
-    title="API Reference"
-    icon="book"
-    href="/api-reference"
-  >
+
+  <Card title="API Reference" icon="book" href="/api-reference">
     Explore all available RPC methods
   </Card>
 </CardGroup>

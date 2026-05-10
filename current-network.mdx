@@ -9,11 +9,11 @@ icon: "circle-info"
 Use this page as the source of truth for current network constants.
 
 <Info>
-HyperPaxeer currently operates mainnet only. There is no public testnet because Argus VM infrastructure is expensive to operate continuously.
+  HyperPaxeer currently operates mainnet only. There is no public testnet because Argus VM infrastructure is expensive to operate continuously.
 </Info>
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Network name | HyperPaxeer mainnet |
 | Cosmos chain ID | `hyperpax_125-1` |
 | EVM chain ID | `125` |
@@ -24,7 +24,7 @@ HyperPaxeer currently operates mainnet only. There is no public testnet because 
 | REST API | `https://public-rpc.paxeer.app:1317` |
 | gRPC | `https://public-rpc.paxeer.app:9090` |
 | Block explorer | `https://paxscan.io` |
-| Native display symbol | `HPX` / `hpx` |
+| Native display symbol | `PAX` / `hpx` |
 | Base denomination | `ahpx` |
 | Decimals | `18` |
 | Bech32 prefix | `pax` |
@@ -33,7 +33,7 @@ HyperPaxeer currently operates mainnet only. There is no public testnet because 
 ## Wallet configuration
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Network name | `HyperPaxeer` |
 | RPC URL | `https://public-rpc.paxeer.app/rpc` |
 | Chain ID | `125` |
@@ -47,7 +47,7 @@ import { defineChain } from 'viem'
 export const hyperpaxeer = defineChain({
   id: 125,
   name: 'HyperPaxeer',
-  nativeCurrency: { decimals: 18, name: 'HyperPaxeer', symbol: 'HPX' },
+  nativeCurrency: { decimals: 18, name: 'HyperPaxeer', symbol: 'PAX' },
   rpcUrls: {
     default: { http: ['https://public-rpc.paxeer.app/rpc'] },
   },
@@ -65,7 +65,7 @@ export const config = createConfig({
 ## Live EVM extensions
 
 | Address | Name | Stateful | Mainnet status |
-|---|---|---:|---|
+| --- | --- | --: | --- |
 | `0x0000000000000000000000000000000000000400` | Bech32 encoding | No | Active |
 | `0x0000000000000000000000000000000000000901` | PaxSpot OROBResolver | No | Active |
 | `0x0000000000000000000000000000000000000902` | PaxSpot BatchClearing | No | Active |
