@@ -6,9 +6,9 @@
 
 Crypto Wallets (or Accounts) can be created
 and represented in unique ways on different blockchains.
-For developers who interface with account types on Paxeer Network,
+For developers who interface with account types on HyperPaxeer,
 e.g. during wallet integration on their dApp frontend,
-it is therefore important to understand that accounts on Paxeer Network are implemented
+it is therefore important to understand that accounts on HyperPaxeer are implemented
 to be compatible with Ethereum type addresses.
 
 ## Prerequisite Readings
@@ -28,7 +28,7 @@ that a private key or keystore file only creates one account.
 Creating a mnemonic phrase gives you control of many accounts,
 all accessible with that same phrase.
 
-Cosmos blockchains, like Paxeer Network, support creating accounts with mnemonic phrases,
+Cosmos blockchains, like HyperPaxeer, support creating accounts with mnemonic phrases,
 otherwise known as
 [hierarchical deterministic key generation](https://github.com/confio/cosmos-hd-key-derivation-spec) (HD keys).
 This allows the user to create accounts on multiple blockchains
@@ -48,7 +48,7 @@ The derivation path defines what the private key, public key, and address would 
 
 The PubKey can be derived to generate various addresses in different formats,
 which are used to identify users (among other parties) in the application.
-A common address form for Cosmos chains is the bech32 format (e.g. `Paxeer Network1...`).
+A common address form for Cosmos chains is the bech32 format (e.g. `HyperPaxeer1...`).
 Addresses are also associated with messages to identify the sender of the message.
 
 The PrivKey is used to generate digital signatures to prove
@@ -57,20 +57,20 @@ The proof is performed by applying a cryptographic scheme to the PrivKey,
 known as Elliptic Curve Digital Signature Algorithm (ECDSA),
 to generate a PubKey that is compared with the address in the message.
 
-## Paxeer Network Accounts
+## HyperPaxeer Accounts
 
-Paxeer Network defines its own custom `Account` type
+HyperPaxeer defines its own custom `Account` type
 to implement a HD wallet that is compatible with Ethereum type addresses.
 It uses Ethereum's ECDSA secp256k1 curve for keys (`eth_secp265k1`)
 and satisfies the [EIP84](https://github.com/ethereum/EIPs/issues/84)
 for full [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) paths.
 This cryptographic curve is not to be confused with [Bitcoin's ECDSA secp256k1](https://en.bitcoin.it/wiki/Secp256k1) curve.
 
-The root HD path for Paxeer Network-based accounts is `m/44'/60'/0'/0`.
-Paxeer Network uses the Coin type `60` to support Ethereum type accounts,
+The root HD path for HyperPaxeer-based accounts is `m/44'/60'/0'/0`.
+HyperPaxeer uses the Coin type `60` to support Ethereum type accounts,
 unlike many other Cosmos chains that use Coin type `118` ([list of coin types](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
 
-The custom Paxeer Network [EthAccount](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/types/account.go#L28-L33)
+The custom HyperPaxeer [EthAccount](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/types/account.go#L28-L33)
 satisfies the `AccountI` interface from the Cosmos SDK auth module
 and includes additional fields that are required for Ethereum type addresses:
 
@@ -94,14 +94,14 @@ For more information on Ethereum accounts head over to the [x/evm module](../mod
 ### Addresses and Public Keys
 
 [BIP-0173](https://github.com/satoshilabs/slips/blob/master/slip-0173.md) defines a new format for segregated witness
-output addresses that contains a human-readable part that identifies the Bech32 usage. Paxeer Network uses the following
+output addresses that contains a human-readable part that identifies the Bech32 usage. HyperPaxeer uses the following
 HRP (human readable prefix) as the base HRP:
 
 | Network   | Mainnet | Testnet |
 |-----------|---------|---------|
-| Paxeer Network     | `Paxeer Network` | `Paxeer Network` |
+| HyperPaxeer     | `pax` | `pax` |
 
-There are 3 main types of HRP for the `Addresses`/`PubKeys` available by default on Paxeer Network:
+There are 3 main types of HRP for the `Addresses`/`PubKeys` available by default on HyperPaxeer (bech32 prefix: `pax`):
 
 - Addresses and Keys for **accounts**, which identify users (e.g. the sender of a `message`). They are derived using
  the **`eth_secp256k1`** curve.
@@ -112,41 +112,41 @@ There are 3 main types of HRP for the `Addresses`/`PubKeys` available by default
 
 |                    | Address bech32 Prefix | Pubkey bech32 Prefix | Curve           | Address byte length | Pubkey byte length |
 |--------------------|-----------------------|----------------------|-----------------|---------------------|--------------------|
-| Accounts           | `Paxeer Network`               | `Paxeer Networkpub`           | `eth_secp256k1` | `20`                | `33` (compressed)  |
-| Validator Operator | `Paxeer Networkvaloper`        | `Paxeer Networkvaloperpub`    | `eth_secp256k1` | `20`                | `33` (compressed)  |
-| Consensus Nodes    | `Paxeer Networkvalcons`        | `Paxeer Networkvalconspub`    | `ed25519`       | `20`                | `32`               |
+| Accounts           | `pax`               | `paxpub`           | `eth_secp256k1` | `20`                | `33` (compressed)  |
+| Validator Operator | `paxvaloper`        | `paxvaloperpub`    | `eth_secp256k1` | `20`                | `33` (compressed)  |
+| Consensus Nodes    | `paxvalcons`        | `paxvalconspub`    | `ed25519`       | `20`                | `32`               |
 
 ### Address formats for clients
 
-`EthAccount` can be represented in both [Bech32](https://en.bitcoin.it/wiki/Bech32) (`Paxeer Network1...`)
+`EthAccount` can be represented in both [Bech32](https://en.bitcoin.it/wiki/Bech32) (`pax1...`)
 and hex (`0x...`) formats for Ethereum's Web3 tooling compatibility.
 
 The Bech32 format is the default format for Cosmos-SDK queries and transactions through CLI and REST
 clients. The hex format on the other hand, is the Ethereum `common.Address` representation of a
 Cosmos `sdk.AccAddress`.
 
-- **Address (Bech32)**: `Paxeer Network1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw`
+- **Address (Bech32)**: `pax1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw`
 - **Address ([EIP55](https://eips.ethereum.org/EIPS/eip-55) Hex)**: `0x91defC7fE5603DFA8CC9B655cF5772459BF10c6f`
-- **Compressed Public Key**: `{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2"}`
+- **Compressed Public Key**: `{"@type":"/hyperpaxeer.crypto.v1.ethsecp256k1.PubKey","key":"AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2"}`
 
 ### Address conversion
 
 The `hyperpaxd debug addr <address>` can be used to convert an address between hex and bech32 formats. For example:
 
 ```bash title="Bech32"
- $ hyperpaxd debug addr Paxeer Network1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
+ $ hyperpaxd debug addr pax1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
   Address: [20 87 74 109 255 45 223 158 7 130 139 67 69 211 4 9 25 175 86 82]
   Address (hex): 14574A6DFF2DDF9E07828B4345D3040919AF5652
-  Bech32 Acc: Paxeer Network1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
-  Bech32 Val: Paxeer Networkvaloper1z3t55m0l9h0eupuz3dp5t5cypyv674jjn4d6nn
+  Bech32 Acc: pax1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
+  Bech32 Val: paxvaloper1z3t55m0l9h0eupuz3dp5t5cypyv674jjn4d6nn
 ```
 
 ```bash title="Hex"
  $ hyperpaxd debug addr 14574A6DFF2DDF9E07828B4345D3040919AF5652
   Address: [20 87 74 109 255 45 223 158 7 130 139 67 69 211 4 9 25 175 86 82]
   Address (hex): 14574A6DFF2DDF9E07828B4345D3040919AF5652
-  Bech32 Acc: Paxeer Network1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
-  Bech32 Val: Paxeer Networkvaloper1z3t55m0l9h0eupuz3dp5t5cypyv674jjn4d6nn
+  Bech32 Acc: pax1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
+  Bech32 Val: paxvaloper1z3t55m0l9h0eupuz3dp5t5cypyv674jjn4d6nn
 ```
 
 ### Key output
@@ -162,8 +162,8 @@ obtain the addresses and keys as mentioned above,
  $ hyperpaxd keys show dev0 --bech acc
 - name: dev0
   type: local
-  address: Paxeer Network1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
-  pubkey: '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2"}'
+  address: pax1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
+  pubkey: '{"@type":"/hyperpaxeer.crypto.v1.ethsecp256k1.PubKey","key":"AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2"}'
   mnemonic: ""
 ```
 
@@ -171,8 +171,8 @@ obtain the addresses and keys as mentioned above,
  $ hyperpaxd keys show dev0 --bech val
 - name: dev0
   type: local
-  address: Paxeer Networkvaloper1z3t55m0l9h0eupuz3dp5t5cypyv674jjn4d6nn
-  pubkey: '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2"}'
+  address: paxvaloper1z3t55m0l9h0eupuz3dp5t5cypyv674jjn4d6nn
+  pubkey: '{"@type":"/hyperpaxeer.crypto.v1.ethsecp256k1.PubKey","key":"AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2"}'
   mnemonic: ""
 ```
 
@@ -180,8 +180,8 @@ obtain the addresses and keys as mentioned above,
  $ hyperpaxd keys show dev0 --bech cons
 - name: dev0
   type: local
-  address: Paxeer Networkvalcons1rllqa5d97n6zyjhy6cnscc7zu30zjn3f7wyj2n
-  pubkey: '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"A/fVLgIqiLykFQxum96JkSOoTemrXD0tFaFQ1B0cpB2c"}'
+  address: paxvalcons1rllqa5d97n6zyjhy6cnscc7zu30zjn3f7wyj2n
+  pubkey: '{"@type":"/hyperpaxeer.crypto.v1.ethsecp256k1.PubKey","key":"A/fVLgIqiLykFQxum96JkSOoTemrXD0tFaFQ1B0cpB2c"}'
   mnemonic: ""
 ```
 
@@ -195,12 +195,12 @@ You can query an account address using the CLI, gRPC or
 # NOTE: the --output (-o) flag will define the output format in JSON or YAML (text)
 hyperpaxd q auth account $(hyperpaxd keys show dev0 -a) -o text
 
-'@type': /ethermint.types.v1.EthAccount
+'@type': /hyperpaxeer.types.v1.EthAccount
 base_account:
 account_number: "0"
-address: Paxeer Network1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
+address: pax1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
 pub_key:
-  '@type': /ethermint.crypto.v1.ethsecp256k1.PubKey
+  '@type': /hyperpaxeer.crypto.v1.ethsecp256k1.PubKey
   key: AsV5oddeB+hkByIJo/4lZiVUgXTzNfBPKC73cZ4K1YD2
 sequence: "1"
 code_hash: 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470

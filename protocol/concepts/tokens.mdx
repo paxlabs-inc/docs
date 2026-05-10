@@ -4,44 +4,41 @@
 
 # Tokens
 
-## The Paxeer Network Token
+## Native token
 
-The denomination used for staking, governance and gas consumption on the EVM is the Paxeer Network. The Paxeer Network provides the utility
-of: securing the Proof-of-Stake chain, token used for governance proposals, distribution of fees to validator and users,
-and as a mean of gas for running smart contracts on the EVM.
+The native token secures HyperPaxeer, pays gas, supports governance flows, and denominates validator and protocol rewards.
 
-Paxeer Network uses [Atto](https://en.wikipedia.org/wiki/Atto-) Paxeer Network as the base denomination to maintain parity with Ethereum.
-There are three types of assets:
+| Field | Value |
+|---|---|
+| Display symbol | `HPX` / `hpx` |
+| Base denomination | `ahpx` |
+| Decimals | `18` |
+| Conversion | `1 hpx = 10^18 ahpx` |
 
-- The native Paxeer Network token
-- IBC Coins (via the IBC)
-- Ethereum-typed tokens, e.g. ERC-20
+HyperPaxeer uses an atto-denominated base unit to maintain parity with Ethereum-style 18-decimal tooling:
 
-`1 Paxeer Network = 10<sup>18</sup> ahpx`
+```text
+1 hpx = 1,000,000,000,000,000,000 ahpx
+1 ETH = 1,000,000,000,000,000,000 wei
+```
 
-This matches Ethereum denomination of:
+## Asset types
 
-`1 ETH = 10<sup>18</sup> wei`
+HyperPaxeer supports:
 
-## Cosmos Coins
+- Native `hpx` / `ahpx` balances
+- Cosmos SDK coins, including IBC-transferred assets
+- EVM tokens, including ERC-20, ERC-721, and ERC-1155 contracts
 
-Accounts can own Cosmos coins in their balance, which are used for operations with other Cosmos and transactions. Examples
-of these are using the coins for staking, IBC transfers, governance deposits and EVM.
+## Cosmos coins
 
-## EVM Tokens
+Cosmos balances are used for staking, IBC transfers, governance deposits, and SDK-module operations. Native balances use the `ahpx` base denomination.
 
-Paxeer Network is compatible with ERC20 tokens and other non-fungible token standards (EIP721, EIP1155)
-that are natively supported by the EVM.
+## EVM tokens
 
-## Paxeer Network Assets Page
+HyperPaxeer is EVM-compatible and supports standard Solidity token contracts. Use the EVM chain ID `125` and 18-decimal native currency configuration when integrating wallets, viem, ethers.js, Foundry, Hardhat, or other Ethereum tooling.
 
-Check out how we represent ERC-20 tokens and Cosmos IBC Coins through our [Single Token Representation](https://app.hyperpaxd.org/assets)
-feature on the Paxeer Network Dashboard. Paxeer Network enabled this feature to help with the user experiences by obfuscating the assets
-types away from the users and allow them to focus on the interaction. The protocol simplifies the process by handling the
-conversion and users are given the simplification of denomination and the amount of assets they hold. Tokens listed still
-require governance and registering the tokens ([Cosmos](https://academy.hyperpaxd.org/articles/advanced/cosmos-coin-registration)
-or [ERC-20](https://academy.hyperpaxd.org/articles/advanced/erc20-registration)).
+## Related docs
 
-![Paxeer Network-dashboard-assets])(/img/dashboard-assets.png)
-
-For more information on how we handle token registration, head over [here](./../../develop/mainnet#token-registration).
+- [Current network facts](/current-network)
+- [Network configuration](/configuration)

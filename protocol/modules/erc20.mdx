@@ -2,22 +2,22 @@
 
 :::tip
 **Note:** Working on a governance proposal related to the ERC-20 Module?
-Make sure to look at [Paxeer Network Governance](https://academy.hyperpaxd.org/articles/governance/),
-and specifically the [best practices](https://academy.hyperpaxd.org/articles/governance/best-practices).
+Make sure to look at [HyperPaxeer Governance](https://academy.evmosd.org/articles/governance/),
+and specifically the [best practices](https://academy.evmosd.org/articles/governance/best-practices).
 :::
 
 ## Abstract
 
-This document specifies the internal `x/erc20` module of the Paxeer Network Hub.
+This document specifies the internal `x/erc20` module of the HyperPaxeer Hub.
 
-The `x/erc20` module enables the Paxeer Network Hub to support a trustless, on-chain bidirectional internal conversion of tokens
-between Paxeer Network' EVM and Cosmos runtimes, specifically the `x/evm` and `x/bank` modules.
-This allows token holders on Paxeer Network to instantaneously convert their native Cosmos `sdk.Coins`
+The `x/erc20` module enables the HyperPaxeer Hub to support a trustless, on-chain bidirectional internal conversion of tokens
+between HyperPaxeer' EVM and Cosmos runtimes, specifically the `x/evm` and `x/bank` modules.
+This allows token holders on HyperPaxeer to instantaneously convert their native Cosmos `sdk.Coins`
 (in this document referred to as "Coin(s)") to ERC-20 (aka "Token(s)") and vice versa,
 while retaining fungibility with the original asset on the issuing environment/runtime (EVM or Cosmos)
 and preserving ownership of the ERC-20 contract.
 
-This conversion functionality is fully governed by native Paxeer Network token holders
+This conversion functionality is fully governed by native HyperPaxeer token holders
 who manage the canonical `TokenPair` registrations (ie, ERC20 ←→ Coin mappings).
 This governance functionality is implemented using the Cosmos-SDK `gov` module
 with custom proposal types for registering and updating the canonical mappings respectively.
@@ -27,14 +27,14 @@ The native Cosmos Coins cannot be used in applications that require the ERC-20 s
 Cosmos coins are held on the `x/bank` module (with access to module methods like querying the supply or balances)
 and ERC-20 Tokens live on smart contracts.
 This problem is similar to [wETH](https://coinmarketcap.com/alexandria/article/what-is-wrapped-ethereum-weth),
-with the difference, that it not only applies to gas tokens (like Paxeer Network),
+with the difference, that it not only applies to gas tokens (like HyperPaxeer),
 but to all Cosmos Coins (IBC vouchers, staking and gov coins, etc.) as well.
 
-With the `x/erc20` users on Paxeer Network can
+With the `x/erc20` users on HyperPaxeer can
 
 - use existing native cosmos assets (like OSMO or ATOM) on EVM-based chains, e.g.
 for Trading IBC tokens on DeFi protocols, buying NFT, etc.
-- transfer existing tokens on Ethereum and other EVM-based chains to Paxeer Network
+- transfer existing tokens on Ethereum and other EVM-based chains to HyperPaxeer
 to take advantage of application-specific chains in the Cosmos ecosystem
 - build new applications that are based on ERC-20 smart contracts and have access to the Cosmos ecosystem.
 
@@ -70,7 +70,7 @@ When the proposal passes, the erc20 module registers the Cosmos Coin and ERC20 T
 #### Registration of a Cosmos Coin
 
 A native Cosmos Coin corresponds to an `sdk.Coin` that is native to the bank module.
-It can be either the native staking/gas denomination (e.g. Paxeer Network, ATOM, etc)
+It can be either the native staking/gas denomination (e.g. HyperPaxeer, ATOM, etc)
 or an IBC fungible token voucher (i.e. with denom format of `ibc/{hash}`).
 
 When a proposal is initiated for an existing native Cosmos Coin,
@@ -134,9 +134,9 @@ so that the conversions between the token pair's tokens can be enabled or disabl
 ### Token Conversion
 
 Once a token pair proposal passes, the module allows for the conversion of that token pair.
-Holders of native Cosmos coins and IBC vouchers on the Paxeer Network chain can convert their Coin into ERC20 Tokens,
-which can then be used in Paxeer Network EVM, by creating a `ConvertCoin` Tx.
-Vice versa, the `ConvertERC20` Tx allows holders of ERC20 tokens on the Paxeer Network chain
+Holders of native Cosmos coins and IBC vouchers on the HyperPaxeer chain can convert their Coin into ERC20 Tokens,
+which can then be used in HyperPaxeer EVM, by creating a `ConvertCoin` Tx.
+Vice versa, the `ConvertERC20` Tx allows holders of ERC20 tokens on the HyperPaxeer chain
 to convert ERC-20 tokens back to their native Cosmos Coin representation.
 
 Depending on the ownership of the ERC20 contract,
@@ -155,7 +155,7 @@ which is owned by the malicious contract deployer.
 More sophisticated malicious implementations
 might also inherit code from customized ERC20 contracts that include malicous behaviour.
 For an overview of more extensive examples,
-please review the x/erc20 audit, section `IF-Paxeer Network-06: IERC20 Contracts may execute arbitrary code`.
+please review the x/erc20 audit, section `IF-HyperPaxeer-06: IERC20 Contracts may execute arbitrary code`.
 
 As the `x/erc20` module allows any arbitrary ERC20 contract to be registered through governance,
 it is essential that the proposer or the voters manually verify during voting phase
@@ -192,7 +192,7 @@ type TokenPair struct {
 	// shows token mapping enable status
 	Enabled bool `protobuf:"varint,3,opt,name=enabled,proto3" json:"enabled,omitempty"`
 	// ERC20 owner address ENUM (0 invalid, 1 ModuleAccount, 2 external address
-	ContractOwner Owner `protobuf:"varint,4,opt,name=contract_owner,json=contractOwner,proto3,enum=Paxeer Network.erc20.v1.Owner" json:"contract_owner,omitempty"`
+	ContractOwner Owner `protobuf:"varint,4,opt,name=contract_owner,json=contractOwner,proto3,enum=HyperPaxeer.erc20.v1.Owner" json:"contract_owner,omitempty"`
 }
 ```
 
@@ -278,12 +278,12 @@ For simplicity, the following description describes the registration of only one
 A user registers a native Cosmos Coin.
 Once the proposal passes (i.e is approved by governance),
 the ERC20 module uses a factory pattern to deploy an ERC20 token contract representation of the Cosmos Coin.
-Note that the native Paxeer Network coin cannot be registered,
+Note that the native HyperPaxeer coin cannot be registered,
 as any coin including "evm" in its denomination cannot be registered.
-Instead, the Paxeer Network token can be converted by Nomand's wrapped Paxeer Network (WPaxeer Network) contract.
+Instead, the HyperPaxeer token can be converted by Nomand's wrapped HyperPaxeer (WHyperPaxeer) contract.
 
 1. User submits a `RegisterCoinProposal`
-2. Validators of the Paxeer Network Hub vote on the proposal using `MsgVote` and proposal passes
+2. Validators of the HyperPaxeer Hub vote on the proposal using `MsgVote` and proposal passes
 3. If Cosmos coin or IBC voucher exist on the bank module supply,
    create the [ERC20 token contract](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/contracts/ERC20MinterBurnerDecimals.sol)
    on the EVM based on the ERC20Mintable
@@ -300,7 +300,7 @@ Once the proposal passes (i.e. is approved by governance),
 the ERC20 module creates a Cosmos coin representation of the ERC20 token.
 
 1. User submits a `RegisterERC20Proposal`
-2. Validators of the Paxeer Network chain vote on the proposal using `MsgVote` and proposal passes
+2. Validators of the HyperPaxeer chain vote on the proposal using `MsgVote` and proposal passes
 3. If ERC-20 contract is deployed on the EVM module, create a bank coin `Metadata` from the ERC20 details.
 
 ### Token Pair Conversion
@@ -328,7 +328,7 @@ and thus granting it the permission to call the `mint()` and `burnFrom()` method
   then convert them to the native Coin
 - The user and the `ModuleAccount` (owner) should be the only ones that have the
   Burn Role for a Cosmos Coin
-- There shouldn't exist any native Cosmos Coin ERC20 Contract (eg Paxeer Network, Atom,
+- There shouldn't exist any native Cosmos Coin ERC20 Contract (eg HyperPaxeer, Atom,
   Osmo ERC20 contracts) that is not owned by the governance
 - Token/Coin supply is maintained at all times:
     - Total Coin supply = Coins + Escrowed Coins
@@ -723,9 +723,9 @@ hyperpaxd tx gov submit-proposal proposal.json [flags]
 
 | Verb   | Method                            | Description                    |
 | ------ | --------------------------------- | ------------------------------ |
-| `gRPC` | `Paxeer Network.erc20.v1.Query/Params`     | Get erc20 params               |
-| `gRPC` | `Paxeer Network.erc20.v1.Query/TokenPair`  | Get registered token pair      |
-| `gRPC` | `Paxeer Network.erc20.v1.Query/TokenPairs` | Get all registered token pairs |
+| `gRPC` | `HyperPaxeer.erc20.v1.Query/Params`     | Get erc20 params               |
+| `gRPC` | `HyperPaxeer.erc20.v1.Query/TokenPair`  | Get registered token pair      |
+| `gRPC` | `HyperPaxeer.erc20.v1.Query/TokenPairs` | Get all registered token pairs |
 | `GET`  | `/Paxeer-Network/erc20/v1/params`          | Get erc20 params               |
 | `GET`  | `/Paxeer-Network/erc20/v1/token_pair`      | Get registered token pair      |
 | `GET`  | `/Paxeer-Network/erc20/v1/token_pairs`     | Get all registered token pairs |
@@ -734,7 +734,7 @@ hyperpaxd tx gov submit-proposal proposal.json [flags]
 
 | Verb   | Method                             | Description                    |
 | ------ | ---------------------------------- | ------------------------------ |
-| `gRPC` | `Paxeer Network.erc20.v1.Msg/ConvertCoin`   | Convert a Cosmos Coin to ERC20 |
-| `gRPC` | `Paxeer Network.erc20.v1.Msg/ConvertERC20`  | Convert a ERC20 to Cosmos Coin |
+| `gRPC` | `HyperPaxeer.erc20.v1.Msg/ConvertCoin`   | Convert a Cosmos Coin to ERC20 |
+| `gRPC` | `HyperPaxeer.erc20.v1.Msg/ConvertERC20`  | Convert a ERC20 to Cosmos Coin |
 | `GET`  | `/Paxeer-Network/erc20/v1/tx/convert_coin`  | Convert a Cosmos Coin to ERC20 |
 | `GET`  | `/Paxeer-Network/erc20/v1/tx/convert_erc20` | Convert a ERC20 to Cosmos Coin |

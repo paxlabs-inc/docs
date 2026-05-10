@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document specifies the internal `x/vesting` module of the Paxeer Network Hub.
+This document specifies the internal `x/vesting` module of the HyperPaxeer Hub.
 
 The `x/vesting` module introduces the `ClawbackVestingAccount`,  a new vesting account type
 that implements the Cosmos SDK [`VestingAccount`](https://docs.cosmos.network/main/modules/auth/vesting#vesting-account-types)
@@ -21,7 +21,7 @@ At any time, the funder of a `ClawbackVestingAccount` can perform a clawback to 
 The circumstances under which a clawback should be performed can be agreed upon in a contract
 (e.g. smart contract).
 
-For Paxeer Network, the `ClawbackVestingAccount` is used to allocate tokens to core team members and advisors
+For HyperPaxeer, the `ClawbackVestingAccount` is used to allocate tokens to core team members and advisors
 to incentivize long-term participation in the project.
 
 ## Contents
@@ -55,7 +55,7 @@ The duration until which the first tokens are vested is called the `cliff`.
 
 The lockup describes the schedule by which tokens are converted from a `locked` to an `unlocked` state.
 As long as all tokens are locked, the account cannot perform any transaction
-that spend Paxeer Network. However, the account can perform transactions that don't spend Paxeer Network tokens.
+that spend HyperPaxeer. However, the account can perform transactions that don't spend HyperPaxeer tokens.
 Additionally, locked tokens cannot be transferred to other accounts.
 In the case in which tokens are both locked and vested at the same time,
 it is possible to delegate them to validators, but not transfer them to other accounts.
@@ -63,7 +63,7 @@ it is possible to delegate them to validators, but not transfer them to other ac
 The following table summarizes the actions that are allowed for tokens
 that are subject to the combination of vesting and lockup:
 
-| Token Status            | Transfer | Delegate | Vote | Eth Txs that spend Paxeer Network\*\* | Eth Txs that don't spend Paxeer Network (amount = 0)\*\* |
+| Token Status            | Transfer | Delegate | Vote | Eth Txs that spend HyperPaxeer\*\* | Eth Txs that don't spend HyperPaxeer (amount = 0)\*\* |
 | ----------------------- | :------: | :------: | :--: | :--------------------------: | :---------------------------------------------: |
 | `locked` & `unvested`   |    ❌    |    ❌    |  ❌  |              ❌              |                       ✅                        |
 | `locked` & `vested`     |    ❌    |    ✅    |  ✅  |              ❌              |                       ✅                        |
@@ -72,8 +72,8 @@ that are subject to the combination of vesting and lockup:
 
 \*Staking rewards are unlocked and vested
 
-\*\*EVM transactions only fail if they involve sending locked or unvested Paxeer Network tokens,
-e.g. send Paxeer Network to EOA or Smart Contract (fails if amount > 0 ).
+\*\*EVM transactions only fail if they involve sending locked or unvested HyperPaxeer tokens,
+e.g. send HyperPaxeer to EOA or Smart Contract (fails if amount > 0 ).
 
 ### Schedules
 
@@ -366,7 +366,7 @@ like staking and distribution, to provide a better developer experience allowing
 via the EVM. Since a `ClawbackVestingAccount` is allowed to stake only unlocked & vested coins, or locked & vested,
 we have to ensure that all other configurations are not permitted to perform a state transition. Instead of
 having these checks implemented in both the `AnteHandler`s for Cosmos transactions and Ethereum transactions,
-Paxeer Network core wraps the Cosmos SDK `x/staking` module to introduce these checks in the `MsgServer` of this module.
+HyperPaxeer core wraps the Cosmos SDK `x/staking` module to introduce these checks in the `MsgServer` of this module.
  With this approach we ensure that all staking actions, through direct Cosmos message or through extensions,
  are validating the
 account balance in the proper way.
@@ -415,7 +415,7 @@ The `x/vesting` module emits the following events:
 
 ## Clients
 
-A user can query the Paxeer Network `x/vesting` module using the CLI, gRPC, or REST.
+A user can query the HyperPaxeer `x/vesting` module using the CLI, gRPC, or REST.
 
 ### CLI
 
@@ -525,15 +525,15 @@ hyperpaxd tx vesting convert VESTING_ADDRESS [flags]
 
 | Verb   | Method                                 | Description                            |
 |--------|----------------------------------------|----------------------------------------|
-| `gRPC` | `Paxeer Network.vesting.v2.Query/Balances`      | Gets locked, unvested and vested coins |
+| `gRPC` | `HyperPaxeer.vesting.v2.Query/Balances`      | Gets locked, unvested and vested coins |
 | `GET`  | `/Paxeer-Network/vesting/v2/balances/{address}` | Gets locked, unvested and vested coins |
 
 #### Transactions
 
 | Verb   | Method                                                 | Description                                     |
 |--------|--------------------------------------------------------|-------------------------------------------------|
-| `gRPC` | `Paxeer Network.vesting.v2.Msg/CreateClawbackVestingAccount`    | Creates clawback vesting account                |
-| `gRPC` | `Paxeer Network.vesting.v2.Msg/FundVestingAccount`              | Funds a clawback vesting account                |
+| `gRPC` | `HyperPaxeer.vesting.v2.Msg/CreateClawbackVestingAccount`    | Creates clawback vesting account                |
+| `gRPC` | `HyperPaxeer.vesting.v2.Msg/FundVestingAccount`              | Funds a clawback vesting account                |
 | `gRPC` | `/Paxeer-Network.vesting.v2.Msg/Clawback`                       | Performs clawback                               |
 | `gRPC` | `/Paxeer-Network.vesting.v2.Msg/UpdateVestingFunder`            | Updates vesting account funder                  |
 | `gRPC` | `/Paxeer-Network.vesting.v2.Msg/ConvertVestingAccount`          | Converts vesting account back to normal account |

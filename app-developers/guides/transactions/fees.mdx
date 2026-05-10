@@ -1,32 +1,32 @@
 ---
 title: "Transaction Fees"
-description: "Learn how transaction fees work on Paxeer Network"
+description: "Learn how transaction fees work on HyperPaxeer"
 icon: "money-bill"
 ---
 
 ## Overview
 
-Paxeer Network is designed to be EVM equivalent, which means it reuses the same Ethereum code and behaves as much like Ethereum as possible. Transaction fees on Paxeer Network follow the standard Ethereum EIP-1559 fee mechanism with significantly lower costs due to Layer 2 optimization.
+HyperPaxeer is designed to be EVM equivalent, which means it reuses the same Ethereum code and behaves as much like Ethereum as possible. Transaction fees on HyperPaxeer follow the standard Ethereum EIP-1559 fee mechanism with significantly lower costs due to Layer 2 optimization.
 
 ## Fee Structure
 
-Transaction fees on Paxeer Network consist of a single component:
+Transaction fees on HyperPaxeer consist of a single component:
 
 ```
 totalFee = gasUsed × (baseFee + priorityFee)
 ```
 
 <Note>
-Unlike some Layer 2 solutions, Paxeer Network does not have an L1 data fee component, making fee estimation simpler and more predictable.
+Unlike some Layer 2 solutions, HyperPaxeer does not have an L1 data fee component, making fee estimation simpler and more predictable.
 </Note>
 
 ## Execution Gas Fee
 
-A transaction's execution gas fee on Paxeer Network is calculated the same way as on Ethereum. This fee is equal to the amount of gas used by the transaction multiplied by the gas price attached to the transaction.
+A transaction's execution gas fee on HyperPaxeer is calculated the same way as on Ethereum. This fee is equal to the amount of gas used by the transaction multiplied by the gas price attached to the transaction.
 
 ### How It Works
 
-Paxeer Network uses the [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) mechanism to set the base fee for transactions. The total price per unit gas that a transaction pays is the sum of:
+HyperPaxeer uses the [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) mechanism to set the base fee for transactions. The total price per unit gas that a transaction pays is the sum of:
 
 1. **Base Fee** - Minimum price per unit of gas
 2. **Priority Fee** - Optional tip to incentivize faster inclusion
@@ -37,7 +37,7 @@ totalFee = gasUsed × gasPrice
 ```
 
 <Info>
-Because Paxeer Network is EVM equivalent, **the gas used by a transaction on Paxeer is exactly the same as the gas used by the same transaction on Ethereum**. If a transaction costs 100,000 gas on Ethereum, it will cost 100,000 gas on Paxeer Network. The only difference is that the gas price on Paxeer is much lower.
+Because HyperPaxeer is EVM equivalent, **the gas used by a transaction on Paxeer is exactly the same as the gas used by the same transaction on Ethereum**. If a transaction costs 100,000 gas on Ethereum, it will cost 100,000 gas on HyperPaxeer. The only difference is that the gas price on Paxeer is much lower.
 </Info>
 
 ### Base Fee
@@ -50,7 +50,7 @@ The [base fee](https://ethereum.org/en/developers/docs/gas/#base-fee) is the min
 - Base fee adjusts automatically based on network demand
 - Increases when blocks are full, decreases when blocks are empty
 
-The Paxeer Network base fee behaves exactly like the Ethereum base fee, optimized for fast block times.
+The HyperPaxeer base fee behaves exactly like the Ethereum base fee, optimized for fast block times.
 
 ```solidity Reading Base Fee
 // Get current base fee
@@ -59,7 +59,7 @@ uint256 baseFee = block.basefee;
 
 ### Priority Fee
 
-Just like on Ethereum, Paxeer Network transactions can specify a **priority fee** (also called a tip). This is a price per unit of gas paid on top of the base fee.
+Just like on Ethereum, HyperPaxeer transactions can specify a **priority fee** (also called a tip). This is a price per unit of gas paid on top of the base fee.
 
 **Example:**
 - Block base fee: 1 gwei
@@ -67,7 +67,7 @@ Just like on Ethereum, Paxeer Network transactions can specify a **priority fee*
 - Total price per gas: 2 gwei
 
 <Tip>
-**The Paxeer Network sequencer will prioritize transactions with a higher priority fee** and execute them before transactions with a lower priority fee. If transaction speed is important to your application, set a higher priority fee to ensure quick inclusion.
+**The HyperPaxeer sequencer will prioritize transactions with a higher priority fee** and execute them before transactions with a lower priority fee. If transaction speed is important to your application, set a higher priority fee to ensure quick inclusion.
 </Tip>
 
 The priority fee is optional and can be set to 0, but some wallets may enforce a minimum value (typically 1 gwei).
@@ -117,7 +117,7 @@ const baseFee = 1000000000;         // 1 gwei
 const priorityFee = 1000000000;     // 1 gwei
 
 const totalFee = gasUsed * (baseFee + priorityFee);
-// = 21000 × 2 gwei = 42,000 gwei = 0.000042 PAX
+// = 21000 × 2 gwei = 42,000 gwei = 0.000042 HPX
 ```
 
 ### Example 2: Contract Interaction
@@ -128,7 +128,7 @@ const baseFee = 1000000000;         // 1 gwei
 const priorityFee = 2000000000;     // 2 gwei (higher priority)
 
 const totalFee = gasUsed * (baseFee + priorityFee);
-// = 150000 × 3 gwei = 450,000 gwei = 0.00045 PAX
+// = 150000 × 3 gwei = 450,000 gwei = 0.00045 HPX
 ```
 
 ## Estimating Transaction Costs
@@ -153,7 +153,7 @@ const totalFee = gasUsed * (baseFee + priorityFee);
       
       console.log('Estimated gas:', gasEstimate.toString());
       console.log('Max fee per gas:', ethers.formatUnits(maxFee, 'gwei'), 'gwei');
-      console.log('Estimated cost:', ethers.formatEther(estimatedCost), 'PAX');
+      console.log('Estimated cost:', ethers.formatEther(estimatedCost), 'HPX');
       
       return estimatedCost;
     }
@@ -224,7 +224,7 @@ const totalFee = gasUsed * (baseFee + priorityFee);
         <div>
           <p>Estimated Gas: {gasEstimate?.toString()}</p>
           <p>Gas Price: {gasPrice?.toString()}</p>
-          <p>Estimated Cost: {formatEther(estimatedCost)} PAX</p>
+          <p>Estimated Cost: {formatEther(estimatedCost)} HPX</p>
         </div>
       );
     }
@@ -234,7 +234,7 @@ const totalFee = gasUsed * (baseFee + priorityFee);
 
 ## Gas Price Monitoring
 
-Monitor current gas prices on Paxeer Network:
+Monitor current gas prices on HyperPaxeer:
 
 ```javascript
 import { ethers } from 'ethers';
@@ -310,7 +310,7 @@ setInterval(monitorGasPrices, 10000);
 
 ## Fee Vault
 
-The Sequencer Fee Vault collects and holds transaction fees paid to the sequencer during block production on Paxeer Network.
+The Sequencer Fee Vault collects and holds transaction fees paid to the sequencer during block production on HyperPaxeer.
 
 **Vault Address:** `0x4200000000000000000000000000000000000011`
 
@@ -322,28 +322,28 @@ The Sequencer Fee Vault collects and holds transaction fees paid to the sequence
 
 ## Comparing Costs
 
-### Paxeer Network vs Ethereum
+### HyperPaxeer vs Ethereum
 
-| Operation | Ethereum | Paxeer Network | Savings |
+| Operation | Ethereum | HyperPaxeer | Savings |
 |-----------|----------|----------------|---------|
 | ETH Transfer (21,000 gas) | ~$5-20 | ~$0.01-0.05 | 99%+ |
 | Token Swap (150,000 gas) | ~$30-100 | ~$0.05-0.20 | 99%+ |
 | NFT Mint (200,000 gas) | ~$40-150 | ~$0.10-0.30 | 99%+ |
 
 <Note>
-Actual costs vary based on current gas prices. Paxeer Network typically offers 99%+ cost savings compared to Ethereum mainnet.
+Actual costs vary based on current gas prices. HyperPaxeer typically offers 99%+ cost savings compared to Ethereum mainnet.
 </Note>
 
 ## Advanced Topics
 
 ### EIP-1559 Parameters
 
-Paxeer Network uses EIP-1559 with these parameters:
+HyperPaxeer uses EIP-1559 with these parameters:
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
 | Block Gas Limit | 30,000,000 | Maximum gas per block |
-| Block Time | ~2 seconds | Target block production time |
+| Block Time | 277 ms average | Official reported average block production time |
 | Base Fee Max Change | 12.5% | Maximum base fee change per block |
 | Elasticity Multiplier | 2 | Block gas target multiplier |
 
@@ -386,10 +386,10 @@ uint256 currentBaseFee = oracle.baseFee();
   </Accordion>
 
   <Accordion title="Insufficient Funds" icon="wallet">
-    Account doesn't have enough PAX to cover gas costs:
+    Account doesn't have enough HPX to cover gas costs:
     
     **Solution:**
-    - Ensure account has sufficient PAX balance
+    - Ensure account has sufficient HPX balance
     - Remember: required balance = (gas limit × max fee per gas) + value
   </Accordion>
 </AccordionGroup>
@@ -426,4 +426,3 @@ uint256 currentBaseFee = oracle.baseFee();
     Fix common transaction issues
   </Card>
 </CardGroup>
-

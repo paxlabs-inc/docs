@@ -3,17 +3,17 @@ title: CLI
 description: Command-line tools and node operation guides.
 ---
 
-# HyperPaxeer Network CLI
+# HyperPaxeer CLI
 
-`hyperpaxd` is the all-in-one command-line interface (CLI). It allows you to run an Paxeer Network node, manage wallets and interact
- with the Paxeer Network network through queries and transactions. This introduction will explain how to install the `hyperpaxd`
+`hyperpaxd` is the all-in-one command-line interface (CLI). It allows you to run an HyperPaxeer node, manage wallets and interact
+ with the HyperPaxeer network through queries and transactions. This introduction will explain how to install the `hyperpaxd`
  binary onto your system and guide you through some simple examples how to use hyperpaxd.
 
 ## Prerequisites
 
 #### Go
 
-Paxeer Network is built using [Go](https://golang.org/dl/) version `1.20+`. Check your version with:
+HyperPaxeer is built using [Go](https://golang.org/dl/) version `1.20+`. Check your version with:
 
 ```bash
 go version
@@ -28,7 +28,7 @@ export PATH=$PATH:$(go env GOPATH)/bin
 
 #### jq
 
-Paxeer Network scripts are using [jq](https://stedolan.github.io/jq/download/) version `1.6+`. Check your version with:
+HyperPaxeer scripts are using [jq](https://stedolan.github.io/jq/download/) version `1.6+`. Check your version with:
 
 ```
 jq --version
@@ -55,12 +55,12 @@ hyperpaxd version
 
 ### Build From Source
 
-Clone and build the Paxeer Network from source using `git`. The `<tag>` refers to a release tag on Github. Check the latest Paxeer Network
+Clone and build the HyperPaxeer from source using `git`. The `<tag>` refers to a release tag on Github. Check the latest HyperPaxeer
 version on the [releases section of the repository](https://github.com/Paxeer-Network/Paxeer-Network/releases):
 
 ```bash
 git clone https://github.com/Paxeer-Network/Paxeer-Network.git
-cd Paxeer Network
+cd HyperPaxeer
 git fetch
 git checkout <tag>
 make install
@@ -78,15 +78,15 @@ If the `hyperpaxd: command not found` error message is returned, confirm that yo
 
 ### Docker
 
-When it comes to using Docker with Paxeer Network, there are two options available:
-Build a binary of the Paxeer Network daemon inside a dockerized build environment
-or build a Docker image, that can be used to spin up individual containers running the Paxeer Network binary.
+When it comes to using Docker with HyperPaxeer, there are two options available:
+Build a binary of the HyperPaxeer daemon inside a dockerized build environment
+or build a Docker image, that can be used to spin up individual containers running the HyperPaxeer binary.
 For information on how to achieve this,
 proceed to the dedicated page on [working with Docker](./docker-build.md).
 
-## Run an Paxeer Network node
+## Run an HyperPaxeer node
 
-To become familiar with Paxeer Network, you can run a local blockchain node that produces blocks and exposes EVM and Cosmos
+To become familiar with HyperPaxeer, you can run a local blockchain node that produces blocks and exposes EVM and Cosmos
 endpoints. This allows you to deploy and interact with smart contracts locally or test core protocol functionality.
 
 Run the local node by executing the `local_node.sh` script in the base directory of the repository:
@@ -99,7 +99,7 @@ The script stores the node configuration including the local default endpoints u
 If you have previously run the script, the script allows you to overwrite the existing configuration and start a new
 local node.
 
-Once your node is running you will see it validating and producing blocks in your local Paxeer Network blockchain:
+Once your node is running you will see it validating and producing blocks in your local HyperPaxeer blockchain:
 
 ```bash
 12:59PM INF executed block height=1 module=state num_invalid_txs=0 num_valid_txs=0 server=node
@@ -138,9 +138,9 @@ hyperpaxd keys list \
 --keyring-backend test
 
 # Example Output:
-# - address: Paxeer Network19xnmslvl0pcmydu4m52h2gf0std5ee5pfgpyuf
+# - address: HyperPaxeer19xnmslvl0pcmydu4m52h2gf0std5ee5pfgpyuf
 #   name: dev0
-#   pubkey: '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"AzKouyoUL0UUS1qRUZdqyVsTPkCAFWwxx3+BTOw36nKp"}'
+#   pubkey: '{"@type":"/hyperpaxeer.crypto.v1.ethsecp256k1.PubKey","key":"AzKouyoUL0UUS1qRUZdqyVsTPkCAFWwxx3+BTOw36nKp"}'
 #   type: local
 ```
 
@@ -152,7 +152,7 @@ hyperpaxd keys add [name] \
 --keyring-backend test
 ```
 
-To export your Paxeer Network key as an Ethereum private key (for use with [Metamask](https://academy.hyperpaxd.org/articles/beginner/connect-your-wallet/metamask)
+To export your HyperPaxeer key as an Ethereum private key (for use with [Metamask](https://academy.evmosd.org/articles/beginner/connect-your-wallet/metamask)
  for example):
 
 ```bash
@@ -174,7 +174,7 @@ For more information about the Keyring and its backend options, click [here](../
 ### Interact with a Network
 
 You can use hyperpaxd to query information or submit transactions on the blockchain. Queries and transactions are requests
- that you send to an Paxeer Network node through the Tendermint RPC.
+ that you send to an HyperPaxeer node through the Tendermint RPC.
 
 :::tip
 👉 To use the CLI, you will need to provide a Tendermint RPC address for the `--node` flag.
@@ -257,5 +257,5 @@ hyperpaxd tx
 hyperpaxd tx bank
 ```
 
-Now that you've learned the basics of how to run and interact with an Paxeer Network network,
+Now that you've learned the basics of how to run and interact with an HyperPaxeer network,
 head over to [configurations](configuration.mdx) for futher customization.

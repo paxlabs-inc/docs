@@ -2,9 +2,9 @@
 
 ## Abstract
 
-The `x/inflation` module mints new Paxeer Network tokens and allocates them in daily
-epochs according to the [Paxeer Network Token
-Model](https://Paxeer-Network.blog/the-Paxeer Network-token-model-edc07014978b) distribution to
+The `x/inflation` module mints new HyperPaxeer tokens and allocates them in daily
+epochs according to the [HyperPaxeer Token
+Model](https://Paxeer-Network.blog/the-HyperPaxeer-token-model-edc07014978b) distribution to
 
 * Community Pool `50%`.
 * Staking Rewards `50%`,
@@ -12,7 +12,7 @@ Model](https://Paxeer-Network.blog/the-Paxeer Network-token-model-edc07014978b) 
 
 It replaces the Cosmos SDK `x/mint` module, that other Cosmos chains are using.
 
-The allocation of new coins incentivizes specific behaviour in the Paxeer Network network.
+The allocation of new coins incentivizes specific behaviour in the HyperPaxeer network.
 Inflation allocates funds to 1) the community pool(managed by sdk `x/distribution` module) to fund spending proposals,
 and 2) the `Fee Collector account` (in the sdk `x/auth` module) to increase staking rewards.
 The now deprecated `x/incentives` module account (3) does not accrue tokens anymore.
@@ -44,14 +44,14 @@ becomes *stable*, because assets are locked up instead of causing price changes
 through trading. And it becomes *decentralized,* because the power to vote for
 governance proposals is distributed amongst more people.
 
-### Paxeer Network Token Model
+### HyperPaxeer Token Model
 
-The Paxeer Network Token Model outlines how the Paxeer Network network is secured through a
+The HyperPaxeer Token Model outlines how the HyperPaxeer network is secured through a
 balanced incentivized interest from users, developers and validators. In this
 model, inflation plays a major role in sustaining this balance. With an initial
 supply of 200 million and over 300 million tokens being issued through inflation
 during the first year, the model suggests an exponential decline in inflation to
-issue 1 billion Paxeer Network tokens within the first 4 years.
+issue 1 billion HyperPaxeer tokens within the first 4 years.
 
 We implement two different inflation mechanisms to support the token model:
 
@@ -75,7 +75,7 @@ The inflation distribution for staking and community pool is
 implemented through an exponential formula, a.k.a. the Half Life.
 
 Inflation is minted in daily epochs. During a period of 365 epochs (one year),
-a daily provision (`epochProvison`) of Paxeer Network tokens is minted
+a daily provision (`epochProvison`) of HyperPaxeer tokens is minted
 and allocated to staking rewards and the community pool.
 The epoch provision depends on module parameters and is recalculated at the end of every epoch.
 
@@ -317,12 +317,12 @@ hyperpaxd tx gov submit-proposal proposal.json [flags]
 
 | Verb   | Method                                        | Description                                   |
 | ------ | --------------------------------------------- | --------------------------------------------- |
-| `gRPC` | `Paxeer Network.inflation.v1.Query/Period`             | Gets current inflation period                 |
-| `gRPC` | `Paxeer Network.inflation.v1.Query/EpochMintProvision` | Gets current inflation epoch provisions value |
-| `gRPC` | `Paxeer Network.inflation.v1.Query/Params`             | Gets current inflation parameters             |
-| `gRPC` | `Paxeer Network.inflation.v1.Query/SkippedEpochs`      | Gets current number of skipped epochs         |
-| `gRPC` | `Paxeer Network.inflation.v1.Query/TotalSupply`        | Gets current total supply                     |
-| `gRPC` | `Paxeer Network.inflation.v1.Query/InflationRate`      | Gets current inflation rate                   |
+| `gRPC` | `HyperPaxeer.inflation.v1.Query/Period`             | Gets current inflation period                 |
+| `gRPC` | `HyperPaxeer.inflation.v1.Query/EpochMintProvision` | Gets current inflation epoch provisions value |
+| `gRPC` | `HyperPaxeer.inflation.v1.Query/Params`             | Gets current inflation parameters             |
+| `gRPC` | `HyperPaxeer.inflation.v1.Query/SkippedEpochs`      | Gets current number of skipped epochs         |
+| `gRPC` | `HyperPaxeer.inflation.v1.Query/TotalSupply`        | Gets current total supply                     |
+| `gRPC` | `HyperPaxeer.inflation.v1.Query/InflationRate`      | Gets current inflation rate                   |
 | `GET`  | `/Paxeer-Network/inflation/v1/period`                  | Gets current inflation period                 |
 | `GET`  | `/Paxeer-Network/inflation/v1/epoch_mint_provision`    | Gets current inflation epoch provisions value |
 | `GET`  | `/Paxeer-Network/inflation/v1/skipped_epochs`          | Gets current number of skipped epochs         |

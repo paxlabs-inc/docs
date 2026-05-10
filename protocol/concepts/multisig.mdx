@@ -5,7 +5,7 @@
 
 Learn how to generate, sign and broadcast a transaction using the keyring multisig.
 
-A **multisig account** is an Paxeer Network account with a special key that can require more than one signature to sign transactions.
+A **multisig account** is an HyperPaxeer account with a special key that can require more than one signature to sign transactions.
  This can be useful for increasing the security of the account or for requiring the consent of multiple parties to make
   transactions. Multisig accounts can be created by specifying:
 
@@ -53,7 +53,7 @@ First import the public keys of `test3` into your keyring.
 ```sh
 hyperpaxd keys add \
     test3 \
-    --pubkey=Paxeer Networkpub1addwnpepqgcxazmq6wgt2j4rdfumsfwla0zfk8e5sws3p3zg5dkm9007hmfysxas0u2
+    --pubkey=HyperPaxeerpub1addwnpepqgcxazmq6wgt2j4rdfumsfwla0zfk8e5sws3p3zg5dkm9007hmfysxas0u2
 ```
 
 Generate the multisig key with 2/3 threshold.
@@ -72,19 +72,19 @@ hyperpaxd keys show multi
 
 - name: multi
   type: multi
-  address: Paxeer Network1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m
-  pubkey: Paxeer Networkpub1ytql0csgqgfzd666axrjzq3mxw59ys6yqcd3ydjvhgs0uzs6kdk5fp4t73gmkl8t6y02yfq7tvfzd666axrjzq3sd69kp5usk492x6nehqjal67ynv0nfqapzrzy3gmdk27la0kjfqfzd666axrjzq6utqt639ka2j3xkncgk65dup06t297ccljmxhvhu3rmk92u3afjuyz9dg9
+  address: HyperPaxeer1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m
+  pubkey: HyperPaxeerpub1ytql0csgqgfzd666axrjzq3mxw59ys6yqcd3ydjvhgs0uzs6kdk5fp4t73gmkl8t6y02yfq7tvfzd666axrjzq3sd69kp5usk492x6nehqjal67ynv0nfqapzrzy3gmdk27la0kjfqfzd666axrjzq6utqt639ka2j3xkncgk65dup06t297ccljmxhvhu3rmk92u3afjuyz9dg9
   mnemonic: ""
   threshold: 0
   pubkeys: []
 ```
 
-Let's add 10 Paxeer Network to the multisig wallet:
+Let's add 10 HyperPaxeer to the multisig wallet:
 
 ```bash
 hyperpaxd tx bank send \
     test1 \
-    Paxeer Network1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
+    HyperPaxeer1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
     10000000000000000000ahpx \
     --chain-id=hyperpax_125-4 \
     --gas=auto \
@@ -94,12 +94,12 @@ hyperpaxd tx bank send \
 
 ### Step 2: Create the multisig transaction
 
-We want to send 5 Paxeer Network from our multisig account to `Paxeer Network1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft`.
+We want to send 5 HyperPaxeer from our multisig account to `HyperPaxeer1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft`.
 
 ```bash
 hyperpaxd tx bank send \
-    Paxeer Network1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft \
-    Paxeer Network157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq \
+    HyperPaxeer1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft \
+    HyperPaxeer157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq \
     5000000000000000000ahpx \
     --gas=200000 \
     --fees=1000000ahpx \
@@ -115,8 +115,8 @@ The file `unsignedTx.json` contains the unsigned transaction encoded in JSON.
     "messages": [
       {
         "@type": "/cosmos.bank.v1beta1.MsgSend",
-        "from_address": "Paxeer Network1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
-        "to_address": "Paxeer Network157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
+        "from_address": "HyperPaxeer1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
+        "to_address": "HyperPaxeer157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
         "amount": [
           {
             "denom": "ahpx",
@@ -155,7 +155,7 @@ Sign with `test1` and `test2` and create individual signatures.
 ```sh
 hyperpaxd tx sign \
     unsignedTx.json \
-    --multisig=Paxeer Network1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
+    --multisig=HyperPaxeer1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
     --from=test1 \
     --output-document=test1sig.json \
     --chain-id=hyperpax_125-4
@@ -164,7 +164,7 @@ hyperpaxd tx sign \
 ```sh
 hyperpaxd tx sign \
     unsignedTx.json \
-    --multisig=Paxeer Network1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
+    --multisig=HyperPaxeer1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
     --from=test2 \
     --output-document=test2sig.json \
     --chain-id=hyperpax_125-4
@@ -191,8 +191,8 @@ The TX is now signed:
     "messages": [
       {
         "@type": "/cosmos.bank.v1beta1.MsgSend",
-        "from_address": "Paxeer Network1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
-        "to_address": "Paxeer Network157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
+        "from_address": "HyperPaxeer1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
+        "to_address": "HyperPaxeer157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
         "amount": [
           {
             "denom": "ahpx",

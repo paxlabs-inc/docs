@@ -4,13 +4,13 @@ title: "Working with Docker"
 
 # Working with Docker
 
-There are multiple ways to use Paxeer Network with Docker.
-If you want to run Paxeer Network inside a Docker setup and possibly connect the Docker container
+There are multiple ways to use HyperPaxeer with Docker.
+If you want to run HyperPaxeer inside a Docker setup and possibly connect the Docker container
 to other containerized compatible blockchain binaries, check out the guide on
-[building a Docker image containing the Paxeer Network binary](#building-a-docker-image-containing-the-binary).
+[building a Docker image containing the HyperPaxeer binary](#building-a-docker-image-containing-the-binary).
 If you instead want to generate a binary for use outside of Docker,
 but want to ensure the correct dependencies are used by building the binary inside a Docker container,
-then go ahead to the section on [building the Paxeer Network binary with Docker](#building-the-binary-with-docker).
+then go ahead to the section on [building the HyperPaxeer binary with Docker](#building-the-binary-with-docker).
 
 :::note
 The given instructions have been tested on *Ubuntu 18.04.2 LTS* with *Docker 20.10.2* and *macOS 13.2.1* with *Docker 20.10.22*.
@@ -22,14 +22,14 @@ The given instructions have been tested on *Ubuntu 18.04.2 LTS* with *Docker 20.
 
 ## General Setup
 
-In order to build Paxeer Network binaries with Docker, it is necessary to
+In order to build HyperPaxeer binaries with Docker, it is necessary to
 
-- clone the Paxeer Network repository to your local machine (e.g. `git clone git@github.com/Paxeer-Network/Paxeer-Network.git`)
+- clone the HyperPaxeer repository to your local machine (e.g. `git clone git@github.com/Paxeer-Network/Paxeer-Network.git`)
 - checkout the commit, branch, or release tag you want to build (e.g. `git checkout v11.0.2`)
 
 ## Building A Docker Image Containing The Binary
 
-To build a Docker image, that contains the Paxeer Network binary,
+To build a Docker image, that contains the HyperPaxeer binary,
 step into the cloned repository and run the following command in a terminal session:
 
 ```bash
@@ -47,7 +47,7 @@ docker run -it --rm tharsishq/Paxeer-Network:latest hyperpaxd version
 
 It is possible to build the `hyperpaxd` binary deterministically using Docker.
 The container system that Docker provides offers the ability
-to create an instance of the Paxeer Network binary in an isolated environment.
+to create an instance of the HyperPaxeer binary in an isolated environment.
 
 ### Building the Image
 
@@ -82,6 +82,6 @@ It also makes sure that the same, tested dependencies are used and statically bu
 
 ----
 
-Now that you have built the Paxeer Network binary, either for local use or in a Docker container,
+Now that you have built the HyperPaxeer binary, either for local use or in a Docker container,
 you'll find information to run a node instance in the following section
 on [setting up a local network](./single-node).

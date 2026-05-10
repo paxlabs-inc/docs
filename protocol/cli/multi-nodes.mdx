@@ -9,9 +9,9 @@ that consists of a 4-node local chain.
 This setup can be useful for developers to test their applications and
 protocol features on a multi-node setup.
 
-A similar setup is used by the Paxeer Network team to get insights
+A similar setup is used by the HyperPaxeer team to get insights
 about the impact of new features and testing different user flows.
-This testing setup can be found on the [Paxeer Network testing repository](https://github.com/Paxeer-Network/testing).
+This testing setup can be found on the [HyperPaxeer testing repository](https://github.com/Paxeer-Network/testing).
 
 ### Build & Start
 
@@ -26,10 +26,10 @@ The ports for each node are found in this table:
 
 | Node ID      | P2P Port | Tendermint RPC Port | REST/ Ethereum JSON-RPC Port | WebSocket Port |
 | ------------ | -------- | ------------------- | ---------------------------- | -------------- |
-| `Paxeer Networknode0` | `26656`  | `26657`             | `8545`                       | `8546`         |
-| `Paxeer Networknode1` | `26659`  | `26660`             | `8547`                       | `8548`         |
-| `Paxeer Networknode2` | `26661`  | `26662`             | `8549`                       | `8550`         |
-| `Paxeer Networknode3` | `26663`  | `26664`             | `8551`                       | `8552`         |
+| `HyperPaxeernode0` | `26656`  | `26657`             | `8545`                       | `8546`         |
+| `HyperPaxeernode1` | `26659`  | `26660`             | `8547`                       | `8548`         |
+| `HyperPaxeernode2` | `26661`  | `26662`             | `8549`                       | `8550`         |
+| `HyperPaxeernode3` | `26663`  | `26664`             | `8551`                       | `8552`         |
 
 To update the binary, just rebuild it and restart the nodes
 
@@ -41,7 +41,7 @@ The command above  command will run containers in the background using Docker co
 
 ```bash
 ...
-Creating network "Paxeer Network_localnet" with driver "bridge"
+Creating network "HyperPaxeer_localnet" with driver "bridge"
 Creating hyperpaxdnode0 ... done
 Creating hyperpaxdnode2 ... done
 Creating hyperpaxdnode1 ... done
@@ -206,5 +206,5 @@ variable. The path of the binary is relative to the attached volume. For example
 
 ```bash
 # Run with custom binary
-BINARY=Paxeer Network make localnet-start
+BINARY=HyperPaxeer make localnet-start
 ```

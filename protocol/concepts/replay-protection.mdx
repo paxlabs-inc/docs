@@ -16,7 +16,7 @@ This holds the potential for exploits and is addressed by enforcing the EIP-155 
 Cosmos SDK-based blockchains use Bech32 representations for addresses, which contain a unique prefix per chain.
 This means, that for Cosmos transactions, replay protection is inherently present as addresses of a given chain
 are not valid addresses on other chains.
-However, as Paxeer Network also accepts EVM transactions, handling only those transactions that conform to EIP-155
+However, as HyperPaxeer also accepts EVM transactions, handling only those transactions that conform to EIP-155
 becomes a requirement again.
 
 This requires special care to be taken when selecting an EIP-155 compliant [chain ID](./chain-id.mdx)
@@ -24,7 +24,7 @@ to avoid duplication amongst chains.
 
 ## Configuring Replay Protection
 
-By default, replay protection is enabled on any Paxeer Network node.
+By default, replay protection is enabled on any HyperPaxeer node.
 There are two distinct steps required to accept unprotected transactions, i.e. those that do not contain the chain ID
 in the signed transaction data:
 

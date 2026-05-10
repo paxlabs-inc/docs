@@ -30,7 +30,7 @@ which alleviate the aforementioned concerns through high transaction throughput
 via [Tendermint Core](https://github.com/tendermint/tendermint), fast transaction finality,
 and horizontal scalability via [IBC](https://ibcprotocol.org/).
 
-The `x/evm` module is part of the [ethermint library](https://pkg.go.dev/github.com/Paxeer-Network/ethermint).
+The `x/evm` module is part of the HyperPaxeer EVM stack, forked from the hyperpaxeer library.
 
 ## Contents
 
@@ -187,16 +187,16 @@ For further reading, please refer to:
 * [What is Ethereum](https://ethdocs.org/en/latest/introduction/what-is-ethereum.html#what-is-ethereum)
 * [Opcodes](https://www.ethervm.io/)
 
-### Paxeer Network as Geth implementation
+### HyperPaxeer as Geth implementation
 
-Paxeer Network contains an implementation of the [Ethereum protocol in Golang](https://geth.ethereum.org/docs/getting-started)
+HyperPaxeer contains an implementation of the [Ethereum protocol in Golang](https://geth.ethereum.org/docs/getting-started)
 (Geth) as a Cosmos SDK module.
 Geth includes an implementation of the EVM to compute state transitions.
 Have a look at the [go-ethereum source code](https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go)
 to see how the EVM opcodes are implemented.
 Just as Geth can be run as an Ethereum node,
-Paxeer Network can be run as a node to compute state transitions with the EVM.
-Paxeer Network supports Geth's standard [Ethereum JSON-RPC APIs](https://docs.paxeer.app/develop/api/ethereum-json-rpc/methods)
+HyperPaxeer can be run as a node to compute state transitions with the EVM.
+HyperPaxeer supports Geth's standard Ethereum JSON-RPC APIs
 in order to be Web3 and EVM compatible.
 
 #### JSON-RPC
@@ -235,15 +235,15 @@ In the Geth implementation, calling the endpoint roughly goes through the follow
 7. [`Run()`](https://github.com/ethereum/go-ethereum/blob/d575a2d3bc76dfbdefdd68b6cffff115542faf75/core/vm/interpreter.go#L116)
    performs a loop to execute the opcodes.
 
-The Paxeer Network implementation is similar and makes use of the gRPC query client which is included in the Cosmos SDK:
+The HyperPaxeer implementation is similar and makes use of the gRPC query client which is included in the Cosmos SDK:
 
 1. `eth_call` request is transformed to call the `func (e *PublicAPI) Call` function using the `eth` namespace
-2. [`Call()`](https://github.com/Paxeer-Network/ethermint/blob/main/rpc/namespaces/ethereum/eth/api.go#L639) calls `doCall()`
-3. [`doCall()`](https://github.com/Paxeer-Network/ethermint/blob/main/rpc/namespaces/ethereum/eth/api.go#L656)
+2. [`Call()`](https://github.com/paxeer-network/hyperpaxeer/blob/main/rpc/namespaces/ethereum/eth/api.go#L639) calls `doCall()`
+3. [`doCall()`](https://github.com/paxeer-network/hyperpaxeer/blob/main/rpc/namespaces/ethereum/eth/api.go#L656)
    transforms the arguments into a `EthCallRequest` and calls `EthCall()` using the query client of the evm module.
-4. [`EthCall()`](https://github.com/Paxeer-Network/ethermint/blob/main/x/evm/keeper/grpc_query.go#L212)
+4. [`EthCall()`](https://github.com/paxeer-network/hyperpaxeer/blob/main/x/evm/keeper/grpc_query.go#L212)
    transforms the arguments into a `ethtypes.message` and calls `ApplyMessageWithConfig()
-5. [`ApplyMessageWithConfig()`](https://github.com/Paxeer-Network/ethermint/blob/d5598932a7f06158b7a5e3aa031bbc94eaaae32c/x/evm/keeper/state_transition.go#L341)
+5. [`ApplyMessageWithConfig()`](https://github.com/paxeer-network/hyperpaxeer/blob/d5598932a7f06158b7a5e3aa031bbc94eaaae32c/x/evm/keeper/state_transition.go#L341)
    instantiates an EVM and either `Create()`s a new contract or `Call()`s a contract using the Geth implementation.
 
 #### StateDB
@@ -251,7 +251,7 @@ The Paxeer Network implementation is similar and makes use of the gRPC query cli
 The `StateDB` interface from [go-ethereum](https://github.com/ethereum/go-ethereum/blob/master/core/vm/interface.go)
 represents an EVM database for full state querying.
 EVM state transitions are enabled by this interface, which in the `x/evm` module is implemented by the `Keeper`.
-The implementation of this interface is what makes Paxeer Network EVM compatible.
+This implementation of this interface is what makes HyperPaxeer EVM compatible.
 
 ### Consensus Engine
 
@@ -479,7 +479,7 @@ and revert the state to a given revision with `RevertToSnapshot()` to support th
 - `Snapshot()` creates a new snapshot and returns the identifier.
 - `RevertToSnapshot(rev)` undo all the modifications up to the snapshot identified as `rev`.
 
-Paxeer Network adapted the [go-ethereum journal implementation](https://github.com/ethereum/go-ethereum/blob/master/core/state/journal.go#L39)
+HyperPaxeer adapted the [go-ethereum journal implementation](https://github.com/ethereum/go-ethereum/blob/master/core/state/journal.go#L39)
 to support this, it uses a list of journal logs to record all the state modification operations done so far,
 snapshot is consists of a unique id and an index in the log list,
 and to revert to a snapshot it just undoes the journal logs after the snapshot index in reversed order.
@@ -497,7 +497,7 @@ and implements `statedb.Keeper` interface to support the `StateDB` implementatio
 The Keeper contains a store key that allows the DB
 to write to a concrete subtree of the multistore that is only accessible by the EVM module.
 Instead of using a trie and database for querying and persistence (the `StateDB` implementation),
-Paxeer Network uses the Cosmos `KVStore` (key-value store) and Cosmos SDK `Keeper` to facilitate state transitions.
+HyperPaxeer uses the Cosmos `KVStore` (key-value store) and Cosmos SDK `Keeper` to facilitate state transitions.
 
 To support the interface functionality, it imports 4 module Keepers:
 
@@ -565,7 +565,7 @@ type GenesisState struct {
 The `GenesisAccount` type corresponds to an adaptation of the Ethereum `GenesisAccount` type.
 It defines an account to be initialized in the genesis state.
 
-Its main difference is that the one on Paxeer Network uses a custom `Storage` type
+Its main difference is that the one on HyperPaxeer uses a custom `Storage` type
 that uses a slice instead of maps for the evm `State` (due to non-determinism),
 and that it doesn't contain the private key field.
 
@@ -1042,9 +1042,9 @@ The error returned by the hooks is translated to a VM error `failed to process n
 the detailed error message is stored in the return value.
 The message is sent to native modules asynchronously, there's no way for the caller to catch and recover the error.
 
-### Use Case: Call Native ERC20 Module on Paxeer Network
+### Use Case: Call Native ERC20 Module on HyperPaxeer
 
-Here is an example taken from the Paxeer Network [erc20 module](erc20.md)
+Here is an example taken from the HyperPaxeer [erc20 module](erc20.md)
 that shows how the `EVMHooks` supports a contract calling a native module
 to convert ERC-20 Tokens into Cosmos native Coins.
 Following the steps from above.
@@ -1253,9 +1253,9 @@ The evm denomination parameter defines the token denomination
 used on the EVM state transitions and gas consumption for EVM messages.
 
 For example, on Ethereum, the `evm_denom` would be `ETH`.
-In the case of Paxeer Network, the default denomination is the **atto Paxeer Network**.
-In terms of precision, `Paxeer Network` and `ETH` share the same value,
-*i.e.* `1 Paxeer Network = 10^18 atto Paxeer Network` and `1 ETH = 10^18 wei`.
+In the case of HyperPaxeer, the default denomination is the **atto HyperPaxeer**.
+In terms of precision, `HyperPaxeer` and `ETH` share the same value,
+*i.e.* `1 HyperPaxeer = 10^18 atto HyperPaxeer` and `1 ETH = 10^18 wei`.
 
 :::tip
 Note: SDK applications that want to import the EVM module as a dependency
@@ -1425,7 +1425,7 @@ value: "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 ### JSON-RPC
 
-For an overview on the JSON-RPC methods and namespaces supported on Paxeer Network,
+For an overview on the JSON-RPC methods and namespaces supported on HyperPaxeer,
 please refer to [https://docs.paxeer.app/develop/api/ethereum-json-rpc/methodsl](https://docs.paxeer.app/develop/api/ethereum-json-rpc/methods)
 
 ### gRPC
@@ -1434,32 +1434,32 @@ please refer to [https://docs.paxeer.app/develop/api/ethereum-json-rpc/methodsl]
 
 | Verb   | Method                                               | Description                                                               |
 | ------ | ---------------------------------------------------- | ------------------------------------------------------------------------- |
-| `gRPC` | `ethermint.evm.v1.Query/Account`                     | Get an Ethereum account                                                   |
-| `gRPC` | `ethermint.evm.v1.Query/CosmosAccount`               | Get an Ethereum account's Cosmos Address                                  |
-| `gRPC` | `ethermint.evm.v1.Query/ValidatorAccount`            | Get an Ethereum account's from a validator consensus Address              |
-| `gRPC` | `ethermint.evm.v1.Query/Balance`                     | Get the balance of a the EVM denomination for a single EthAccount.        |
-| `gRPC` | `ethermint.evm.v1.Query/Storage`                     | Get the balance of all coins for a single account                         |
-| `gRPC` | `ethermint.evm.v1.Query/Code`                        | Get the balance of all coins for a single account                         |
-| `gRPC` | `ethermint.evm.v1.Query/Params`                      | Get the parameters of x/evm module                                        |
-| `gRPC` | `ethermint.evm.v1.Query/EthCall`                     | Implements the eth_call rpc api                                           |
-| `gRPC` | `ethermint.evm.v1.Query/EstimateGas`                 | Implements the eth_estimateGas rpc api                                    |
-| `gRPC` | `ethermint.evm.v1.Query/TraceTx`                     | Implements the debug_traceTransaction rpc api                             |
-| `gRPC` | `ethermint.evm.v1.Query/TraceBlock`                  | Implements the debug_traceBlockByNumber and debug_traceBlockByHash rpc api |
-| `GET`  | `/ethermint/evm/v1/account/{address}`                | Get an Ethereum account                                                   |
-| `GET`  | `/ethermint/evm/v1/cosmos_account/{address}`         | Get an Ethereum account's Cosmos Address                                  |
-| `GET`  | `/ethermint/evm/v1/validator_account/{cons_address}` | Get an Ethereum account's from a validator consensus Address              |
-| `GET`  | `/ethermint/evm/v1/balances/{address}`               | Get the balance of a the EVM denomination for a single EthAccount.        |
-| `GET`  | `/ethermint/evm/v1/storage/{address}/{key}`          | Get the balance of all coins for a single account                         |
-| `GET`  | `/ethermint/evm/v1/codes/{address}`                  | Get the balance of all coins for a single account                         |
-| `GET`  | `/ethermint/evm/v1/params`                           | Get the parameters of x/evm module                                        |
-| `GET`  | `/ethermint/evm/v1/eth_call`                         | Implements the eth_call rpc api                                           |
-| `GET`  | `/ethermint/evm/v1/estimate_gas`                     | Implements the eth_estimateGas rpc api                                    |
-| `GET`  | `/ethermint/evm/v1/trace_tx`                         | Implements the debug_traceTransaction rpc api                             |
-| `GET`  | `/ethermint/evm/v1/trace_block`                      | Implements the debug_traceBlockByNumber and debug_traceBlockByHash rpc api |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/Account`                     | Get an Ethereum account                                                   |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/CosmosAccount`               | Get an Ethereum account's Cosmos Address                                  |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/ValidatorAccount`            | Get an Ethereum account's from a validator consensus Address              |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/Balance`                     | Get the balance of a the EVM denomination for a single EthAccount.        |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/Storage`                     | Get the balance of all coins for a single account                         |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/Code`                        | Get the balance of all coins for a single account                         |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/Params`                      | Get the parameters of x/evm module                                        |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/EthCall`                     | Implements the eth_call rpc api                                           |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/EstimateGas`                 | Implements the eth_estimateGas rpc api                                    |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/TraceTx`                     | Implements the debug_traceTransaction rpc api                             |
+| `gRPC` | `hyperpaxeer.evm.v1.Query/TraceBlock`                  | Implements the debug_traceBlockByNumber and debug_traceBlockByHash rpc api |
+| `GET`  | `/hyperpaxeer/evm/v1/account/{address}`                | Get an Ethereum account                                                   |
+| `GET`  | `/hyperpaxeer/evm/v1/cosmos_account/{address}`         | Get an Ethereum account's Cosmos Address                                  |
+| `GET`  | `/hyperpaxeer/evm/v1/validator_account/{cons_address}` | Get an Ethereum account's from a validator consensus Address              |
+| `GET`  | `/hyperpaxeer/evm/v1/balances/{address}`               | Get the balance of a the EVM denomination for a single EthAccount.        |
+| `GET`  | `/hyperpaxeer/evm/v1/storage/{address}/{key}`          | Get the balance of all coins for a single account                         |
+| `GET`  | `/hyperpaxeer/evm/v1/codes/{address}`                  | Get the balance of all coins for a single account                         |
+| `GET`  | `/hyperpaxeer/evm/v1/params`                           | Get the parameters of x/evm module                                        |
+| `GET`  | `/hyperpaxeer/evm/v1/eth_call`                         | Implements the eth_call rpc api                                           |
+| `GET`  | `/hyperpaxeer/evm/v1/estimate_gas`                     | Implements the eth_estimateGas rpc api                                    |
+| `GET`  | `/hyperpaxeer/evm/v1/trace_tx`                         | Implements the debug_traceTransaction rpc api                             |
+| `GET`  | `/hyperpaxeer/evm/v1/trace_block`                      | Implements the debug_traceBlockByNumber and debug_traceBlockByHash rpc api |
 
 #### Transactions
 
 | Verb   | Method                            | Description                     |
 | ------ | --------------------------------- | ------------------------------- |
-| `gRPC` | `ethermint.evm.v1.Msg/EthereumTx` | Submit an Ethereum transactions |
-| `POST` | `/ethermint/evm/v1/ethereum_tx`   | Submit an Ethereum transactions |
+| `gRPC` | `hyperpaxeer.evm.v1.Msg/EthereumTx` | Submit an Ethereum transactions |
+| `POST` | `/hyperpaxeer/evm/v1/ethereum_tx`   | Submit an Ethereum transactions |

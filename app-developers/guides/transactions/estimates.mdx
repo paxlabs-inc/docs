@@ -1,16 +1,16 @@
 ---
 title: "Estimating Transaction Costs"
-description: "Learn how to properly estimate the total cost of a transaction on Paxeer Network"
+description: "Learn how to properly estimate the total cost of a transaction on HyperPaxeer"
 icon: "calculator"
 ---
 
 <Info>
-Estimating transaction costs on Paxeer Network is exactly the same as on Ethereum. You can use the same tools and methods you're already familiar with.
+Estimating transaction costs on HyperPaxeer is exactly the same as on Ethereum. You can use the same tools and methods you're already familiar with.
 </Info>
 
 ## Overview
 
-It's important to properly estimate the cost of a transaction on Paxeer Network before submitting it. This guide shows you how to estimate the execution gas fee for your transactions.
+It's important to properly estimate the cost of a transaction on HyperPaxeer before submitting it. This guide shows you how to estimate the execution gas fee for your transactions.
 
 ## Execution Gas Fee
 
@@ -88,7 +88,7 @@ executionGasFee = gasUsed × (baseFee + priorityFee)
     </CodeGroup>
     
     <Tip>
-    Paxeer Network is EVM equivalent, so gas estimates will match Ethereum exactly. A transaction that uses 100,000 gas on Ethereum will use 100,000 gas on Paxeer Network.
+    HyperPaxeer is EVM equivalent, so gas estimates will match Ethereum exactly. A transaction that uses 100,000 gas on Ethereum will use 100,000 gas on HyperPaxeer.
     </Tip>
   </Step>
 
@@ -163,8 +163,8 @@ executionGasFee = gasUsed × (baseFee + priorityFee)
       return {
         gasEstimate: gasEstimate.toString(),
         maxFeePerGas: ethers.formatUnits(feeData.maxFeePerGas, 'gwei'),
-        maxCostPAX: ethers.formatEther(maxCost),
-        likelyCostPAX: ethers.formatEther(likelyCost),
+        maxCostHPX: ethers.formatEther(maxCost),
+        likelyCostHPX: ethers.formatEther(likelyCost),
       };
     }
 
@@ -219,8 +219,8 @@ async function estimateTokenTransfer(
       baseFee: ethers.formatUnits(currentBaseFee, 'gwei') + ' gwei',
       priorityFee: ethers.formatUnits(priorityFee, 'gwei') + ' gwei',
       maxFeePerGas: ethers.formatUnits(feeData.maxFeePerGas, 'gwei') + ' gwei',
-      maxCostPAX: ethers.formatEther(maxCost),
-      likelyCostPAX: ethers.formatEther(likelyCost),
+      maxCostHPX: ethers.formatEther(maxCost),
+      likelyCostHPX: ethers.formatEther(likelyCost),
     };
   } catch (error) {
     console.error('Estimation failed:', error);
@@ -266,7 +266,7 @@ export function useEstimateCost(tx: any) {
           gas: gasEstimate.toString(),
           gasPrice: gasPrice.toString(),
           costWei: cost.toString(),
-          costPAX: formatEther(cost),
+          costHPX: formatEther(cost),
         });
       } catch (error) {
         console.error('Cost estimation failed:', error);
@@ -361,14 +361,14 @@ async function analyzeFeeTrends() {
   <Card
     title="Gas Tracker"
     icon="chart-line"
-    href="https://paxscan.paxeer.app/stats"
+    href="https://paxscan.io/stats"
   >
     Monitor current gas prices
   </Card>
   <Card
     title="Fee Calculator"
     icon="calculator"
-    href="https://paxscan.paxeer.app/gas-tracker"
+    href="https://paxscan.io/gas-tracker"
   >
     Calculate transaction costs
   </Card>

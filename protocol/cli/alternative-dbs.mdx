@@ -40,8 +40,8 @@ NOTE: if using a version **before v19**, you'll need
 to replace the cometbft-db dependency before installing the binary:
 
 ```bash
-# cd into the directory where you have the Paxeer Network protocol source code
-cd Paxeer Network
+# cd into the directory where you have the HyperPaxeer protocol source code
+cd HyperPaxeer
 
 # replace the cometbft-db dependency
 go mod edit -replace github.com/cometbft/cometbft-db=github.com/notional-labs/cometbft-db@pebble
@@ -145,7 +145,7 @@ To install this library, you will need to clone the
 
 Clone only the required version of it.
 To find out which is the required version,
-check the tag of the `grocksdb` dependency in the `go.mod` file of the Paxeer Network repository.
+check the tag of the `grocksdb` dependency in the `go.mod` file of the HyperPaxeer repository.
 For example, if the `go.mod` has:
 
 ```go
@@ -187,8 +187,8 @@ The installation process may take several minutes.
 Once this completes, install the `hyperpaxd` binary with rocksDB support
 
 ```bash
-# cd into the directory where the Paxeer Network source code is
-cd Paxeer Network
+# cd into the directory where the HyperPaxeer source code is
+cd HyperPaxeer
 
 # compile and install the binary
 # IMPORTANT: make sure to have the PATH_TO_ROCKSDB with the path where you cloned the rocksdb repository
@@ -235,7 +235,7 @@ db_backend = "rocksdb"
 ## Version DB & MemIAVL
 
 :::note
-The Paxeer Network team carried out an
+The HyperPaxeer team carried out an
 [analysis to compare the performance of a 5-node network with LevelDB vs VersionDB + MemIAVL](https://www.notion.so/altiplanic/LevelDB-vs-MemIAVL-VersionDB-2034a05c7e1646369d034eb423a25279?pvs=4).
 The results of the analysis show that even though MemIAVL offers
 a performance boost for state-sync and fast-sync processes,

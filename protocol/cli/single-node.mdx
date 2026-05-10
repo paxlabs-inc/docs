@@ -15,7 +15,7 @@ its simplicity and speed. For more complex setups, please refer to the [Multi No
 
 ## Automated Script
 
-The simplest way to start a local Paxeer Network node is by using the provided helper script on the base level of the [Paxeer Network repository](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/local_node.sh),
+The simplest way to start a local HyperPaxeer node is by using the provided helper script on the base level of the [HyperPaxeer repository](https://github.com/Paxeer-Network/Paxeer-Network/blob/main/local_node.sh),
 which will create a sensible default configuration for testing purposes:
 
 ```bash
@@ -195,7 +195,7 @@ echo "your mnemonic here" | hyperpaxd keys add $KEY --recover
 ```
 
 :::tip
-Paxeer Network currently only supports 24 word mnemonics.
+HyperPaxeer currently only supports 24 word mnemonics.
 :::
 
 You can generate a new key/mnemonic with:
@@ -204,7 +204,7 @@ You can generate a new key/mnemonic with:
 hyperpaxd keys add $KEY
 ```
 
-To export your Paxeer Network key as an Ethereum private key (for use with [Metamask](https://academy.hyperpaxd.org/articles/beginner/connect-your-wallet/metamask)
+To export your HyperPaxeer key as an Ethereum private key (for use with [Metamask](https://academy.evmosd.org/articles/beginner/connect-your-wallet/metamask)
 for example):
 
 ```bash
@@ -221,7 +221,7 @@ hyperpaxd keys -h
 
 The instructions above include commands to use `test` as the `keyring-backend`. This is an unsecured
 keyring that doesn't require entering a password and should not be used in production. Otherwise,
-Paxeer Network supports using a file or OS keyring backend for key storage. To create and use a file
+HyperPaxeer supports using a file or OS keyring backend for key storage. To create and use a file
 stored key instead of defaulting to the OS keyring, add the flag `--keyring-backend file` to any
 relevant command and the password prompt will occur through the command line. This can also be saved
 as a CLI config option with:
@@ -296,10 +296,10 @@ global:
 scrape_interval: 10s
 
 external_labels:
-  monitor: 'Paxeer Network'
+  monitor: 'HyperPaxeer'
 
 scrape_configs:
-- job_name: 'Paxeer Network'
+- job_name: 'HyperPaxeer'
 
   scrape_interval: 10s
 
@@ -323,5 +323,5 @@ rate(hyperpaxd_transactions_processed[1m])
 which will show the rate of transactions processed.
 
 :::tip
-Paxeer Network currently only supports 24 word mnemonics.
+HyperPaxeer currently only supports 24 word mnemonics.
 :::

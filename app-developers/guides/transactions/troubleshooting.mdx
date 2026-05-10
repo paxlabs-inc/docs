@@ -1,12 +1,12 @@
 ---
 title: "Troubleshooting Transactions"
-description: "Learn how to troubleshoot common problems with transactions on Paxeer Network"
+description: "Learn how to troubleshoot common problems with transactions on HyperPaxeer"
 icon: "screwdriver-wrench"
 ---
 
 ## Common Issues
 
-This guide helps you diagnose and fix common transaction problems on Paxeer Network.
+This guide helps you diagnose and fix common transaction problems on HyperPaxeer.
 
 ## Transaction Stuck in Mempool
 
@@ -123,7 +123,7 @@ The gas limit was set too low for the transaction's execution.
 - Transaction rejected before sending
 
 ### Cause
-Account doesn't have enough PAX to cover: (gasLimit × maxFeePerGas) + value
+Account doesn't have enough HPX to cover: (gasLimit × maxFeePerGas) + value
 
 ### Solution
 
@@ -141,11 +141,11 @@ async function checkSufficientBalance(tx) {
   const maxCost = gasEstimate * feeData.maxFeePerGas;
   const totalRequired = maxCost + (tx.value || 0n);
   
-  console.log('Current balance:', ethers.formatEther(balance), 'PAX');
-  console.log('Required balance:', ethers.formatEther(totalRequired), 'PAX');
+  console.log('Current balance:', ethers.formatEther(balance), 'HPX');
+  console.log('Required balance:', ethers.formatEther(totalRequired), 'HPX');
   
   if (balance < totalRequired) {
-    throw new Error(`Insufficient funds. Need ${ethers.formatEther(totalRequired - balance)} more PAX`);
+    throw new Error(`Insufficient funds. Need ${ethers.formatEther(totalRequired - balance)} more HPX`);
   }
   
   return true;
@@ -210,10 +210,10 @@ Contract execution failed due to:
   </Step>
 
   <Step title="Use Block Explorer">
-    View detailed error messages on PaxeerScan:
+    View detailed error messages on PaxScan:
     
     ```
-    https://paxscan.paxeer.app/tx/0x...
+    https://paxscan.io/tx/0x...
     ```
   </Step>
 </Steps>
@@ -428,11 +428,11 @@ const result = await simulation.json();
 console.log('Simulation result:', result);
 ```
 
-### Using PaxeerScan
+### Using PaxScan
 
 Check transaction details and error messages:
 
-1. Go to [https://paxscan.paxeer.app](https://paxscan.paxeer.app)
+1. Go to [https://paxscan.io](https://paxscan.io)
 2. Search for your transaction hash
 3. View execution trace and error messages
 4. Check event logs for clues
@@ -470,7 +470,7 @@ Before sending transactions:
   <Card
     title="Block Explorer"
     icon="magnifying-glass"
-    href="https://paxscan.paxeer.app"
+    href="https://paxscan.io"
   >
     Investigate transactions
   </Card>
